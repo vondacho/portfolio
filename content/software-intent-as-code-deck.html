@@ -1,0 +1,1283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Software Intent as Code</title>
+  <meta name="description" content="A specification backbone for the AI-assisted SDLC: visual boards as interfaces, Git as the source of truth, GitOps as the operating loop.">
+  <meta name="keywords" content="as-code, doc-as-code, ai, sdlc, gitops">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="Software Intent as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Software Intent as Code">
+  <style>
+    :root {
+      --ink: #161518;
+      --paper: #f5f0e7;
+      --muted: #b8b0a5;
+      --orange: #ff7a33;
+      --yellow: #ffd34e;
+      --pink: #ee6aa7;
+      --blue: #6cb6ff;
+      --green: #80c995;
+      --violet: #a88bff;
+      --slide-pad: clamp(42px, 5vw, 86px);
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body {
+      background: #08080a;
+      color: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    button { font: inherit; }
+    .deck { position: relative; width: 100%; height: 100%; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: var(--slide-pad);
+      background:
+        radial-gradient(circle at 82% 16%, rgba(255,122,51,.08), transparent 26%),
+        linear-gradient(135deg, #17161a, #0d0d10 64%);
+    }
+    .slide.active { display: grid; }
+    .slide.light {
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 75% 18%, rgba(255,122,51,.12), transparent 30%),
+        var(--paper);
+    }
+    .slide::after {
+      content: attr(data-index);
+      position: absolute;
+      right: 34px;
+      bottom: 24px;
+      color: rgba(245,240,231,.42);
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+    .slide.light::after { color: rgba(22,21,24,.42); }
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--orange);
+      font-size: clamp(12px, 1.05vw, 17px);
+      font-weight: 750;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 1050px;
+      margin-bottom: 28px;
+      font-size: clamp(48px, 7.3vw, 112px);
+      font-weight: 830;
+      line-height: .93;
+      letter-spacing: -.055em;
+    }
+    h2 {
+      max-width: 1120px;
+      margin-bottom: 34px;
+      font-size: clamp(38px, 5vw, 76px);
+      font-weight: 800;
+      line-height: .98;
+      letter-spacing: -.045em;
+    }
+    h3 {
+      margin-bottom: 9px;
+      font-size: clamp(19px, 1.7vw, 28px);
+      line-height: 1.1;
+    }
+    .lead {
+      max-width: 850px;
+      color: #d5cec4;
+      font-size: clamp(22px, 2vw, 34px);
+      line-height: 1.3;
+    }
+    .light .lead { color: #4e4945; }
+    .accent { color: var(--orange); }
+    .soft { color: var(--muted); }
+    .grow { align-self: end; }
+    .footer-line {
+      position: absolute;
+      left: var(--slide-pad);
+      bottom: 28px;
+      font-size: clamp(12px, .9vw, 15px);
+      color: var(--muted);
+    }
+    .cover {
+      grid-template-rows: 1fr auto;
+      align-items: center;
+    }
+    .cover .title-block { align-self: center; }
+    .cover .subline {
+      max-width: 760px;
+      margin: 0;
+      color: #cbc4ba;
+      font-size: clamp(19px, 1.65vw, 28px);
+      line-height: 1.35;
+    }
+    .cover .corner-mark {
+      position: absolute;
+      width: min(25vw, 340px);
+      aspect-ratio: 1;
+      right: -5vw;
+      top: -8vw;
+      border: 34px solid var(--orange);
+      border-radius: 50%;
+      opacity: .9;
+    }
+    .cover .corner-mark::after {
+      content: "";
+      position: absolute;
+      width: 54%;
+      height: 54%;
+      left: 23%;
+      top: 23%;
+      background: var(--yellow);
+      border-radius: 4px;
+      transform: rotate(12deg);
+    }
+    .handoffs {
+      grid-template-rows: auto 1fr;
+    }
+    .decay {
+      align-self: center;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      align-items: center;
+      width: 100%;
+    }
+    .decay-step {
+      position: relative;
+      min-height: 190px;
+      padding: 28px 18px;
+      border-top: 3px solid currentColor;
+      font-size: clamp(18px, 1.6vw, 28px);
+      font-weight: 740;
+      opacity: calc(1 - var(--fade));
+    }
+    .decay-step::before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: -2px;
+      top: -7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .decay-step small {
+      display: block;
+      margin-top: 14px;
+      color: currentColor;
+      font-size: clamp(12px, .9vw, 15px);
+      font-weight: 560;
+      line-height: 1.35;
+    }
+    .model {
+      grid-template-rows: auto 1fr;
+    }
+    .model-line {
+      align-self: center;
+      display: grid;
+      grid-template-columns: .85fr 1fr 1.2fr 1.05fr .8fr;
+      align-items: center;
+      gap: 28px;
+    }
+    .model-node {
+      position: relative;
+      padding-top: 28px;
+      border-top: 4px solid var(--orange);
+    }
+    .model-node::after {
+      content: "";
+      position: absolute;
+      left: calc(100% + 7px);
+      top: -4px;
+      width: 15px;
+      border-top: 4px solid rgba(245,240,231,.24);
+    }
+    .model-node:last-child::after { display: none; }
+    .model-node strong {
+      display: block;
+      font-size: clamp(24px, 2.2vw, 38px);
+      line-height: 1.05;
+    }
+    .model-node span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.1vw, 18px);
+      line-height: 1.35;
+    }
+    .repo {
+      grid-template-rows: auto 1fr;
+    }
+    .repo-tree {
+      align-self: center;
+      width: min(920px, 92%);
+      margin: 0;
+      padding: 26px 0 0;
+      border-top: 5px solid var(--orange);
+      color: #f5f0e7;
+      background: transparent;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: clamp(14px, 1.15vw, 19px);
+      font-weight: 620;
+      line-height: 1.22;
+      white-space: pre;
+    }
+    .tools {
+      grid-template-rows: auto 1fr;
+    }
+    .tool-list {
+      align-self: center;
+      border-top: 1px solid rgba(245,240,231,.2);
+    }
+    .tool-row {
+      display: grid;
+      grid-template-columns: 1.05fr .8fr 1.15fr;
+      align-items: center;
+      gap: 40px;
+      min-height: 112px;
+      border-bottom: 1px solid rgba(245,240,231,.2);
+    }
+    .tool-row strong { font-size: clamp(24px, 2.4vw, 40px); }
+    .tool-row a { color: var(--muted); font-size: clamp(14px, 1.1vw, 19px); }
+    .tool-row span { color: #d8d1c8; font-size: clamp(13px, 1vw, 17px); line-height: 1.3; }
+    .tool-row:nth-child(1) strong { color: var(--orange); }
+    .tool-row:nth-child(2) strong { color: var(--blue); }
+    .tool-row:nth-child(3) strong { color: var(--green); }
+    .tool-row:nth-child(4) strong { color: var(--violet); }
+    .hypothesis {
+      grid-template-columns: 1fr 1.08fr;
+      gap: 6vw;
+      align-items: center;
+    }
+    .prompt {
+      padding-left: 26px;
+      border-left: 5px solid var(--orange);
+      font-size: clamp(26px, 2.8vw, 46px);
+      line-height: 1.18;
+      font-weight: 690;
+    }
+    .board {
+      position: relative;
+      height: min(58vh, 550px);
+      border-top: 2px solid rgba(245,240,231,.3);
+      border-bottom: 2px solid rgba(245,240,231,.3);
+    }
+    .note {
+      position: absolute;
+      width: 22%;
+      min-width: 112px;
+      aspect-ratio: 1.2;
+      padding: 12px;
+      color: var(--ink);
+      background: var(--orange);
+      box-shadow: 0 12px 25px rgba(0,0,0,.25);
+      font-size: clamp(11px, .85vw, 15px);
+      font-weight: 760;
+      transform: rotate(var(--r));
+    }
+    .note:nth-child(2n) { background: var(--yellow); }
+    .note:nth-child(3n) { background: var(--blue); }
+    .es-scopes {
+      grid-template-rows: auto 1fr;
+    }
+    .scope-list {
+      align-self: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 34px;
+    }
+    .scope {
+      min-height: 330px;
+      padding: 30px 8px 0;
+      border-top: 6px solid var(--orange);
+    }
+    .scope:nth-child(2) { border-color: var(--yellow); }
+    .scope:nth-child(3) { border-color: var(--blue); }
+    .scope b {
+      display: block;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: .15em;
+    }
+    .scope strong {
+      display: block;
+      margin-bottom: 20px;
+      font-size: clamp(27px, 2.6vw, 44px);
+      line-height: 1.02;
+    }
+    .scope p {
+      max-width: 310px;
+      color: #d7d0c7;
+      font-size: clamp(15px, 1.18vw, 20px);
+      line-height: 1.4;
+    }
+    .bridge {
+      grid-template-rows: auto 1fr;
+    }
+    .bridge-map {
+      align-self: center;
+      display: grid;
+      grid-template-rows: 1fr 1.25fr;
+      gap: 44px;
+    }
+    .events {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      align-items: center;
+    }
+    .event {
+      padding: 24px 14px;
+      color: var(--ink);
+      background: var(--orange);
+      font-weight: 760;
+      transform: rotate(-1deg);
+    }
+    .event.pivotal {
+      padding: 36px 16px;
+      background: var(--yellow);
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 0 0 5px rgba(255,211,78,.18);
+    }
+    .story-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      border: 2px solid rgba(245,240,231,.25);
+    }
+    .activity {
+      padding: 18px 20px;
+      border-right: 2px solid rgba(245,240,231,.25);
+    }
+    .activity:last-child { border-right: 0; }
+    .activity strong {
+      display: block;
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-size: clamp(17px, 1.4vw, 24px);
+    }
+    .activity span {
+      display: block;
+      padding: 11px 0;
+      border-top: 1px solid rgba(245,240,231,.17);
+      color: #d7d0c8;
+      font-size: clamp(13px, 1vw, 17px);
+    }
+    .ticketing {
+      grid-template-rows: auto 1fr;
+    }
+    .ticket-source {
+      align-self: center;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 7vw;
+      align-items: center;
+    }
+    .map-source {
+      padding: 26px 0;
+      border-top: 4px solid var(--blue);
+      border-bottom: 1px solid rgba(245,240,231,.22);
+    }
+    .map-source h3 {
+      margin-bottom: 24px;
+      color: var(--blue);
+      font-size: clamp(25px, 2.3vw, 39px);
+    }
+    .journey-line {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .journey-line span {
+      min-height: 82px;
+      padding: 16px;
+      border-left: 1px solid rgba(245,240,231,.24);
+      color: #d7d0c8;
+      font-size: clamp(14px, 1.05vw, 18px);
+      font-weight: 660;
+    }
+    .release-slice {
+      margin-top: 22px;
+      padding: 13px 16px;
+      color: var(--ink);
+      background: var(--yellow);
+      font-weight: 790;
+    }
+    .ticket-stack { display: grid; gap: 14px; }
+    .ticket {
+      padding: 18px 20px;
+      border-left: 5px solid var(--orange);
+      background: rgba(245,240,231,.07);
+      font-size: clamp(15px, 1.15vw, 20px);
+      font-weight: 700;
+    }
+    .examples {
+      grid-template-columns: .85fr 1.4fr;
+      align-items: center;
+      gap: 7vw;
+    }
+    .example-stack {
+      display: grid;
+      gap: 16px;
+    }
+    .example-line {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(22,21,24,.18);
+    }
+    .example-line strong {
+      font-size: clamp(17px, 1.5vw, 24px);
+      color: #635d59;
+    }
+    .example-line span {
+      font-size: clamp(18px, 1.65vw, 27px);
+      font-weight: 680;
+      line-height: 1.25;
+    }
+    .boundaries {
+      grid-template-rows: auto 1fr;
+    }
+    .context-view {
+      align-self: center;
+      display: grid;
+      grid-template-columns: 1fr 190px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .context {
+      min-height: 300px;
+      padding: 34px;
+      border: 4px solid;
+      border-radius: 50%;
+      display: grid;
+      place-content: center;
+      text-align: center;
+    }
+    .context:first-child { border-color: var(--violet); }
+    .context:last-child { border-color: var(--green); }
+    .context strong { font-size: clamp(26px, 2.4vw, 42px); }
+    .context span {
+      display: block;
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.1vw, 18px);
+    }
+    .relationship {
+      text-align: center;
+      color: var(--yellow);
+      font-size: clamp(15px, 1.2vw, 20px);
+      font-weight: 760;
+    }
+    .relationship::before,
+    .relationship::after {
+      content: "";
+      display: block;
+      height: 2px;
+      margin: 13px 0;
+      background: var(--yellow);
+    }
+    .spine {
+      grid-template-rows: auto 1fr;
+    }
+    .spine-map {
+      position: relative;
+      align-self: center;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 22px;
+      align-items: center;
+    }
+    .spine-map::before {
+      content: "";
+      position: absolute;
+      left: 3%;
+      right: 3%;
+      top: 33px;
+      height: 5px;
+      background: linear-gradient(90deg, var(--orange), var(--blue), var(--green), var(--violet));
+    }
+    .spine-item { position: relative; padding-top: 70px; }
+    .spine-item::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border: 5px solid var(--paper);
+      border-radius: 50%;
+      background: #151418;
+    }
+    .spine-item strong {
+      display: block;
+      font-size: clamp(18px, 1.55vw, 27px);
+      line-height: 1.08;
+    }
+    .spine-item span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: clamp(13px, .95vw, 16px);
+      line-height: 1.35;
+    }
+    .developer-material {
+      grid-template-rows: auto 1fr auto;
+    }
+    .consumer-line {
+      align-self: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 38px;
+    }
+    .consumer {
+      min-height: 260px;
+      padding-top: 28px;
+      border-top: 5px solid var(--orange);
+    }
+    .consumer:nth-child(2) { border-color: var(--blue); }
+    .consumer:nth-child(3) { border-color: var(--violet); }
+    .consumer strong {
+      display: block;
+      margin-bottom: 20px;
+      font-size: clamp(27px, 2.5vw, 43px);
+    }
+    .consumer p {
+      color: #514c48;
+      font-size: clamp(16px, 1.25vw, 21px);
+      line-height: 1.4;
+    }
+    .material-base {
+      padding: 20px 24px;
+      color: var(--paper);
+      background: var(--ink);
+      font-size: clamp(18px, 1.5vw, 26px);
+      font-weight: 770;
+      text-align: center;
+    }
+    .questions {
+      grid-template-rows: auto 1fr;
+    }
+    .question-field {
+      align-self: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px 70px;
+    }
+    .question {
+      position: relative;
+      padding: 10px 0 24px 32px;
+      border-bottom: 1px solid rgba(245,240,231,.2);
+      font-size: clamp(22px, 2.05vw, 34px);
+      font-weight: 660;
+      line-height: 1.22;
+    }
+    .question::before {
+      content: "“";
+      position: absolute;
+      left: 0;
+      top: -8px;
+      color: var(--orange);
+      font-size: 58px;
+      line-height: 1;
+    }
+    .impact {
+      grid-template-rows: auto 1fr;
+    }
+    .impact-map {
+      align-self: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 16px 34px;
+      align-items: center;
+    }
+    .impact-core {
+      grid-column: 2;
+      grid-row: 2;
+      padding: 30px;
+      color: var(--ink);
+      background: var(--yellow);
+      text-align: center;
+      font-size: clamp(22px, 2vw, 34px);
+      font-weight: 820;
+      transform: rotate(-1deg);
+    }
+    .impact-node {
+      padding: 16px 0;
+      border-top: 3px solid var(--orange);
+      font-size: clamp(18px, 1.55vw, 27px);
+      font-weight: 730;
+      text-align: center;
+    }
+    .impact-node:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .impact-node:nth-child(2) { grid-column: 2; grid-row: 1; }
+    .impact-node:nth-child(3) { grid-column: 3; grid-row: 1; }
+    .impact-node:nth-child(5) { grid-column: 1; grid-row: 3; }
+    .impact-node:nth-child(6) { grid-column: 2; grid-row: 3; }
+    .impact-node:nth-child(7) { grid-column: 3; grid-row: 3; }
+    .guardrails {
+      grid-template-columns: .82fr 1.35fr;
+      align-items: center;
+      gap: 7vw;
+    }
+    .principles {
+      counter-reset: principle;
+      border-top: 1px solid rgba(22,21,24,.2);
+    }
+    .principle {
+      counter-increment: principle;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(22,21,24,.2);
+      font-size: clamp(18px, 1.55vw, 26px);
+      font-weight: 690;
+    }
+    .principle::before {
+      content: "0" counter(principle);
+      color: var(--orange);
+      font-size: 15px;
+      letter-spacing: .1em;
+    }
+    .close {
+      grid-template-rows: 1fr auto;
+      align-items: center;
+    }
+    .close h2 { max-width: 1080px; font-size: clamp(48px, 6.6vw, 104px); }
+    .url-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 30px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(245,240,231,.22);
+      color: var(--muted);
+      font-size: clamp(13px, 1vw, 17px);
+    }
+    .speaker-notes { display: none; }
+    .chrome {
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 5px;
+      background: rgba(255,255,255,.08);
+    }
+    .progress {
+      height: 100%;
+      width: 0;
+      background: var(--orange);
+      transition: width .22s ease;
+    }
+    .controls {
+      position: fixed;
+      z-index: 25;
+      right: 20px;
+      top: 18px;
+      display: flex;
+      gap: 8px;
+      opacity: .32;
+      transition: opacity .2s ease;
+    }
+    .controls:hover, .controls:focus-within { opacity: 1; }
+    .controls button {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(12,12,14,.55);
+      cursor: pointer;
+    }
+    .notes-panel {
+      position: fixed;
+      z-index: 30;
+      top: 0;
+      right: 0;
+      width: min(430px, 92vw);
+      height: 100%;
+      padding: 28px;
+      overflow-y: auto;
+      color: #211f22;
+      background: #fbf7ef;
+      box-shadow: -18px 0 50px rgba(0,0,0,.35);
+      transform: translateX(105%);
+      transition: transform .25s ease;
+    }
+    .notes-panel.open { transform: translateX(0); }
+    .notes-panel h3 { margin: 0 0 18px; font-size: 22px; }
+    .notes-panel p { font-size: 16px; line-height: 1.55; }
+    .notes-mode {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .notes-mode button {
+      padding: 8px 12px;
+      border: 1px solid #9f9890;
+      border-radius: 999px;
+      color: #211f22;
+      background: transparent;
+      cursor: pointer;
+    }
+    .notes-mode button.active { color: white; background: #211f22; }
+    .notes-help {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #d5cec4;
+      color: #6d665f;
+      font-size: 13px;
+    }
+    @media (max-width: 820px) {
+      .decay { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .decay-step { min-height: 120px; }
+      .model-line { grid-template-columns: 1fr 1fr; }
+      .tool-row { grid-template-columns: 1fr; gap: 5px; padding: 15px 0; }
+      .scope-list, .consumer-line { grid-template-columns: 1fr; }
+      .scope, .consumer { min-height: auto; }
+      .ticket-source { grid-template-columns: 1fr; }
+      .hypothesis, .examples, .guardrails { grid-template-columns: 1fr; }
+      .board { height: 38vh; }
+      .context-view { grid-template-columns: 1fr; }
+      .context { min-height: 150px; border-radius: 24px; }
+      .relationship { width: 180px; margin: 0 auto; }
+      .spine-map { grid-template-columns: repeat(3, 1fr); }
+      .spine-map::before { display: none; }
+      .question-field { grid-template-columns: 1fr; }
+      .question { font-size: 20px; }
+    }
+    @media print {
+      html, body { overflow: visible; background: #fff; }
+      .slide { position: relative; display: grid !important; width: 13.333in; height: 7.5in; break-after: page; }
+      .controls, .chrome, .notes-panel { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Software Intent as Code presentation">
+    <section class="slide cover active" data-index="01">
+      <div class="corner-mark" aria-hidden="true"></div>
+      <div class="title-block">
+        <p class="eyebrow">Documentation as Code for the whole lifecycle</p>
+        <h1>Software Intent<br><span class="accent">as Code</span></h1>
+        <p class="subline">A machine-readable specification backbone from Big Picture discovery to tickets and running software</p>
+      </div>
+      <p class="soft">Event Storming · Story Mapping · Example Mapping · Context Mapping</p>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Documentation as Code improved how we maintain technical documentation. I want to extend the same discipline to the intent that exists before code: the user journey, domain discoveries, business rules, system boundaries, and design decisions.</p>
+          <p>The proposition is a machine-readable specification backbone for the whole software development lifecycle. Event Storming moves from Big Picture to Process Modelling and System Design. Story Mapping becomes the delivery spine and source for ticketing. A normalized representation evolves behind each board and becomes usable by developers, engineering tools, and AI.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The idea extends Documentation as Code to software intent. Event Storming, Story Mapping, ticketing, design, and validation connect through a normalized model.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide handoffs" data-index="02">
+      <div>
+        <p class="eyebrow">The handoff problem</p>
+        <h2>Intent loses detail each time people translate it</h2>
+      </div>
+      <div class="decay" aria-label="Workshop to tests handoff">
+        <div class="decay-step" style="--fade:.02;color:#ff7a33">Workshop<small>Rich discussion and spatial context</small></div>
+        <div class="decay-step" style="--fade:.12;color:#e88a55">Board photo<small>Visible result without explicit semantics</small></div>
+        <div class="decay-step" style="--fade:.24;color:#d19672">Document<small>Selected decisions and summaries</small></div>
+        <div class="decay-step" style="--fade:.36;color:#bda18e">Backlog<small>Work items separated from reasoning</small></div>
+        <div class="decay-step" style="--fade:.48;color:#a9a7a2">Code<small>Precise behavior with partial intent</small></div>
+        <div class="decay-step" style="--fade:.6;color:#929291">Tests<small>Evidence that may miss the original outcome</small></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Our practices are already strong. The weakness appears between them. A workshop contains domain language, disagreement, reasoning, and unresolved questions. A photo preserves the layout but not the semantics. Documentation selects part of the result. Tickets divide it into work. Code becomes precise, but the original reasoning becomes difficult to recover.</p>
+          <p>AI inherits the same problem. If we give an agent screenshots, prose, and disconnected tickets, it must infer relationships that the team already discovered. A plausible implementation may still violate an unstated rule or boundary.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The lifecycle repeatedly translates the same intent. Each handoff can drop relationships, decisions, and uncertainty. AI cannot recover reliably what the organization failed to preserve.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide model" data-index="03">
+      <div>
+        <p class="eyebrow">The core model</p>
+        <h2>The board becomes a human projection of structured knowledge</h2>
+      </div>
+      <div class="model-line">
+        <div class="model-node"><strong>People</strong><span>Discover, challenge, decide</span></div>
+        <div class="model-node"><strong>Visual board</strong><span>Spatial interface for collaborative thinking</span></div>
+        <div class="model-node"><strong>Normalized model</strong><span>Stable identities, relationships, provenance</span></div>
+        <div class="model-node"><strong>Developer tooling</strong><span>Generate, validate, deliver</span></div>
+        <div class="model-node"><strong>AI</strong><span>Implement against intent</span></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>The important design choice is to separate the human projection from the structured model without splitting them into different sources of truth.</p>
+          <p>People need the board because spatial arrangement, color, and conversation support discovery. Machines need explicit types, identifiers, and relationships. When these two representations remain synchronized, developers, IDEs, generators, test tools, and AI all receive material grounded in the same validated intent.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The board supports human cognition. The normalized model gives developers, engineering tools, and AI the same validated material.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide tools" data-index="04">
+      <div>
+        <p class="eyebrow">Concrete tooling</p>
+        <h2>Four practices already expressed as code</h2>
+      </div>
+      <div class="tool-list">
+        <div class="tool-row"><strong>Event Storming</strong><a href="https://doc-es.obya.ch">doc-es.obya.ch</a><span>Big Picture, Process Modelling, System Design</span></div>
+        <div class="tool-row"><strong>Story Mapping</strong><a href="https://doc-sm.obya.ch">doc-sm.obya.ch</a><span>User journey, release slices, ticket source</span></div>
+        <div class="tool-row"><strong>Example Mapping</strong><a href="https://doc-em.obya.ch">doc-em.obya.ch</a><span>Rules, examples, questions</span></div>
+        <div class="tool-row"><strong>Context Mapping</strong><a href="https://ba-cm.obya.ch">ba-cm.obya.ch</a><span>Boundaries, ownership, relationships</span></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>These tools make the approach concrete. Event Storming supports Big Picture discovery, Process Modelling, and System Design. Story Mapping organizes the journey, defines release slices, and supplies ticketing. Example Mapping clarifies behavior. Context Mapping makes system and ownership boundaries visible.</p>
+          <p>The common mechanism is the as-code representation behind the visual board. That commonality creates the opportunity to connect the practices without reducing them to one generic notation.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The four tools preserve the visual language of each practice while sharing the same background-coding idea. Their larger value appears when they connect.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide es-scopes" data-index="05">
+      <div>
+        <p class="eyebrow">Event Storming at three levels</p>
+        <h2>One practice connects domain landscape, process, and system</h2>
+      </div>
+      <div class="scope-list">
+        <div class="scope"><b>01</b><strong>Big Picture</strong><p>Explore the wider domain, shared language, hotspots, and pivotal events.</p></div>
+        <div class="scope"><b>02</b><strong>Process Modelling</strong><p>Follow an outcome through commands, events, policies, actors, and exceptions.</p></div>
+        <div class="scope"><b>03</b><strong>System Design</strong><p>Shape software behavior, domain rules, responsibilities, and integration points.</p></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Event Storming is more than a Big Picture workshop. The Big Picture creates shared situational awareness across the wider domain. Process Modelling then narrows the focus to an end-to-end business outcome. System Design adds the detail needed to decide how software handles commands, produces events, applies policies, and protects domain rules.</p>
+          <p>As-Code preserves continuity across these levels. A hotspot can become the scope of a process model. That process can acquire System Design detail without losing the language and events already validated.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Event Storming connects Big Picture, Process Modelling, and System Design. As-Code preserves the same language and decisions as the work gains precision.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide hypothesis" data-index="06">
+      <div>
+        <p class="eyebrow">AI-driven discovery</p>
+        <h2>A user journey can seed the Big Picture</h2>
+        <p class="prompt">“A customer changes a booking after payment and needs a revised confirmation.”</p>
+        <p class="lead">AI proposes the first Big Picture. Experts refine the process and system.</p>
+      </div>
+      <div class="board" aria-label="Abstract Event Storming board">
+        <div class="note" style="left:4%;top:12%;--r:-2deg">Booking requested</div>
+        <div class="note" style="left:30%;top:35%;--r:1deg">Payment accepted</div>
+        <div class="note" style="left:57%;top:15%;--r:-1deg">Change requested</div>
+        <div class="note" style="left:72%;top:52%;--r:2deg">Booking revised</div>
+        <div class="note" style="left:17%;top:64%;--r:1deg">Who may change it?</div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>A prompt that describes a user journey can produce more than prose. AI can propose a Big Picture Event Storming model with actors, events, hotspots, external systems, and open questions.</p>
+          <p>The proposal is a structured hypothesis. Experts correct its language and assumptions, then select areas for Process Modelling and System Design. Their decisions update the same representation that AI can inspect again.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>AI turns the journey into a Big Picture hypothesis. Experts validate it, then develop the relevant processes and system behavior.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide bridge" data-index="07">
+      <div>
+        <p class="eyebrow">Continuity through pivotal events</p>
+        <h2>Domain discovery flows into the Story Map</h2>
+      </div>
+      <div class="bridge-map">
+        <div class="events">
+          <div class="event">Need identified</div>
+          <div class="event pivotal">Order placed</div>
+          <div class="event">Payment accepted</div>
+          <div class="event pivotal">Service delivered</div>
+          <div class="event">Issue reported</div>
+          <div class="event">Case resolved</div>
+        </div>
+        <div class="story-map">
+          <div class="activity"><strong>Choose</strong><span>Understand options</span><span>Compare constraints</span><span>Select outcome</span></div>
+          <div class="activity"><strong>Receive</strong><span>Track progress</span><span>Confirm delivery</span><span>Handle exception</span></div>
+          <div class="activity"><strong>Resolve</strong><span>Report issue</span><span>Agree correction</span><span>Verify result</span></div>
+        </div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Pivotal events mark meaningful changes in the journey. They often separate phases of behavior, responsibility, or value, so they provide strong anchors for the Story Map backbone.</p>
+          <p>When Event Storming and Story Mapping share references, product planning does not have to start from a workshop summary. Activities and delivery slices can retain connections to the domain events and outcomes that justify them. The team reorganizes the same knowledge through a new visual lens.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Pivotal events connect the domain timeline to Story Map activities and slices. Product planning inherits the discovery model instead of retyping it.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide ticketing" data-index="08">
+      <div>
+        <p class="eyebrow">Story Mapping as the delivery spine</p>
+        <h2>The Story Map supplies contextualized tickets</h2>
+      </div>
+      <div class="ticket-source">
+        <div class="map-source">
+          <h3>User journey and release slice</h3>
+          <div class="journey-line"><span>Choose</span><span>Order</span><span>Receive</span><span>Resolve</span></div>
+          <div class="release-slice">Release slice: complete the first successful journey</div>
+        </div>
+        <div class="ticket-stack">
+          <div class="ticket">Ticket with journey position</div>
+          <div class="ticket">Ticket with pivotal events</div>
+          <div class="ticket">Ticket with rules and examples</div>
+          <div class="ticket">Ticket with release context</div>
+        </div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>The ticketing system coordinates assignment and progress, but it should not become the source of product meaning. Story Mapping preserves the user journey and the logic of each release slice.</p>
+          <p>Story Mapping as Code can generate tickets that inherit their journey position, pivotal events, release context, and links to rules and examples. The ticket remains useful for workflow. The Story Map remains the source of delivery context. When a slice changes, the model can reveal which tickets need review.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The Story Map remains the source of product and release context. Ticketing receives work items enriched with journey, event, rule, and slice references.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide examples light" data-index="09">
+      <div>
+        <p class="eyebrow">Behavioral precision</p>
+        <h2>Examples make intent testable</h2>
+        <p class="lead">A story becomes useful to delivery when rules, concrete cases, and uncertainty are explicit.</p>
+      </div>
+      <div class="example-stack">
+        <div class="example-line"><strong>Story</strong><span>Change a paid booking</span></div>
+        <div class="example-line"><strong>Rule</strong><span>The new option must still be available</span></div>
+        <div class="example-line"><strong>Example</strong><span>A seat opens before confirmation, so the change succeeds</span></div>
+        <div class="example-line"><strong>Question</strong><span>What happens when the price decreases?</span></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Story titles compress too much. Example Mapping gives the team a disciplined way to expose the behavior behind a story. Rules describe constraints, examples make them concrete, and questions preserve uncertainty.</p>
+          <p>Once represented as code, these elements can support acceptance criteria, test design, and AI-assisted scenario exploration. A coding agent can receive approved examples as explicit constraints. A QA specialist can find rules without executable evidence or challenge AI-suggested edge cases.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Rules and examples turn intent into explicit behavioral constraints. They guide implementation and provide evidence for judging AI-generated code.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide boundaries" data-index="10">
+      <div>
+        <p class="eyebrow">Domain and system design</p>
+        <h2>Boundaries place behavior inside an accountable system</h2>
+      </div>
+      <div class="context-view">
+        <div class="context"><strong>Booking</strong><span>Availability, reservation, change policy</span></div>
+        <div class="relationship">Published language<br>and integration contract</div>
+        <div class="context"><strong>Payment</strong><span>Authorization, settlement, refund</span></div>
+      </div>
+      <p class="footer-line">Context Mapping · Domain models · LikeC4 · PlantUML</p>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Behavior alone does not say where responsibility belongs. Context Mapping connects discovery to ownership and system design. A domain event belongs to a bounded context. That context has relationships with other contexts and, often, a team accountable for its evolution.</p>
+          <p>Domain models add concepts and invariants inside the boundary. LikeC4 and PlantUML artifacts can show how components realize the design. The as-code approach allows these views to carry references forward without forcing every practice into the same notation.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Context Mapping adds responsibility and integration boundaries. Domain models and architecture-as-code views connect those boundaries to software components.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide spine" data-index="11">
+      <div>
+        <p class="eyebrow">The specification backbone</p>
+        <h2>Stable relationships preserve intent across the lifecycle</h2>
+      </div>
+      <div class="spine-map">
+        <div class="spine-item"><strong>User journey</strong><span>Outcomes and actors</span></div>
+        <div class="spine-item"><strong>Event Storming</strong><span>Big Picture, process, system</span></div>
+        <div class="spine-item"><strong>Story Map and tickets</strong><span>Journey, slices, delivery work</span></div>
+        <div class="spine-item"><strong>Rules and examples</strong><span>Testable expectations</span></div>
+        <div class="spine-item"><strong>Contexts and components</strong><span>Meaning and realization</span></div>
+        <div class="spine-item"><strong>Code and evidence</strong><span>Implementation, tests, operations</span></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>The larger opportunity is not a collection of separate as-code tools. It is a connected semantic backbone. Stable identifiers and relationships allow an element to remain recognizable as it appears in different views.</p>
+          <p>A domain event can connect to a Story Map activity. The Story Map can generate tickets without losing journey and release context. An example can reference the rule and story it clarifies. A bounded context can own the relevant concepts. Contracts, tests, and operational evidence can carry the same references into delivery.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Shared identities connect the views. Story Mapping carries discovery into ticketing before the same intent reaches implementation and evidence.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide model" data-index="12">
+      <div>
+        <p class="eyebrow">Git and GitOps</p>
+        <h2>Git source of truth and lifecycle reconciliation</h2>
+      </div>
+      <div class="model-line">
+        <div class="model-node"><strong>Visual tools</strong><span>People explore and change the model</span></div>
+        <div class="model-node"><strong>Git source</strong><span>Accepted intent and full history</span></div>
+        <div class="model-node"><strong>Review</strong><span>Owners approve meaning and impact</span></div>
+        <div class="model-node"><strong>Automation</strong><span>Validate, generate, publish</span></div>
+        <div class="model-node"><strong>Reconciliation</strong><span>Detect drift and propose change</span></div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Git provides the authoritative record for accepted software intent. People can keep working through Event Storming, Story Mapping, Example Mapping, Context Mapping, and architecture views. The tools commit the normalized models behind those views, and a merge identifies the revision that downstream consumers should use.</p>
+          <p>GitOps extends the repository into an operating loop. Automation pulls accepted intent, validates contracts, regenerates permitted projections, publishes their source revision, and detects drift in tickets, tests, architecture, code, or the running system. Safe projections can update automatically. Changes to business meaning, release scope, or responsibility return to people for review.</p>
+          <p class="source-note">Source: <a href="https://opengitops.dev/">OpenGitOps principles</a>.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Git records accepted intent. GitOps automation publishes its projections and surfaces drift while people retain authority over meaning.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide repo" data-index="13">
+      <div>
+        <p class="eyebrow">Source of truth</p>
+        <h2>Example Git repository layout</h2>
+      </div>
+      <pre class="repo-tree" aria-label="Example Git repository layout">docs/
+├── domain/
+│   ├── *.ddd
+│   └── *.ddm
+├── system/
+│   ├── c4/
+│   │   └── *.likec4
+│   ├── api/
+│   │   ├── openapi/
+│   │   │   └── *.yaml
+│   │   ├── asyncapi/
+│   │   │   └── *.yaml
+│   │   ├── graphql/
+│   │   │   └── **/*
+│   │   └── wsdl/
+│   │       └── *
+│   └── uml/
+│       └── **/*.puml
+├── journeys/
+│   └── *.eventstorm
+└── stories/
+    ├── *.storymap
+    └── *.examplemap</pre>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>This repository layout makes each specification discipline visible without separating it from the others. Domain files hold DDD and domain-modelling sources. System files hold LikeC4 and PlantUML sources, with dedicated API branches for OpenAPI, AsyncAPI, GraphQL, and WSDL definitions. Journey files hold Event Storming models. Story files hold Story Maps and Example Maps.</p>
+          <p>The extensions let editors, validators, generators, and AI route each artifact to the right tooling. Stable identifiers inside the files keep relationships intact across the directory boundaries. The layout can later split across repositories without changing the semantic model.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>The repository groups domain, system, journey, and story specifications while stable identifiers preserve their connections.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide developer-material light" data-index="14">
+      <div>
+        <p class="eyebrow">The engineering handoff</p>
+        <h2>The right material changes the result</h2>
+      </div>
+      <div class="consumer-line">
+        <div class="consumer"><strong>Developers</strong><p>Receive the journey, domain language, business rules, examples, and system boundaries behind the ticket.</p></div>
+        <div class="consumer"><strong>Engineering tools</strong><p>IDEs, generators, tests, and delivery automation consume the same normalized material.</p></div>
+        <div class="consumer"><strong>AI</strong><p>Implements against validated intent instead of reconstructing requirements from code and a flat ticket.</p></div>
+      </div>
+      <div class="material-base">As-Code provides the right material to do the right thing. Then AI can do it right too.</div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>This is the practical value proposition for engineering. As-Code gives developers and their tooling the right material to do the right thing. A ticket arrives with its journey position, domain events, rules, examples, context boundaries, and architecture constraints.</p>
+          <p>IDEs, generators, tests, and delivery automation can consume that structure. AI receives the same validated context. This does not make AI infallible. It gives the agent explicit intent against which it can implement and judge its work.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Developers, engineering tools, and AI work from the same validated intent. Better material makes correct implementation much more likely.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide questions" data-index="15">
+      <div>
+        <p class="eyebrow">Organizational knowledge becomes computable</p>
+        <h2>Every role can question the same model</h2>
+      </div>
+      <div class="question-field">
+        <div class="question">Why does this event exist?</div>
+        <div class="question">Which rules lack executable examples?</div>
+        <div class="question">Which capabilities cross contexts synchronously?</div>
+        <div class="question">What may this coding agent change?</div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>At scale, the connected model becomes queryable organizational knowledge. A developer can trace an event back to its domain purpose. QA can find business rules without coverage. Architecture can inspect dependencies across bounded contexts. Product can see which parts of a journey depend on a changed rule.</p>
+          <p>An AI coding agent can ask the same model what it may change, which invariants must remain true, and which examples prove the result. This gives the agent explicit constraints instead of asking it to infer intent from repository context alone.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>A shared model lets product, domain, architecture, development, QA, and AI agents ask role-specific questions against the same source of intent.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide impact" data-index="16">
+      <div>
+        <p class="eyebrow">Change impact</p>
+        <h2>A changed rule reveals its downstream consequences</h2>
+      </div>
+      <div class="impact-map">
+        <div class="impact-node">Story slices</div>
+        <div class="impact-node">Examples</div>
+        <div class="impact-node">Domain events</div>
+        <div class="impact-core">Business rule changed</div>
+        <div class="impact-node">Contracts</div>
+        <div class="impact-node">Components</div>
+        <div class="impact-node">Tests and teams</div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Preserved relationships make change impact analysis practical. When a business rule changes, the model can identify the stories, examples, domain events, contracts, components, tests, and teams connected to it.</p>
+          <p>This does not mean automation can decide every impact. It gives people a reasoned starting point before the change reaches implementation or production. Traceability becomes a by-product of doing the work through connected models, rather than a separate compliance exercise completed after delivery.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Connected artifacts expose likely downstream effects before implementation. Traceability emerges from preserved relationships rather than separate paperwork.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide guardrails light" data-index="17">
+      <div>
+        <p class="eyebrow">Conditions for scale</p>
+        <h2>Trust requires explicit governance</h2>
+        <p class="lead">Generation is easy. Preserving meaning across people, tools, and time is the hard part.</p>
+      </div>
+      <div class="principles">
+        <div class="principle">Stable identities that survive renaming</div>
+        <div class="principle">Versioned schemas and transformations</div>
+        <div class="principle">Provenance for human and AI changes</div>
+        <div class="principle">Clear authority when views disagree</div>
+        <div class="principle">Feedback from tests and operations</div>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>Everything as Code can still create drift if every generated artifact claims authority. A trustworthy backbone needs stable identifiers, versioned schemas, transformation provenance, and explicit ownership.</p>
+          <p>Round-trip editing also needs careful conflict handling. A person may change the visual board while another changes the coded representation. The tool must surface disagreements. Finally, evidence from tests, contracts, and operations should reveal where the specification and the running system diverge. These guardrails make the scale proposition credible.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Scale depends on identity, versioning, provenance, authority, and feedback. These controls prevent connected as-code artifacts from becoming a more sophisticated form of drift.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="slide close" data-index="18">
+      <div>
+        <p class="eyebrow">The larger thesis</p>
+        <h2>Make software intent <span class="accent">machine-readable</span> from discovery onward</h2>
+        <p class="lead">Give developers and their tools the right material. Let AI work from the same validated intent.</p>
+      </div>
+      <div class="url-strip">
+        <a href="https://doc-es.obya.ch">doc-es.obya.ch</a>
+        <a href="https://doc-sm.obya.ch">doc-sm.obya.ch</a>
+        <a href="https://doc-em.obya.ch">doc-em.obya.ch</a>
+        <a href="https://ba-cm.obya.ch">ba-cm.obya.ch</a>
+      </div>
+      <aside class="speaker-notes">
+        <div data-mode="full">
+          <p>The tools demonstrate a broader model for software development. Event Storming moves from Big Picture through process to system. Story Mapping carries the journey into release slices and ticketing. Examples, boundaries, and design artifacts add the constraints needed for implementation.</p>
+          <p>Git records the accepted intent, and GitOps keeps its projections and consumers aligned. As-Code gives developers and their tooling the right material to do the right thing. AI works from the same validated intent. The long-term opportunity is a continuous specification that connects product intent, domain knowledge, architecture, implementation, validation, and operations.</p>
+        </div>
+        <div data-mode="condensed">
+          <p>Git makes accepted intent authoritative. GitOps keeps its consumers aligned. People, developer tooling, and AI can then work from the same continuous specification.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="controls" aria-label="Presentation controls">
+    <button id="prev" title="Previous slide">‹</button>
+    <button id="notes" title="Speaker notes">N</button>
+    <button id="next" title="Next slide">›</button>
+  </div>
+  <div class="chrome"><div class="progress" id="progress"></div></div>
+
+  <aside class="notes-panel" id="notesPanel" aria-label="Speaker notes">
+    <h3 id="notesTitle">Speaker notes</h3>
+    <div class="notes-mode">
+      <button class="active" data-notes-mode="full">Full script</button>
+      <button data-notes-mode="condensed">Condensed</button>
+    </div>
+    <div id="notesContent"></div>
+    <div class="notes-help">Keys: ← → navigate · N notes · F fullscreen · Home/End jump</div>
+  </aside>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const progress = document.getElementById('progress');
+    const panel = document.getElementById('notesPanel');
+    const notesContent = document.getElementById('notesContent');
+    const notesTitle = document.getElementById('notesTitle');
+    let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+    let notesMode = 'full';
+
+    function show(nextIndex) {
+      index = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      progress.style.width = ((index + 1) / slides.length * 100) + '%';
+      location.hash = String(index + 1);
+      updateNotes();
+      document.title = (slides[index].querySelector('h1, h2')?.textContent.trim() || 'Software Intent as Code') + ' · ' + (index + 1) + '/' + slides.length;
+    }
+    function updateNotes() {
+      const source = slides[index].querySelector('[data-mode="' + notesMode + '"]');
+      notesTitle.textContent = 'Slide ' + (index + 1) + ' of ' + slides.length;
+      notesContent.innerHTML = source ? source.innerHTML : '<p>No notes for this slide.</p>';
+    }
+    function toggleNotes() { panel.classList.toggle('open'); }
+    function setNotesMode(mode) {
+      notesMode = mode;
+      document.querySelectorAll('[data-notes-mode]').forEach(b => b.classList.toggle('active', b.dataset.notesMode === mode));
+      updateNotes();
+    }
+    document.getElementById('prev').addEventListener('click', () => show(index - 1));
+    document.getElementById('next').addEventListener('click', () => show(index + 1));
+    document.getElementById('notes').addEventListener('click', toggleNotes);
+    document.querySelectorAll('[data-notes-mode]').forEach(b => b.addEventListener('click', () => setNotesMode(b.dataset.notesMode)));
+    document.addEventListener('keydown', event => {
+      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); show(index + 1); }
+      if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); show(index - 1); }
+      if (event.key === 'Home') show(0);
+      if (event.key === 'End') show(slides.length - 1);
+      if (event.key.toLowerCase() === 'n') toggleNotes();
+      if (event.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      if (event.key === 'Escape' && panel.classList.contains('open')) panel.classList.remove('open');
+    });
+    window.addEventListener('hashchange', () => {
+      const requested = Number(location.hash.slice(1)) - 1;
+      if (Number.isFinite(requested) && requested !== index && requested >= 0 && requested < slides.length) show(requested);
+    });
+    show(index);
+  </script>
+</body>
+</html>

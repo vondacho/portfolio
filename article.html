@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reader — Olivier von Dach</title>
+  <script>try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="wrap">
+      <a class="logo" href="./"><strong>Olivier von Dach</strong> · Publications</a>
+      <ul class="nav-links">
+        <li class="hide-sm"><a href="./">Catalogue</a></li>
+        <li class="hide-sm"><a href="https://vondacho.github.io/">Home</a></li>
+        <li><button class="theme-toggle" type="button" aria-label="Theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="reader-hero" id="hero">
+      <div class="wrap">
+        <a class="back" href="./">← All publications</a>
+        <div class="eyebrow" id="eyebrow"></div>
+        <h1 id="title">Loading…</h1>
+        <p class="lead" id="lead"></p>
+        <div class="meta" id="meta"></div>
+        <div class="tags" id="tags"></div>
+        <div id="formats"></div>
+      </div>
+    </section>
+
+    <div class="wrap reader-layout">
+      <article class="prose" id="content" aria-busy="true"></article>
+      <nav class="toc" id="toc" aria-label="On this page" hidden></nav>
+    </div>
+
+    <section class="wrap more" id="more" hidden>
+      <h2 id="more-title">More in this series</h2>
+      <div class="grid" id="more-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">© <span id="year">2026</span> <a href="https://vondacho.github.io/">Olivier von Dach</a></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/reader.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "publications-catalogue",
+  "private": true,
+  "type": "module",
+  "description": "Static catalogue of articles, decks, LinkedIn posts and speaker scripts",
+  "scripts": {
+    "build": "node scripts/build-catalogue.mjs",
+    "serve": "node scripts/serve.mjs",
+    "start": "node scripts/build-catalogue.mjs && node scripts/serve.mjs"
+  }
+}

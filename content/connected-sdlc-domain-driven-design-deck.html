@@ -1,0 +1,169 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Domain-Driven Design as Code</title>
+  <meta name="description" content="Semantic contracts for software: bounded contexts, context maps and invariants as versioned, validated models.">
+  <meta name="keywords" content="ddd, as-code, architecture, contract-driven">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="Domain-Driven Design as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Domain-Driven Design"><style>:root{--accent:#a88bff}*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{background:#09090b;color:#f5f0e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+a{color:inherit;text-underline-offset:4px}
+.deck{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:none;overflow:hidden;padding:clamp(42px,5vw,82px);background:radial-gradient(circle at 85% 14%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 27%),linear-gradient(135deg,#18171b,#0c0c0f 66%)}
+.slide.active{display:grid}
+.slide.light{color:#171619;background:radial-gradient(circle at 80% 12%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 29%),#f5f0e7}
+.slide:after{content:attr(data-index);position:absolute;right:32px;bottom:22px;color:#9d9790;font-size:12px;letter-spacing:.15em}
+.cover{grid-template-rows:1fr auto;align-items:center}
+.cover h1{max-width:1050px;font-size:clamp(48px,7.5vw,114px);line-height:.92;letter-spacing:-.055em;margin:0 0 28px;font-weight:840}
+.cover .orb{position:absolute;right:-7vw;top:-10vw;width:min(34vw,470px);aspect-ratio:1;border:34px solid var(--accent);border-radius:50%;opacity:.9}
+.cover .orb:after{content:'';position:absolute;left:28%;top:28%;width:44%;height:44%;background:#ffd34e;transform:rotate(12deg)}
+.kicker{margin:0 0 18px;color:var(--accent);font-size:clamp(12px,1vw,16px);font-weight:780;letter-spacing:.17em;text-transform:uppercase}
+h2{max-width:1120px;margin:0 0 32px;font-size:clamp(38px,5vw,76px);font-weight:820;line-height:.98;letter-spacing:-.045em}
+h3{margin:0 0 14px;font-size:clamp(21px,2vw,33px);line-height:1.08}
+p{margin-top:0}
+.lead{max-width:860px;color:#d0c9c0;font-size:clamp(21px,2vw,33px);line-height:1.32}
+.light .lead{color:#514c48}
+.accent{color:var(--accent)}
+.muted{color:#ada69d}
+.two,.three{align-self:center;display:grid;gap:5vw}
+.two{grid-template-columns:1fr 1fr}
+.three{grid-template-columns:repeat(3,1fr);gap:34px}
+.col{padding-top:25px;border-top:5px solid var(--accent)}
+.col:nth-child(2){border-color:#ffd34e}
+.col:nth-child(3){border-color:#6cb6ff}
+.col strong{display:block;margin-bottom:18px;font-size:clamp(25px,2.5vw,42px);line-height:1.04}
+.col p{color:#cfc8bf;font-size:clamp(15px,1.2vw,20px);line-height:1.42}
+.light .col p{color:#514c48}
+.bands{align-self:center;border-top:1px solid rgba(245,240,231,.22)}
+.light .bands{border-color:rgba(23,22,25,.2)}
+.band{display:grid;grid-template-columns:.75fr 1.5fr;gap:38px;align-items:center;min-height:82px;border-bottom:1px solid rgba(245,240,231,.22)}
+.light .band{border-color:rgba(23,22,25,.2)}
+.band strong{color:var(--accent);font-size:clamp(19px,1.7vw,28px)}
+.band span{font-size:clamp(16px,1.35vw,22px);line-height:1.34}
+.flow{align-self:center;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.flow:before{content:'';position:absolute;left:5%;right:5%;top:30px;height:4px;background:linear-gradient(90deg,var(--accent),#ffd34e,#6cb6ff,#80c995)}
+.node{position:relative;padding-top:68px;font-size:clamp(19px,1.7vw,29px);font-weight:760;line-height:1.14}
+.node:before{content:'';position:absolute;top:16px;left:0;width:30px;height:30px;border:5px solid #f5f0e7;border-radius:50%;background:#171619}
+.node small{display:block;margin-top:12px;color:#aaa39b;font-size:clamp(13px,1vw,17px);font-weight:540;line-height:1.35}
+.contract{align-self:center;padding:28px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25)}
+.contract .statement{max-width:1150px;font-size:clamp(29px,3vw,50px);font-weight:780;line-height:1.18}
+.checks{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:18px 70px}
+.check{padding:16px 0 18px 30px;border-bottom:1px solid rgba(245,240,231,.2);font-size:clamp(17px,1.45vw,24px);font-weight:660;position:relative}
+.check:before{content:'✓';position:absolute;left:0;color:var(--accent)}
+.light .check{border-color:rgba(23,22,25,.2)}
+.roles{align-self:center;display:grid;grid-template-columns:repeat(2,1fr);gap:0 70px}
+.role{display:grid;grid-template-columns:.55fr 1.45fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(245,240,231,.2)}
+.light .role{border-color:rgba(23,22,25,.2)}
+.role strong{color:var(--accent);font-size:clamp(15px,1.15vw,19px)}
+.role span{font-size:clamp(15px,1.15vw,19px);line-height:1.32}
+.timeline{align-self:center;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.phase{min-height:260px;padding:24px 10px 0;border-top:6px solid var(--accent)}
+.phase b{display:block;margin-bottom:28px;color:#9f9890;font-size:14px;letter-spacing:.14em}
+.phase strong{display:block;margin-bottom:16px;font-size:clamp(23px,2vw,34px)}
+.phase p{color:#cfc8bf;font-size:clamp(14px,1.05vw,18px);line-height:1.4}
+.light .phase p{color:#514c48}
+.quote{align-self:center;max-width:1150px;padding-left:32px;border-left:7px solid var(--accent);font-size:clamp(34px,4vw,66px);font-weight:790;line-height:1.12}
+.mini{margin-top:24px;color:#aaa39b;font-size:clamp(15px,1.15vw,19px);line-height:1.4}
+.speaker-notes{display:none}
+.progress-shell{position:fixed;z-index:20;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.08)}
+.progress{height:100%;width:0;background:var(--accent);transition:width .2s}
+.controls{position:fixed;z-index:25;right:20px;top:18px;display:flex;gap:8px;opacity:.35;transition:opacity .2s}
+.controls:hover{opacity:1}
+.controls button{width:36px;height:36px;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(12,12,14,.6);color:#fff;cursor:pointer}
+.notes-panel{position:fixed;z-index:30;top:0;right:0;width:min(430px,92vw);height:100%;padding:28px;overflow:auto;color:#211f22;background:#fbf7ef;box-shadow:-18px 0 50px rgba(0,0,0,.35);transform:translateX(105%);transition:transform .25s}
+.notes-panel.open{transform:translateX(0)}
+.notes-panel h3{margin:0 0 18px;font-size:22px}
+.notes-panel p{font-size:16px;line-height:1.55}
+.notes-panel .mini{color:#6d665f;font-size:13px}
+.notes-panel a{color:#211f22}
+.notes-mode{display:flex;gap:8px;margin-bottom:20px}
+.notes-mode button{padding:8px 12px;border:1px solid #9f9890;border-radius:999px;background:transparent;cursor:pointer}
+.notes-mode button.active{color:#fff;background:#211f22}
+.help{margin-top:24px;padding-top:18px;border-top:1px solid #d5cec4;color:#6d665f;font-size:13px}
+@media(max-width:820px){.two,.three,.roles,.checks{grid-template-columns:1fr}.flow,.timeline{grid-template-columns:repeat(2,1fr)}.band{grid-template-columns:1fr;gap:5px;padding:12px 0}.phase{min-height:auto}.cover .orb{opacity:.4}}
+@media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}</style></head><body>
+<main class='deck' aria-label='Domain-Driven Design as Code presentation'>
+<section class='slide cover active' data-index='01'>
+<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Domain-Driven Design<br><span class='accent'>as Code</span></h1><p class='lead'>Semantic contracts for language, boundaries, and behavior</p><div class='orb' aria-hidden='true'></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>DDD as Code gives the connected SDLC a semantic backbone. Contexts, language, models, invariants, and relationships become structured engineering material.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD supplies the meaning and boundaries that delivery must preserve.</p></div></aside>
+</section>
+<section class='slide ' data-index='02'>
+<div><p class='kicker'>The discipline</p><h2>The DDD decision</h2></div><div class='two'><div class='col'><strong>Meaning</strong><p>Which model and language apply to this problem?</p></div><div class='col'><strong>Responsibility</strong><p>Which bounded context owns the decision and protects its invariants?</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>DDD connects domain knowledge to software design. In a contract-driven lifecycle, its core decisions become explicit and referenceable rather than living only in code or conversation.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD defines applicable meaning and ownership.</p></div></aside>
+</section>
+<section class='slide ' data-index='03'>
+<div><p class='kicker'>Semantic contract</p><h2>Language applies inside an explicit boundary</h2></div><div class='contract'><div class='statement'>A term, rule, or model is precise only within the bounded context that gives it meaning.</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>A global glossary can create false consistency. The same word may mean different things in different contexts. The model must scope language explicitly.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Bounded contexts give domain language a precise scope.</p></div></aside>
+</section>
+<section class='slide ' data-index='04'>
+<div><p class='kicker'>Strategic and tactical design</p><h2>Two connected levels of the model</h2></div><div class='two'><div class='col'><strong>Strategic</strong><p>Subdomains, bounded contexts, ownership, and context relationships.</p></div><div class='col'><strong>Tactical</strong><p>Aggregates, entities, value objects, events, policies, and invariants.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Strategic design protects boundaries and relationships. Tactical design expresses behavior within a context. The two levels should link rather than become separate diagrams.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Strategic boundaries and tactical models reinforce each other.</p></div></aside>
+</section>
+<section class='slide ' data-index='05'>
+<div><p class='kicker'>Digital contract</p><h2>What DDD as Code governs</h2></div><div class='bands'><div class='band'><strong>Context</strong><span>Purpose, owner, language, lifecycle</span></div><div class='band'><strong>Relationships</strong><span>Collaboration, dependency, translation, published language</span></div><div class='band'><strong>Model</strong><span>Aggregates, entities, value objects, events, invariants</span></div><div class='band'><strong>Traceability</strong><span>Links to stories, examples, architecture, code, and contracts</span></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>The contract records both strategic and tactical decisions. Stable identity lets architecture, tickets, and tests refer to the model without duplicating it.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD as Code governs contexts, relationships, models, and connected references.</p></div></aside>
+</section>
+<section class='slide ' data-index='06'>
+<div><p class='kicker'>Connected inputs</p><h2>Discovery becomes deliberate modelling</h2></div><div class='flow'><div class='node'>Event Storming<small>Behavior and language</small></div><div class='node'>Story Mapping<small>Outcomes and change scope</small></div><div class='node'>Example Mapping<small>Rules and concrete cases</small></div><div class='node'>Domain experts<small>Meaning and correction</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Event Storming clusters suggest boundaries but do not prove them. Story slices expose change scope. Examples provide evidence for rules. Domain experts and developers refine the model deliberately.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD turns connected discovery artifacts into explicit semantic decisions.</p></div></aside>
+</section>
+<section class='slide ' data-index='07'>
+<div><p class='kicker'>Connected outputs</p><h2>The semantic model constrains delivery</h2></div><div class='flow'><div class='node'>System Design<small>Architecture responsibility</small></div><div class='node'>Published contracts<small>OpenAPI, AsyncAPI, schemas</small></div><div class='node'>Code<small>Names, modules, invariants</small></div><div class='node'>Tests<small>Domain-linked evidence</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>The model informs architecture boundaries, public language, code vocabulary, and tests. Public contracts should expose a deliberate language rather than leak internal model structures.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD supplies meaning to architecture, interfaces, code, and tests.</p></div></aside>
+</section>
+<section class='slide ' data-index='08'>
+<div><p class='kicker'>Enforcement</p><h2>Semantic and architecture rules become checkable</h2></div><div class='checks'><div class='check'>Every context has purpose and owner</div><div class='check'>Terms resolve inside the right context</div><div class='check'>Dependencies follow approved directions</div><div class='check'>Invariants link to examples</div><div class='check'>Public contracts use published language</div><div class='check'>Sensitive model changes require owner review</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Some checks should warn during discovery. Others, such as a forbidden dependency across core contexts, may block a merge. Enforcement should match risk and model maturity.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Validation protects ownership, language, boundaries, and invariants.</p></div></aside>
+</section>
+<section class='slide ' data-index='09'>
+<div><p class='kicker'>Git and GitOps</p><h2>Git as source of truth and semantic reconciliation</h2></div><div class='flow'><div class='node'>Git source<small>Contexts, language, invariants, policy</small></div><div class='node'>Review and merge<small>Domain and affected owners approve</small></div><div class='node'>Automation<small>Publish maps, catalogs, checks</small></div><div class='node'>Reconciliation<small>Find semantic and dependency drift</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Git holds the accepted semantic model and its history. Review rules bring the appropriate domain, supplier, customer, architecture, and development owners into meaningful changes.</p><p>GitOps-style automation publishes the model and compares code, contracts, examples, and architecture with it. Retired terms or forbidden dependencies become visible without letting automation redefine domain meaning.</p><p class='mini'>Source: <a href='https://opengitops.dev/'>OpenGitOps principles</a>.</p></div><div data-mode='condensed'><p>Git governs accepted domain meaning. Automation publishes it and detects semantic or dependency drift.</p></div></aside>
+</section>
+<section class='slide ' data-index='10'>
+<div><p class='kicker'>Architecture connection</p><h2>A bounded context is not automatically a service</h2></div><div class='two'><div class='col'><strong>DDD boundary</strong><p>Defines semantic responsibility and model consistency.</p></div><div class='col'><strong>Architecture element</strong><p>Defines deployable or structural software responsibility.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>A bounded context may use several containers, and a simple container may host several contexts. The relationship should remain explicit without imposing a universal one-to-one rule.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Semantic and deployment boundaries connect, but they do not always coincide.</p></div></aside>
+</section>
+<section class='slide ' data-index='11'>
+<div><p class='kicker'>Engineering material</p><h2>The model gives implementation a language and limits</h2></div><div class='contract'><div class='statement'>Developers and AI know which concepts belong, which invariants hold, and which dependencies are allowed.</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>This context makes code generation safer. AI can distinguish plausible names and structures from those that respect the domain model.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The semantic contract tells engineering what the code must mean.</p></div></aside>
+</section>
+<section class='slide ' data-index='12'>
+<div><p class='kicker'>Documentation model</p><h2>Narrative explains; the model governs</h2></div><div class='two'><div class='col'><strong>As-Code model</strong><p>Contexts, terms, relationships, invariants, and stable references.</p></div><div class='col'><strong>Wiki and ADRs</strong><p>Learning, history, decisions, generated catalogs, and rationale.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>ADRs can remain first-class as-code artifacts because they record decisions and link to affected model elements. Wiki prose remains explanatory, not authoritative for current relationships.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Generate catalogs and diagrams. Keep narrative for learning and rationale.</p></div></aside>
+</section>
+<section class='slide ' data-index='13'>
+<div><p class='kicker'>Actor adaptation</p><h2>Domain modelling becomes shared engineering work</h2></div><div class='roles'><div class='role'><strong>Domain</strong><span>Own meanings and corrections</span></div><div class='role'><strong>Product</strong><span>Relate outcomes to contexts</span></div><div class='role'><strong>Developer</strong><span>Use model language in code</span></div><div class='role'><strong>Architect</strong><span>Govern context relationships</span></div><div class='role'><strong>Platform</strong><span>Provide validation and catalogs</span></div><div class='role'><strong>AI</strong><span>Work inside semantic constraints</span></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>DDD as Code must not become an architect-owned diagram repository. Domain experts, product, developers, architecture, and platform each own part of the model and workflow.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Shared ownership keeps the domain model alive.</p></div></aside>
+</section>
+<section class='slide ' data-index='14'>
+<div><p class='kicker'>Change management</p><h2>Begin with one painful boundary</h2></div><div class='timeline'><div class='phase'><b>01</b><strong>Choose</strong><p>Select a core domain with recurring ambiguity.</p></div><div class='phase'><b>02</b><strong>Model</strong><p>Name contexts, owners, language, and one key invariant.</p></div><div class='phase'><b>03</b><strong>Connect</strong><p>Link events, stories, examples, and architecture.</p></div><div class='phase'><b>04</b><strong>Protect</strong><p>Add one valuable boundary rule in CI.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Focus on a real boundary problem. Provide visual editing for domain participants and IDE feedback for developers. Expand when teams experience reduced ambiguity or integration risk.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Start with one boundary, one model, and one enforceable rule.</p></div></aside>
+</section>
+<section class='slide ' data-index='15'>
+<div><p class='kicker'>Outcome</p><h2>DDD supplies the semantic contract</h2></div><div class='quote'>Connected artifacts can share identifiers, but DDD determines which meaning applies.</div>
+<aside class='speaker-notes'><div data-mode='full'><p>DDD as Code ensures that the connected lifecycle does not merely link documents. It links artifacts through explicit semantic boundaries and models.</p><p class='mini'>Sources: <a href='https://www.domainlanguage.com/ddd/reference/'>Eric Evans, DDD Reference</a> and <a href='https://ba-cm.obya.ch'>Context Mapping as Code</a>.</p></div><div data-mode='condensed'><p>DDD gives the connected lifecycle precise meaning.</p></div></aside>
+</section>
+</main>
+<div class='controls'><button id='prev' title='Previous'>‹</button><button id='notes' title='Speaker notes'>N</button><button id='next' title='Next'>›</button></div>
+<div class='progress-shell'><div class='progress' id='progress'></div></div>
+<aside class='notes-panel' id='notesPanel'><h3 id='notesTitle'>Speaker notes</h3><div class='notes-mode'><button class='active' data-notes-mode='full'>Full script</button><button data-notes-mode='condensed'>Condensed</button></div><div id='notesContent'></div><div class='help'>Keys: ← → navigate · N notes · F fullscreen · Home/End jump</div></aside>
+<script>const slides=[...document.querySelectorAll('.slide')];
+const progress=document.getElementById('progress');
+const panel=document.getElementById('notesPanel');
+const notesContent=document.getElementById('notesContent');
+const notesTitle=document.getElementById('notesTitle');
+let index=Math.max(0,Math.min(slides.length-1,Number(location.hash.slice(1))-1||0));
+let mode='full';
+function updateNotes(){const source=slides[index].querySelector('[data-mode='+JSON.stringify(mode)+']');notesTitle.textContent='Slide '+(index+1)+' of '+slides.length;notesContent.innerHTML=source?source.innerHTML:'<p>No notes.</p>';}
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle('active',i===index));progress.style.width=((index+1)/slides.length*100)+'%';location.hash=String(index+1);updateNotes();}
+function toggleNotes(){panel.classList.toggle('open');}
+document.getElementById('prev').onclick=()=>show(index-1);
+document.getElementById('next').onclick=()=>show(index+1);
+document.getElementById('notes').onclick=toggleNotes;
+document.querySelectorAll('[data-notes-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.notesMode;document.querySelectorAll('[data-notes-mode]').forEach(x=>x.classList.toggle('active',x===b));updateNotes();});
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='n')toggleNotes();if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}if(e.key==='Escape')panel.classList.remove('open');});
+window.addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1))-1;if(Number.isFinite(n)&&n!==index&&n>=0&&n<slides.length)show(n)});
+show(index);</script></body></html>

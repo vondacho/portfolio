@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio — Olivier von Dach</title>
+  <meta name="description" content="Articles, presentation decks, LinkedIn posts and speaker scripts on software intent as code, contract-driven development, BDD and software craftsmanship.">
+  <script>try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="wrap">
+      <a class="logo" href="./">Olivier von Dach</a>
+      <ul class="nav-links">
+        <li class="hide-sm"><a class="active" href="./">Catalogue</a></li>
+        <li class="hide-sm"><a href="https://vondacho.github.io/">Home</a></li>
+        <li><button class="theme-toggle" type="button" aria-label="Theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <h1>Portfolio</h1>
+      <p>Articles, presentation decks, LinkedIn posts and speaker scripts on software intent as code, contract-driven delivery, BDD and craftsmanship.</p>
+      <div class="stats" id="stats" aria-live="polite"></div>
+    </section>
+
+    <section class="toolbar" aria-label="Search and filters">
+      <div class="wrap">
+        <div class="toolbar-row">
+          <div class="search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <label class="sr-only" for="q">Search portfolio items</label>
+            <input id="q" type="search" placeholder="Search titles, summaries, tags, full text…" autocomplete="off" spellcheck="false">
+            <kbd id="kbd-hint" aria-hidden="true">/</kbd>
+            <button class="clear" id="q-clear" type="button" hidden>Clear</button>
+          </div>
+          <div class="segmented" id="types" role="group" aria-label="Filter by format"></div>
+          <label class="sr-only" for="series">Series</label>
+          <select class="select" id="series"></select>
+          <label class="sr-only" for="topic">Topic</label>
+          <select class="select" id="topic"></select>
+          <label class="sr-only" for="sort">Sort</label>
+          <select class="select" id="sort">
+            <option value="best">Best match</option>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title">Title A–Z</option>
+          </select>
+          <div class="icon-toggle" role="group" aria-label="Layout">
+            <button type="button" data-view="grid" aria-pressed="true" title="Cards"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg><span class="sr-only">Cards</span></button>
+            <button type="button" data-view="list" aria-pressed="false" title="List"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span class="sr-only">List</span></button>
+          </div>
+        </div>
+        <div class="tagbar" id="tagbar" aria-label="Filter by tag"></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="resultbar">
+        <div id="result-count" aria-live="polite"></div>
+        <button class="linklike" id="reset" type="button" hidden>Clear all filters</button>
+      </div>
+      <div class="grid" id="results">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">© <span id="year">2026</span> <a href="https://vondacho.github.io/">Olivier von Dach</a></div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/catalogue.js"></script>
+</body>
+</html>

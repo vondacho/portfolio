@@ -1,0 +1,169 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>System Design as Code</title>
+  <meta name="description" content="C4, LikeC4 and PlantUML as a reviewable, testable architecture model inside normal delivery.">
+  <meta name="keywords" content="architecture, c4, as-code">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="System Design as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="System Design"><style>:root{--accent:#ee6aa7}*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{background:#09090b;color:#f5f0e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+a{color:inherit;text-underline-offset:4px}
+.deck{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:none;overflow:hidden;padding:clamp(42px,5vw,82px);background:radial-gradient(circle at 85% 14%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 27%),linear-gradient(135deg,#18171b,#0c0c0f 66%)}
+.slide.active{display:grid}
+.slide.light{color:#171619;background:radial-gradient(circle at 80% 12%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 29%),#f5f0e7}
+.slide:after{content:attr(data-index);position:absolute;right:32px;bottom:22px;color:#9d9790;font-size:12px;letter-spacing:.15em}
+.cover{grid-template-rows:1fr auto;align-items:center}
+.cover h1{max-width:1050px;font-size:clamp(48px,7.5vw,114px);line-height:.92;letter-spacing:-.055em;margin:0 0 28px;font-weight:840}
+.cover .orb{position:absolute;right:-7vw;top:-10vw;width:min(34vw,470px);aspect-ratio:1;border:34px solid var(--accent);border-radius:50%;opacity:.9}
+.cover .orb:after{content:'';position:absolute;left:28%;top:28%;width:44%;height:44%;background:#ffd34e;transform:rotate(12deg)}
+.kicker{margin:0 0 18px;color:var(--accent);font-size:clamp(12px,1vw,16px);font-weight:780;letter-spacing:.17em;text-transform:uppercase}
+h2{max-width:1120px;margin:0 0 32px;font-size:clamp(38px,5vw,76px);font-weight:820;line-height:.98;letter-spacing:-.045em}
+h3{margin:0 0 14px;font-size:clamp(21px,2vw,33px);line-height:1.08}
+p{margin-top:0}
+.lead{max-width:860px;color:#d0c9c0;font-size:clamp(21px,2vw,33px);line-height:1.32}
+.light .lead{color:#514c48}
+.accent{color:var(--accent)}
+.muted{color:#ada69d}
+.two,.three{align-self:center;display:grid;gap:5vw}
+.two{grid-template-columns:1fr 1fr}
+.three{grid-template-columns:repeat(3,1fr);gap:34px}
+.col{padding-top:25px;border-top:5px solid var(--accent)}
+.col:nth-child(2){border-color:#ffd34e}
+.col:nth-child(3){border-color:#6cb6ff}
+.col strong{display:block;margin-bottom:18px;font-size:clamp(25px,2.5vw,42px);line-height:1.04}
+.col p{color:#cfc8bf;font-size:clamp(15px,1.2vw,20px);line-height:1.42}
+.light .col p{color:#514c48}
+.bands{align-self:center;border-top:1px solid rgba(245,240,231,.22)}
+.light .bands{border-color:rgba(23,22,25,.2)}
+.band{display:grid;grid-template-columns:.75fr 1.5fr;gap:38px;align-items:center;min-height:82px;border-bottom:1px solid rgba(245,240,231,.22)}
+.light .band{border-color:rgba(23,22,25,.2)}
+.band strong{color:var(--accent);font-size:clamp(19px,1.7vw,28px)}
+.band span{font-size:clamp(16px,1.35vw,22px);line-height:1.34}
+.flow{align-self:center;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.flow:before{content:'';position:absolute;left:5%;right:5%;top:30px;height:4px;background:linear-gradient(90deg,var(--accent),#ffd34e,#6cb6ff,#80c995)}
+.node{position:relative;padding-top:68px;font-size:clamp(19px,1.7vw,29px);font-weight:760;line-height:1.14}
+.node:before{content:'';position:absolute;top:16px;left:0;width:30px;height:30px;border:5px solid #f5f0e7;border-radius:50%;background:#171619}
+.node small{display:block;margin-top:12px;color:#aaa39b;font-size:clamp(13px,1vw,17px);font-weight:540;line-height:1.35}
+.contract{align-self:center;padding:28px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25)}
+.contract .statement{max-width:1150px;font-size:clamp(29px,3vw,50px);font-weight:780;line-height:1.18}
+.checks{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:18px 70px}
+.check{padding:16px 0 18px 30px;border-bottom:1px solid rgba(245,240,231,.2);font-size:clamp(17px,1.45vw,24px);font-weight:660;position:relative}
+.check:before{content:'✓';position:absolute;left:0;color:var(--accent)}
+.light .check{border-color:rgba(23,22,25,.2)}
+.roles{align-self:center;display:grid;grid-template-columns:repeat(2,1fr);gap:0 70px}
+.role{display:grid;grid-template-columns:.55fr 1.45fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(245,240,231,.2)}
+.light .role{border-color:rgba(23,22,25,.2)}
+.role strong{color:var(--accent);font-size:clamp(15px,1.15vw,19px)}
+.role span{font-size:clamp(15px,1.15vw,19px);line-height:1.32}
+.timeline{align-self:center;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.phase{min-height:260px;padding:24px 10px 0;border-top:6px solid var(--accent)}
+.phase b{display:block;margin-bottom:28px;color:#9f9890;font-size:14px;letter-spacing:.14em}
+.phase strong{display:block;margin-bottom:16px;font-size:clamp(23px,2vw,34px)}
+.phase p{color:#cfc8bf;font-size:clamp(14px,1.05vw,18px);line-height:1.4}
+.light .phase p{color:#514c48}
+.quote{align-self:center;max-width:1150px;padding-left:32px;border-left:7px solid var(--accent);font-size:clamp(34px,4vw,66px);font-weight:790;line-height:1.12}
+.mini{margin-top:24px;color:#aaa39b;font-size:clamp(15px,1.15vw,19px);line-height:1.4}
+.speaker-notes{display:none}
+.progress-shell{position:fixed;z-index:20;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.08)}
+.progress{height:100%;width:0;background:var(--accent);transition:width .2s}
+.controls{position:fixed;z-index:25;right:20px;top:18px;display:flex;gap:8px;opacity:.35;transition:opacity .2s}
+.controls:hover{opacity:1}
+.controls button{width:36px;height:36px;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(12,12,14,.6);color:#fff;cursor:pointer}
+.notes-panel{position:fixed;z-index:30;top:0;right:0;width:min(430px,92vw);height:100%;padding:28px;overflow:auto;color:#211f22;background:#fbf7ef;box-shadow:-18px 0 50px rgba(0,0,0,.35);transform:translateX(105%);transition:transform .25s}
+.notes-panel.open{transform:translateX(0)}
+.notes-panel h3{margin:0 0 18px;font-size:22px}
+.notes-panel p{font-size:16px;line-height:1.55}
+.notes-panel .mini{color:#6d665f;font-size:13px}
+.notes-panel a{color:#211f22}
+.notes-mode{display:flex;gap:8px;margin-bottom:20px}
+.notes-mode button{padding:8px 12px;border:1px solid #9f9890;border-radius:999px;background:transparent;cursor:pointer}
+.notes-mode button.active{color:#fff;background:#211f22}
+.help{margin-top:24px;padding-top:18px;border-top:1px solid #d5cec4;color:#6d665f;font-size:13px}
+@media(max-width:820px){.two,.three,.roles,.checks{grid-template-columns:1fr}.flow,.timeline{grid-template-columns:repeat(2,1fr)}.band{grid-template-columns:1fr;gap:5px;padding:12px 0}.phase{min-height:auto}.cover .orb{opacity:.4}}
+@media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}</style></head><body>
+<main class='deck' aria-label='System Design as Code presentation'>
+<section class='slide cover active' data-index='01'>
+<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>System Design<br><span class='accent'>as Code</span></h1><p class='lead'>Architecture contracts with C4, LikeC4, and PlantUML</p><div class='orb' aria-hidden='true'></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>C4 supplies useful abstraction levels. LikeC4 supplies a shared architecture model. PlantUML supplies precise textual diagrams for structure and behavior.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>System Design as Code turns architecture into connected, testable delivery material.</p></div></aside>
+</section>
+<section class='slide ' data-index='02'>
+<div><p class='kicker'>The discipline</p><h2>The system-design decision</h2></div><div class='contract'><div class='statement'>How will software responsibilities, interactions, and deployment choices realize product and domain intent?</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>System design connects semantic responsibility to technical structure. It should help each audience see the detail required for its decision without combining everything in one diagram.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>System design explains how software realizes known intent and constraints.</p></div></aside>
+</section>
+<section class='slide ' data-index='03'>
+<div><p class='kicker'>C4 model</p><h2>Levels of zoom support different decisions</h2></div><div class='bands'><div class='band'><strong>Context</strong><span>People, the system in focus, and external systems</span></div><div class='band'><strong>Container</strong><span>Applications and data stores inside the system</span></div><div class='band'><strong>Component</strong><span>Responsibilities inside a container</span></div><div class='band'><strong>Code</strong><span>Optional implementation detail when it adds value</span></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>The official C4 guidance defines four static levels and notes that context and container diagrams are enough for many teams. Use only the views that support a real decision.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>C4 provides consistent zoom levels without requiring every possible diagram.</p></div></aside>
+</section>
+<section class='slide ' data-index='04'>
+<div><p class='kicker'>LikeC4</p><h2>One architecture model generates many views</h2></div><div class='two'><div class='col'><strong>Model</strong><p>Hierarchical elements, relationships, metadata, ownership, deployment.</p></div><div class='col'><strong>Views</strong><p>Projections for system overview, component interaction, data flow, and scenarios.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>LikeC4 describes architecture as code and generates views from a shared model. That prevents each diagram from maintaining a separate copy of components and relationships.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The model is authoritative. Views project it for different questions.</p></div></aside>
+</section>
+<section class='slide ' data-index='05'>
+<div><p class='kicker'>PlantUML</p><h2>Focused diagrams add behavioral precision</h2></div><div class='three'><div class='col'><strong>Sequence</strong><p>Interaction order for one scenario.</p></div><div class='col'><strong>State</strong><p>Allowed transitions and lifecycle.</p></div><div class='col'><strong>Class or component</strong><p>Detailed structure where it helps implementation.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>PlantUML supports many structural and behavioral diagram types from text. It complements the model-centric C4 views and should reuse the same element and contract references.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>PlantUML adds precise scenario and structure views without creating new vocabulary.</p></div></aside>
+</section>
+<section class='slide ' data-index='06'>
+<div><p class='kicker'>Digital contract</p><h2>What the architecture model governs</h2></div><div class='bands'><div class='band'><strong>Structure</strong><span>Systems, containers, components, hierarchy, owners</span></div><div class='band'><strong>Interaction</strong><span>Relationships, purpose, direction, protocol, interface</span></div><div class='band'><strong>Runtime</strong><span>Deployment nodes, instances, environments</span></div><div class='band'><strong>Rationale</strong><span>Decision and requirement references</span></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>The architecture contract states intended structure and interaction. Runtime evidence can confirm or challenge it, but observed traffic alone cannot explain purpose.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The model governs intended structure, interaction, deployment, and rationale.</p></div></aside>
+</section>
+<section class='slide ' data-index='07'>
+<div><p class='kicker'>Connected inputs</p><h2>System design receives product and domain constraints</h2></div><div class='flow'><div class='node'>Event Storming<small>Actors, systems, commands, events</small></div><div class='node'>Story Mapping<small>Release scope and journeys</small></div><div class='node'>Example Mapping<small>Scenarios and outcomes</small></div><div class='node'>DDD<small>Contexts and responsibilities</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Each discipline contributes a different constraint. System design should reference those artifacts rather than translate them into untraceable labels.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Architecture connects behavior, delivery scope, examples, and semantic boundaries.</p></div></aside>
+</section>
+<section class='slide ' data-index='08'>
+<div><p class='kicker'>Connected outputs</p><h2>Architecture links to executable contracts</h2></div><div class='flow'><div class='node'>OpenAPI<small>HTTP operations and schemas</small></div><div class='node'>AsyncAPI<small>Event communication contracts</small></div><div class='node'>Repositories<small>Implementation ownership</small></div><div class='node'>Operations<small>Deployment and evidence</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Architecture relationships link to interface contracts instead of restating them. Repositories identify implementation ownership. Deployment and telemetry provide evidence against the intended design.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The model connects interfaces, code ownership, deployment, and operations.</p></div></aside>
+</section>
+<section class='slide ' data-index='09'>
+<div><p class='kicker'>Enforcement</p><h2>Architecture rules enter the delivery pipeline</h2></div><div class='checks'><div class='check'>Critical elements have owners</div><div class='check'>Relationships state purpose and direction</div><div class='check'>Cross-context dependencies follow policy</div><div class='check'>Public interfaces link to contracts</div><div class='check'>Dynamic views use valid model elements</div><div class='check'>Sensitive changes require affected-owner review</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>The pipeline can lint the model, build diagrams, run policies, and publish accepted views. Errors should name the violated rule and responsible owner.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>CI validates ownership, dependencies, interfaces, and view consistency.</p></div></aside>
+</section>
+<section class='slide ' data-index='10'>
+<div><p class='kicker'>Git and GitOps</p><h2>Git as source of truth and architecture reconciliation</h2></div><div class='flow'><div class='node'>Git source<small>Models, diagrams, ADRs, policies</small></div><div class='node'>Review and merge<small>Affected owners approve change</small></div><div class='node'>Automation<small>Validate and publish views</small></div><div class='node'>Reconciliation<small>Compare declared and observed design</small></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Git holds the accepted LikeC4 and PlantUML sources, Architecture Decision Records, policies, and interface links. Every rendered view identifies the model revision that produced it.</p><p>GitOps-style automation publishes safe projections and compares declared architecture with repositories, contracts, deployment data, and observed interactions. Structural differences create review work because runtime state alone cannot explain architectural intent.</p><p class='mini'>Source: <a href='https://opengitops.dev/'>OpenGitOps principles</a>.</p></div><div data-mode='condensed'><p>Git governs declared architecture. Automation publishes views and detects differences that require design review.</p></div></aside>
+</section>
+<section class='slide ' data-index='11'>
+<div><p class='kicker'>Engineering material</p><h2>Developers and AI receive explicit architecture boundaries</h2></div><div class='contract'><div class='statement'>The model states what may change, which dependencies are allowed, and which contracts require compatibility.</div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Repository structure alone does not always reveal responsibility. The architecture model gives coding agents and developers a precise change boundary and impact surface.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Architecture context constrains implementation and AI generation.</p></div></aside>
+</section>
+<section class='slide ' data-index='12'>
+<div><p class='kicker'>Documentation model</p><h2>Architecture leaves the wiki without abandoning narrative</h2></div><div class='two'><div class='col'><strong>As-Code</strong><p>Current elements, relationships, interfaces, deployment, and checks.</p></div><div class='col'><strong>Wiki and ADRs</strong><p>Principles, onboarding, operational explanation, and decision rationale.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Generate diagrams and architecture pages from LikeC4 and PlantUML. Keep ADRs versioned and linked. Use wiki pages for explanation, not the only current dependency map.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Generated views stay current. Narrative explains choices and operating context.</p></div></aside>
+</section>
+<section class='slide ' data-index='13'>
+<div><p class='kicker'>Actor adaptation</p><h2>Architecture ownership follows the software</h2></div><div class='roles'><div class='role'><strong>Architect</strong><span>Own conventions and cross-system rules</span></div><div class='role'><strong>Developer</strong><span>Update structural changes with code</span></div><div class='role'><strong>Domain</strong><span>Review context and dynamic views</span></div><div class='role'><strong>Platform</strong><span>Maintain deployment references</span></div><div class='role'><strong>Security</strong><span>Define enforceable flow policies</span></div><div class='role'><strong>AI</strong><span>Respect model constraints</span></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>A central architecture team should not edit every team model. Delivery teams own their architecture elements. Architects maintain language, cross-system coherence, and policies.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Teams maintain their structure. Architects govern shared conventions and boundaries.</p></div></aside>
+</section>
+<section class='slide ' data-index='14'>
+<div><p class='kicker'>Change management</p><h2>Start with the views teams actually need</h2></div><div class='timeline'><div class='phase'><b>01</b><strong>Model</strong><p>Create context and container views for one value stream.</p></div><div class='phase'><b>02</b><strong>Link</strong><p>Connect contexts, repositories, and interfaces.</p></div><div class='phase'><b>03</b><strong>Validate</strong><p>Add ownership and dependency rules.</p></div><div class='phase'><b>04</b><strong>Publish</strong><p>Generate views automatically with every accepted change.</p></div></div>
+<aside class='speaker-notes'><div data-mode='full'><p>Use live previews and clear validation errors. Ask teams to update the model in the same change that alters structure. Expand views only when a stakeholder needs them.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Start with useful views, connect them, add rules, and publish automatically.</p></div></aside>
+</section>
+<section class='slide ' data-index='15'>
+<div><p class='kicker'>Outcome</p><h2>Architecture becomes an active contract</h2></div><div class='quote'>C4 communicates. LikeC4 connects. PlantUML adds precision. Delivery keeps the model honest.</div>
+<aside class='speaker-notes'><div data-mode='full'><p>Together, the tools move architecture from static documentation into normal engineering flow. Developers, automation, and AI share one explicit model of system structure and interaction.</p><p class='mini'>Sources: <a href='https://c4model.com/diagrams'>C4 model</a>, <a href='https://likec4.dev/'>LikeC4</a>, <a href='https://plantuml.com/'>PlantUML</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>System Design as Code makes architecture connected, reviewable, and enforceable.</p></div></aside>
+</section>
+</main>
+<div class='controls'><button id='prev' title='Previous'>‹</button><button id='notes' title='Speaker notes'>N</button><button id='next' title='Next'>›</button></div>
+<div class='progress-shell'><div class='progress' id='progress'></div></div>
+<aside class='notes-panel' id='notesPanel'><h3 id='notesTitle'>Speaker notes</h3><div class='notes-mode'><button class='active' data-notes-mode='full'>Full script</button><button data-notes-mode='condensed'>Condensed</button></div><div id='notesContent'></div><div class='help'>Keys: ← → navigate · N notes · F fullscreen · Home/End jump</div></aside>
+<script>const slides=[...document.querySelectorAll('.slide')];
+const progress=document.getElementById('progress');
+const panel=document.getElementById('notesPanel');
+const notesContent=document.getElementById('notesContent');
+const notesTitle=document.getElementById('notesTitle');
+let index=Math.max(0,Math.min(slides.length-1,Number(location.hash.slice(1))-1||0));
+let mode='full';
+function updateNotes(){const source=slides[index].querySelector('[data-mode='+JSON.stringify(mode)+']');notesTitle.textContent='Slide '+(index+1)+' of '+slides.length;notesContent.innerHTML=source?source.innerHTML:'<p>No notes.</p>';}
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle('active',i===index));progress.style.width=((index+1)/slides.length*100)+'%';location.hash=String(index+1);updateNotes();}
+function toggleNotes(){panel.classList.toggle('open');}
+document.getElementById('prev').onclick=()=>show(index-1);
+document.getElementById('next').onclick=()=>show(index+1);
+document.getElementById('notes').onclick=toggleNotes;
+document.querySelectorAll('[data-notes-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.notesMode;document.querySelectorAll('[data-notes-mode]').forEach(x=>x.classList.toggle('active',x===b));updateNotes();});
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='n')toggleNotes();if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}if(e.key==='Escape')panel.classList.remove('open');});
+window.addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1))-1;if(Number.isFinite(n)&&n!==index&&n>=0&&n<slides.length)show(n)});
+show(index);</script></body></html>
