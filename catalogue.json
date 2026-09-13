@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-13T10:50:29.721Z",
+ "generated": "2026-09-13T19:41:58.537Z",
  "items": [
   {
    "id": "significant-prompt-ai-driven-journey-deck",
@@ -890,7 +890,7 @@
    "slides": 15
   },
   {
-   "id": "microcks_for_quality_assurance-deck",
+   "id": "microcks_for_quality_assurance_deck",
    "type": "deck",
    "title": "Microcks for Quality Assurance",
    "date": "2026-09-10",
@@ -905,7 +905,7 @@
    ],
    "summary": "Test the system before the system exists: a controlled simulation layer that lets QA design the conditions reality won't reliably produce.",
    "cover": null,
-   "path": "content/microcks_for_quality_assurance-deck.html",
+   "path": "content/microcks_for_quality_assurance_deck.html",
    "slides": 13
   },
   {
