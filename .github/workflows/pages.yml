@@ -34,6 +34,9 @@ jobs:
           cp index.html article.html catalogue.json _site/
           cp -R css js content _site/
           rm -rf _site/content/_legacy
+          # Belt and braces: keep Pages from ever running Jekyll over the
+          # published tree, which would swallow the front-mattered .md sources.
+          touch _site/.nojekyll
           find _site -name '.DS_Store' -delete
 
       - uses: actions/configure-pages@v5
