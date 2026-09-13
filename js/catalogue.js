@@ -147,8 +147,7 @@
     els.tagbar.innerHTML = `<span class="tagbar-label">Tags</span>${chips}${toggle}`;
   }
 
-  // The filter panel only collapses on phones; the button that opens it is
-  // hidden by the stylesheet everywhere else, so this is a no-op on desktop.
+  // The filter panel starts collapsed behind the Filters button on every screen size.
   function activeFilterCount() {
     return (state.type !== 'all' ? 1 : 0) + (state.series ? 1 : 0) + (state.topic ? 1 : 0) + state.tags.size;
   }
@@ -156,9 +155,8 @@
     els.filters.dataset.open = String(open);
     els.filtersToggle.setAttribute('aria-expanded', String(open));
   }
-  const filtersCollapsible = () => getComputedStyle(els.filtersToggle).display !== 'none';
   function revealFilters() {
-    if (filtersCollapsible()) setFiltersOpen(true);
+    setFiltersOpen(true);
     els.tagbar.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
@@ -315,7 +313,7 @@
     render();
     // Arriving from a tag or topic link: show the panel so the active filter is
     // visible rather than silently hidden behind the collapsed button.
-    if (activeFilterCount() && filtersCollapsible()) setFiltersOpen(true);
+    if (activeFilterCount()) setFiltersOpen(true);
   }
 
   init();

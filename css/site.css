@@ -152,10 +152,27 @@ a:hover { color: var(--accent-strong); }
 .icon-toggle button { border: 0; background: none; color: var(--ink-2); width: 34px; height: 30px; border-radius: 999px; cursor: pointer; display: grid; place-items: center; }
 .icon-toggle button[aria-pressed="true"] { background: var(--bar); color: #fff; }
 
-/* The filter cluster is transparent to layout on wide screens, so its controls
-   stay direct children of the toolbar row; phones turn it into a panel. */
-.filters { display: contents; }
-.filters-toggle { display: none; }
+/* Everything but the search field collapses behind a Filters button on every
+   screen size; the panel starts closed and opens below the search row. */
+.filters-toggle {
+  font: inherit; font-size: .9rem; height: 44px; padding: 0 14px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+}
+.filters-toggle:hover { border-color: var(--accent-strong); }
+.filters-toggle[aria-expanded="true"] { background: var(--bar); border-color: var(--bar); color: #fff; }
+.badge-count {
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  background: var(--accent-strong); color: #1d1d1d;
+  font-size: .72rem; font-weight: 600; line-height: 18px; text-align: center; font-variant-numeric: tabular-nums;
+}
+.filters {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; width: 100%;
+  /* Never taller than the screen: the panel scrolls, the page does not lock. */
+  max-height: 60vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding-top: 2px;
+}
+.filters[data-open="false"] { display: none; }
 
 .tagbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1 0 100%; margin-top: 2px; }
 .tagbar-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-right: 4px; }
@@ -176,8 +193,7 @@ a:hover { color: var(--accent-strong); }
 
 /* On phones the toolbar is taller than the viewport once the tag bar wraps.
    Sticky positioning then pins it over the results for the whole scroll and
-   its own overflow becomes unreachable, so here it scrolls away with the page
-   and everything but the search field collapses behind a Filters button. */
+   its own overflow becomes unreachable, so here it scrolls away with the page. */
 @media (max-width: 640px) {
   .toolbar { position: static; padding-block: 12px; margin-top: 16px; }
   .toolbar-row { gap: 10px; }
@@ -186,25 +202,7 @@ a:hover { color: var(--accent-strong); }
   .search input { padding-right: 52px; }
   .search kbd { display: none; }
 
-  .filters-toggle {
-    font: inherit; font-size: .9rem; height: 44px; padding: 0 14px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-    color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
-  }
-  .filters-toggle[aria-expanded="true"] { background: var(--bar); border-color: var(--bar); color: #fff; }
-  .badge-count {
-    min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
-    background: var(--accent-strong); color: #1d1d1d;
-    font-size: .72rem; font-weight: 600; line-height: 18px; text-align: center; font-variant-numeric: tabular-nums;
-  }
-
-  .filters {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; width: 100%;
-    /* Never taller than the screen: the panel scrolls, the page does not lock. */
-    max-height: 60vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding-top: 2px;
-  }
-  .filters[data-open="false"] { display: none; }
+  .filters { gap: 10px; }
   .filters .segmented { width: 100%; }
   .filters .select { flex: 1 1 calc(50% - 5px); min-width: 0; }
   .tagbar { margin-top: 0; }
