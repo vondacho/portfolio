@@ -9,6 +9,7 @@
   const els = {
     q: $('#q'), clear: $('#q-clear'), kbd: $('#kbd-hint'), types: $('#types'), series: $('#series'), topic: $('#topic'), sort: $('#sort'),
     tagbar: $('#tagbar'), results: $('#results'), count: $('#result-count'), reset: $('#reset'), stats: $('#stats'),
+    filters: $('#filters'), filtersToggle: $('#filters-toggle'), filtersCount: $('#filters-count'),
     views: document.querySelectorAll('[data-view]'),
   };
 
@@ -146,6 +147,21 @@
     els.tagbar.innerHTML = `<span class="tagbar-label">Tags</span>${chips}${toggle}`;
   }
 
+  // The filter panel only collapses on phones; the button that opens it is
+  // hidden by the stylesheet everywhere else, so this is a no-op on desktop.
+  function activeFilterCount() {
+    return (state.type !== 'all' ? 1 : 0) + (state.series ? 1 : 0) + (state.topic ? 1 : 0) + state.tags.size;
+  }
+  function setFiltersOpen(open) {
+    els.filters.dataset.open = String(open);
+    els.filtersToggle.setAttribute('aria-expanded', String(open));
+  }
+  const filtersCollapsible = () => getComputedStyle(els.filtersToggle).display !== 'none';
+  function revealFilters() {
+    if (filtersCollapsible()) setFiltersOpen(true);
+    els.tagbar.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
   function render() {
     const tokens = tokenize(state.q);
     for (const item of items) item._score = score(item, tokens);
@@ -164,6 +180,11 @@
     els.series.value = state.series;
     els.topic.value = state.topic;
     els.sort.value = state.sort;
+
+    const active = activeFilterCount();
+    els.filtersCount.textContent = active;
+    els.filtersCount.hidden = !active;
+    els.filtersToggle.setAttribute('aria-label', active ? `Filters (${active} active)` : 'Filters');
 
     const filtered = state.q || state.type !== 'all' || state.series || state.topic || state.tags.size;
     els.reset.hidden = !filtered;
@@ -215,6 +236,9 @@
       state.type = b.dataset.type;
       render();
     });
+    els.filtersToggle.addEventListener('click', () => {
+      setFiltersOpen(els.filters.dataset.open !== 'true');
+    });
     els.series.addEventListener('change', () => { state.series = els.series.value; render(); });
     els.topic.addEventListener('change', () => { state.topic = els.topic.value; render(); });
     els.sort.addEventListener('change', () => { state.sort = els.sort.value; render(); });
@@ -231,14 +255,14 @@
         const t = tag.dataset.tag;
         state.tags.has(t) ? state.tags.delete(t) : state.tags.add(t);
         render();
-        if (tag.closest('.card')) els.tagbar.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        if (tag.closest('.card')) revealFilters();
         return;
       }
       const topic = e.target.closest('[data-topic]');
       if (topic) {
         state.topic = state.topic === topic.dataset.topic ? '' : topic.dataset.topic;
         render();
-        els.tagbar.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        revealFilters();
         return;
       }
       const more = e.target.closest('[data-more]');
@@ -289,6 +313,9 @@
     renderStats();
     bind();
     render();
+    // Arriving from a tag or topic link: show the panel so the active filter is
+    // visible rather than silently hidden behind the collapsed button.
+    if (activeFilterCount() && filtersCollapsible()) setFiltersOpen(true);
   }
 
   init();
