@@ -50,6 +50,28 @@ These are contract questions. When the answers remain in a workshop or wiki, dev
 
 The model should support narrative definitions and examples as well as machine references. A glossary without context boundaries can create false consistency because the same word may carry different meanings in different contexts.
 
+## A small notation example
+
+The supplied notation separates strategic Context Mapping in `.ddd` files from the model inside one bounded context in `.ddm` files. This compact `.ddm` fragment expresses an aggregate boundary, its purpose, an invariant, and the root entity that protects it.
+
+```ddm
+context "Bounded context name" {
+  aggregate "Submission" {
+    intent    "What this boundary is for."
+    invariant "What must stay true across a transaction."
+
+    root entity "Submission" {
+      id        "SubmissionId"
+      attribute "receivedAt" : "Instant"
+    }
+  }
+}
+```
+
+This fragment comes from the supplied `.ddm` notation. Give the LLM the [DDD doctrine](https://ba-cm.obya.ch/doctrine), [notation](https://ba-cm.obya.ch/notation), and [DSL reference](https://ba-cm.obya.ch/dsl) as explicit generation instructions. The [Context Mapping and Domain Modelling as Code tool](https://ba-cm.obya.ch) keeps the source synchronized with the visual model. The related `.ddd` source records domains, subdomains, bounded contexts, and strategic relationships.
+
+Notation separates strategic `.ddd` maps from tactical `.ddm` models. Doctrine protects honest boundaries, relationship power, language seams, and invariant-led aggregates; AI must not tidy away an uncomfortable dependency or invent a boundary because it looks architecturally convenient. **Notation protects syntax. Doctrine protects the practice.**
+
 ## Strategic design as code
 
 ### Bounded contexts

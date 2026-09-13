@@ -1,5 +1,13 @@
 <!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Story Mapping as Code</title><style>:root{--accent:#6cb6ff}*{box-sizing:border-box}
+<title>Story Mapping as Code</title>
+  <meta name="description" content="The delivery spine of a connected SDLC: journeys, release slices and stable links to domain events, versioned in Git.">
+  <meta name="keywords" content="story-mapping, as-code, product, agile">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="Story Mapping as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Story Mapping"><style>:root{--accent:#6cb6ff}*{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;overflow:hidden}
 body{background:#09090b;color:#f5f0e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 a{color:inherit;text-underline-offset:4px}
@@ -18,6 +26,8 @@ h3{margin:0 0 14px;font-size:clamp(21px,2vw,33px);line-height:1.08}
 p{margin-top:0}
 .lead{max-width:860px;color:#d0c9c0;font-size:clamp(21px,2vw,33px);line-height:1.32}
 .light .lead{color:#514c48}
+.tool-link{margin:18px 0 0;color:#ffd34e;font-size:clamp(16px,1.2vw,20px);font-weight:720}
+.tool-link a{color:inherit}
 .accent{color:var(--accent)}
 .muted{color:#ada69d}
 .two,.three{align-self:center;display:grid;gap:5vw}
@@ -42,6 +52,11 @@ p{margin-top:0}
 .node small{display:block;margin-top:12px;color:#aaa39b;font-size:clamp(13px,1vw,17px);font-weight:540;line-height:1.35}
 .contract{align-self:center;padding:28px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25)}
 .contract .statement{max-width:1150px;font-size:clamp(29px,3vw,50px);font-weight:780;line-height:1.18}
+.code-wrap{align-self:center}
+.code-sample{width:min(940px,94%);margin:0;padding:22px 28px;border-left:6px solid var(--accent);color:#e8e1d8;background:#111115;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:clamp(13px,1.05vw,17px);line-height:1.32;white-space:pre;overflow:auto}
+.code-wrap .mini{margin:14px 0 0}
+.light .code-wrap .mini{color:#514c48}
+.light .code-wrap a{color:var(--accent);font-weight:720}
 .checks{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:18px 70px}
 .check{padding:16px 0 18px 30px;border-bottom:1px solid rgba(245,240,231,.2);font-size:clamp(17px,1.45vw,24px);font-weight:660;position:relative}
 .check:before{content:'✓';position:absolute;left:0;color:var(--accent)}
@@ -79,7 +94,7 @@ p{margin-top:0}
 @media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}</style></head><body>
 <main class='deck' aria-label='Story Mapping as Code presentation'>
 <section class='slide cover active' data-index='01'>
-<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Story Mapping<br><span class='accent'>as Code</span></h1><p class='lead'>The delivery spine and source for ticketing</p><div class='orb' aria-hidden='true'></div></div>
+<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Story Mapping<br><span class='accent'>as Code</span></h1><p class='lead'>The delivery spine and source for ticketing</p><p class='tool-link'>Digital tool: <a href='https://doc-sm.obya.ch'>doc-sm.obya.ch</a></p><div class='orb' aria-hidden='true'></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Story Mapping preserves the user journey and defines coherent release slices. As-Code makes the map authoritative and supplies contextualized work to ticketing.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The Story Map governs journey and release meaning. Ticketing consumes it.</p></div></aside>
 </section>
 <section class='slide ' data-index='02'>
@@ -90,47 +105,60 @@ p{margin-top:0}
 <div><p class='kicker'>Digital contract</p><h2>What the Story Map governs</h2></div><div class='bands'><div class='band'><strong>Journey</strong><span>Users, outcomes, activities, tasks, narrative order</span></div><div class='band'><strong>Delivery</strong><span>Stories, release slices, slice objectives, dependencies</span></div><div class='band'><strong>Connections</strong><span>Pivotal events, rules, examples, contexts, components</span></div><div class='band'><strong>Identity</strong><span>Stable story and slice identifiers with revisions</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The map owns the journey, outcome, story scope, and release structure. Stable identities let tickets and examples reference that meaning without copying it.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The digital contract protects journey, slices, connections, and identity.</p></div></aside>
 </section>
-<section class='slide ' data-index='04'>
+<section class='slide light' data-index='04'>
+<div><p class='kicker'>As-Code in practice</p><h2>The visual map has a declarative source</h2></div>
+<div class='code-wrap'><pre class='code-sample'>storymap "Title" {
+  delivery "Sprint 24" sprint #CLONB-S24
+  activity "Discover documentation" {
+    persona "Business analyst"
+    step "Search the catalog" {
+      story "Full-text search" @"Sprint 24" #CLONB-42 ~in-progress
+    }
+  }
+  }</pre><p class='mini'><strong>Notation protects syntax. Doctrine protects the practice.</strong><br>LLM instructions: <a href='https://doc-sm.obya.ch/doctrine'>Doctrine</a> · <a href='https://doc-sm.obya.ch/notation'>Notation</a> · <a href='https://doc-sm.obya.ch/dsl'>DSL</a><br>Visual editor: <a href='https://doc-sm.obya.ch'>doc-sm.obya.ch</a></p></div>
+<aside class='speaker-notes'><div data-mode='full'><p>This fragment uses the supplied Story Mapping notation. The hierarchy preserves the activity, the user step, and the story. An annotation connects the story to a delivery, a real ticket, and its workflow status.</p><p>The digital tool keeps this source synchronized with the visual map. Notation keeps the source valid; doctrine preserves the journey, coherent slices, unscheduled work, and the boundary between product meaning and ticket state.</p></div><div data-mode='condensed'><p>The map and source stay synchronized; notation protects syntax and doctrine protects the Story Mapping practice.</p></div></aside>
+</section>
+<section class='slide ' data-index='05'>
 <div><p class='kicker'>Map structure</p><h2>The backbone keeps work in context</h2></div><div class='three'><div class='col'><strong>Backbone</strong><p>Activities tell the journey from left to right.</p></div><div class='col'><strong>Details</strong><p>Tasks, stories, alternatives, and exceptions deepen each activity.</p></div><div class='col'><strong>Release slices</strong><p>Horizontal cuts select a coherent outcome.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The two-dimensional structure matters. The backbone tells the narrative, details sit beneath it, and release slices select viable outcomes. The coded model must preserve these relationships.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Backbone, detail, and release slices carry different product meaning.</p></div></aside>
 </section>
-<section class='slide ' data-index='05'>
+<section class='slide ' data-index='06'>
 <div><p class='kicker'>Connected input</p><h2>Pivotal events anchor the journey</h2></div><div class='flow'><div class='node'>User intent<small>Outcome and actor</small></div><div class='node'>Pivotal events<small>Meaningful transitions</small></div><div class='node'>Activities<small>Journey backbone</small></div><div class='node'>Release slices<small>Coherent delivery</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Event Storming provides actors and pivotal events. Story Mapping reorganizes that knowledge around the user journey and release decisions. The connection preserves domain meaning through product planning.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Pivotal events connect domain discovery to activities and releases.</p></div></aside>
 </section>
-<section class='slide ' data-index='06'>
+<section class='slide ' data-index='07'>
 <div><p class='kicker'>Ticketing contract</p><h2>The Story Map supplies contextualized tickets</h2></div><div class='bands'><div class='band'><strong>Story Map owns</strong><span>Outcome, journey position, story scope, release slice</span></div><div class='band'><strong>Ticket inherits</strong><span>Stable ID, pivotal events, rules, examples, model revision</span></div><div class='band'><strong>Ticket owns</strong><span>Assignee, workflow state, sprint, delivery timestamps</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>This ownership rule prevents two sources of truth. The map owns product meaning. Ticketing owns operational workflow. Shared fields follow a defined synchronization policy.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The map owns meaning. Ticketing owns workflow.</p></div></aside>
 </section>
-<section class='slide ' data-index='07'>
+<section class='slide ' data-index='08'>
 <div><p class='kicker'>Connected outputs</p><h2>One story feeds the rest of delivery</h2></div><div class='flow'><div class='node'>Example Map<small>Rules and questions</small></div><div class='node'>DDD<small>Contexts and language</small></div><div class='node'>System Design<small>Affected components</small></div><div class='node'>Code and tests<small>Implementation evidence</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>A selected story keeps links to examples, contexts, architecture, code, and tests. Developers navigate from ticket workflow back to product and domain intent.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Stories connect acceptance, domain, architecture, implementation, and evidence.</p></div></aside>
 </section>
-<section class='slide ' data-index='08'>
+<section class='slide ' data-index='09'>
 <div><p class='kicker'>Enforcement</p><h2>The delivery contract becomes checkable</h2></div><div class='checks'><div class='check'>Every story belongs to a journey activity</div><div class='check'>Every release slice names an outcome</div><div class='check'>Generated tickets retain source identifiers</div><div class='check'>Committed stories expose readiness gaps</div><div class='check'>Broken domain or example links fail</div><div class='check'>Released slices require reviewed changes</div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The strongest checks apply when a slice becomes committed. Earlier discovery may tolerate gaps. CI and ticket synchronization should respect that maturity state.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Validation strengthens as a slice moves from discovery to commitment.</p></div></aside>
 </section>
-<section class='slide ' data-index='09'>
+<section class='slide ' data-index='10'>
 <div><p class='kicker'>Git and GitOps</p><h2>Git as source of truth and ticket reconciliation</h2></div><div class='flow'><div class='node'>Git source<small>Journey, stories, slices, references</small></div><div class='node'>Review and merge<small>Product owners accept delivery intent</small></div><div class='node'>Ticket projection<small>Create and update governed fields</small></div><div class='node'>Reconciliation<small>Detect drift without losing workflow data</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Git holds the accepted Story Map revision. GitOps-style automation pulls it and reconciles the product fields that the map owns, including journey position, scope, slice, and contextual references.</p><p>Ticketing continues to own assignment, workflow state, sprint data, comments, and delivery timestamps. The ownership policy prevents synchronization from overwriting operational work.</p><p class='mini'>Source: <a href='https://opengitops.dev/'>OpenGitOps principles</a>.</p></div><div data-mode='condensed'><p>Git governs journey and release intent. Automation aligns ticket context while ticketing retains workflow state.</p></div></aside>
 </section>
-<section class='slide ' data-index='10'>
+<section class='slide ' data-index='11'>
 <div><p class='kicker'>Engineering material</p><h2>The ticket arrives with its reason and boundaries</h2></div><div class='contract'><div class='statement'>Developers see where the story sits, which outcome it supports, and which contracts constrain it.</div><p class='mini'>AI plans and implements against the same journey and release context.</p></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The Story Map gives developers and AI the context that a flat ticket lacks. Adjacent steps, outcomes, domain events, rules, and affected components become navigable.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Developers and AI receive the journey behind the work.</p></div></aside>
 </section>
-<section class='slide ' data-index='11'>
+<section class='slide ' data-index='12'>
 <div><p class='kicker'>Documentation model</p><h2>The wiki explains the journey without duplicating it</h2></div><div class='two'><div class='col'><strong>Story Map</strong><p>Authoritative backbone, stories, release slices, and references.</p></div><div class='col'><strong>Wiki</strong><p>Strategy narrative, personas, onboarding, and generated release views.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The wiki remains useful for narrative and onboarding. It should embed or link to generated views instead of maintaining a second release plan.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The map governs product structure. The wiki provides narrative.</p></div></aside>
 </section>
-<section class='slide ' data-index='12'>
+<section class='slide ' data-index='13'>
 <div><p class='kicker'>Actor adaptation</p><h2>Product meaning gains shared ownership</h2></div><div class='roles'><div class='role'><strong>Product</strong><span>Own outcomes, backbone, and slices</span></div><div class='role'><strong>Delivery</strong><span>Plan through coherent slices</span></div><div class='role'><strong>Developer</strong><span>Use journey and contract links</span></div><div class='role'><strong>QA</strong><span>Track readiness through examples</span></div><div class='role'><strong>Architect</strong><span>Expose cross-system slice impact</span></div><div class='role'><strong>AI</strong><span>Reason about releases as journeys</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Ticketing remains essential, so adoption should not frame it as removal. The change is authority: product meaning lives in the map, and workflow state lives in ticketing.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Each role keeps its operational tool while sharing the Story Map contract.</p></div></aside>
 </section>
-<section class='slide ' data-index='13'>
+<section class='slide ' data-index='14'>
 <div><p class='kicker'>Change management</p><h2>A safe migration from backlog-first delivery</h2></div><div class='timeline'><div class='phase'><b>01</b><strong>Map</strong><p>Reconstruct one active journey from current work.</p></div><div class='phase'><b>02</b><strong>Generate</strong><p>Create new tickets from the accepted map.</p></div><div class='phase'><b>03</b><strong>Link</strong><p>Add examples, contexts, and components.</p></div><div class='phase'><b>04</b><strong>Synchronize</strong><p>Automate only after ownership is clear.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Begin with one release and one-way ticket generation. Keep delivery fields local. Add controlled synchronization only after the team trusts the source relationship.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>Start with one release, one-way generation, and explicit field ownership.</p></div></aside>
 </section>
-<section class='slide ' data-index='14'>
+<section class='slide ' data-index='15'>
 <div><p class='kicker'>Outcome</p><h2>The Story Map becomes the delivery spine</h2></div><div class='quote'>Tickets coordinate work. The Story Map preserves why the work belongs together.</div>
 <aside class='speaker-notes'><div data-mode='full'><p>This arrangement connects discovery, planning, ticketing, examples, architecture, and delivery without flattening the user journey.</p><p class='mini'>Sources: <a href='https://jpattonassociates.com/user-story-mapping-presentation/'>Jeff Patton, User Story Mapping</a> and <a href='https://doc-sm.obya.ch'>Story Mapping as Code</a>.</p></div><div data-mode='condensed'><p>The map preserves intent while ticketing coordinates execution.</p></div></aside>
 </section>

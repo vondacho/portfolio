@@ -50,6 +50,32 @@ Example Mapping as Code records the accepted state of that conversation.
 
 The as-code representation should preserve the map’s semantics without forcing every example into executable syntax immediately.
 
+## A small notation example
+
+The `.examplemap` notation records the story and the conversation around it. A rule holds concrete examples, and each example can express repeatable `given`, `when`, and `then` steps that naturally feed executable scenarios.
+
+```examplemap
+examplemap "Title" {
+  story "Redeem a voucher" {
+    as   "Returning customer"
+    want "to apply a voucher code at checkout"
+    so   "I pay the price I was promised"
+  }
+
+  rule "A voucher must not be expired" {
+    example "A voucher that expired yesterday is refused" {
+      given "a voucher SUMMER10 that expired on 2026-08-21"
+      when  "the voucher is applied"
+      then  "the voucher is refused"
+    }
+  }
+}
+```
+
+This fragment comes from the supplied `.examplemap` notation. Give the LLM the [Example Mapping doctrine](https://doc-em.obya.ch/doctrine), [notation](https://doc-em.obya.ch/notation), and [DSL reference](https://doc-em.obya.ch/dsl) as explicit generation instructions. The [Example Mapping as Code tool](https://doc-em.obya.ch) keeps this source synchronized with the visual map.
+
+Notation formalises stories, rules, examples, and questions. Doctrine requires concrete cases and preserved uncertainty: AI must not answer red questions, invent accepted examples, or prematurely replace the `.examplemap` discovery source with generated `.feature` output. **Notation protects syntax. Doctrine protects the practice.**
+
 ## Connection to Story Mapping and ticketing
 
 Story Mapping selects a story for a release slice. The story keeps the identifier that Example Mapping uses. A ticket generated from that story can show:

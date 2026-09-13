@@ -1,5 +1,13 @@
 <!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Event Storming as Code</title><style>:root{--accent:#ff7a33}*{box-sizing:border-box}
+<title>Event Storming as Code</title>
+  <meta name="description" content="Turning Event Storming boards into a digital contract that Story Mapping, Example Mapping, DDD and system design can consume.">
+  <meta name="keywords" content="event-storming, as-code, ddd, contract-driven">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="Event Storming as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Event Storming"><style>:root{--accent:#ff7a33}*{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;overflow:hidden}
 body{background:#09090b;color:#f5f0e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 a{color:inherit;text-underline-offset:4px}
@@ -18,6 +26,8 @@ h3{margin:0 0 14px;font-size:clamp(21px,2vw,33px);line-height:1.08}
 p{margin-top:0}
 .lead{max-width:860px;color:#d0c9c0;font-size:clamp(21px,2vw,33px);line-height:1.32}
 .light .lead{color:#514c48}
+.tool-link{margin:18px 0 0;color:#ffd34e;font-size:clamp(16px,1.2vw,20px);font-weight:720}
+.tool-link a{color:inherit}
 .accent{color:var(--accent)}
 .muted{color:#ada69d}
 .two,.three{align-self:center;display:grid;gap:5vw}
@@ -42,6 +52,11 @@ p{margin-top:0}
 .node small{display:block;margin-top:12px;color:#aaa39b;font-size:clamp(13px,1vw,17px);font-weight:540;line-height:1.35}
 .contract{align-self:center;padding:28px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25)}
 .contract .statement{max-width:1150px;font-size:clamp(29px,3vw,50px);font-weight:780;line-height:1.18}
+.code-wrap{align-self:center}
+.code-sample{width:min(940px,94%);margin:0;padding:22px 28px;border-left:6px solid var(--accent);color:#e8e1d8;background:#111115;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:clamp(13px,1.05vw,17px);line-height:1.32;white-space:pre;overflow:auto}
+.code-wrap .mini{margin:14px 0 0}
+.light .code-wrap .mini{color:#514c48}
+.light .code-wrap a{color:var(--accent);font-weight:720}
 .checks{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:18px 70px}
 .check{padding:16px 0 18px 30px;border-bottom:1px solid rgba(245,240,231,.2);font-size:clamp(17px,1.45vw,24px);font-weight:660;position:relative}
 .check:before{content:'✓';position:absolute;left:0;color:var(--accent)}
@@ -79,7 +94,7 @@ p{margin-top:0}
 @media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}</style></head><body>
 <main class='deck' aria-label='Event Storming as Code presentation'>
 <section class='slide cover active' data-index='01'>
-<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Event Storming<br><span class='accent'>as Code</span></h1><p class='lead'>A digital contract from Big Picture to System Design</p><div class='orb' aria-hidden='true'></div></div>
+<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Event Storming<br><span class='accent'>as Code</span></h1><p class='lead'>A digital contract from Big Picture to System Design</p><p class='tool-link'>Digital tool: <a href='https://doc-es.obya.ch'>doc-es.obya.ch</a></p><div class='orb' aria-hidden='true'></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Event Storming becomes the first structured account of business behavior. The board remains collaborative, while the coded model connects discovery to product, domain, architecture, and delivery work.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>The board supports discovery. The coded model preserves behavior and connects it to delivery.</p></div></aside>
 </section>
 <section class='slide ' data-index='02'>
@@ -94,39 +109,54 @@ p{margin-top:0}
 <div><p class='kicker'>Digital contract</p><h2>What the model governs</h2></div><div class='bands'><div class='band'><strong>Behavior</strong><span>Events, commands, policies, decisions, alternate paths</span></div><div class='band'><strong>Participation</strong><span>Actors, external systems, owners, affected teams</span></div><div class='band'><strong>Uncertainty</strong><span>Hotspots, questions, assumptions, confidence</span></div><div class='band'><strong>Identity</strong><span>Stable references, provenance, revision history</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The contract governs the current understanding, not an immutable truth. It preserves behavior, participants, uncertainty, and identity so downstream models can reference the discovery safely.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>The contract records behavior, participants, open questions, and durable identity.</p></div></aside>
 </section>
-<section class='slide ' data-index='05'>
+<section class='slide light' data-index='05'>
+<div><p class='kicker'>As-Code in practice</p><h2>The visual wall has a declarative source</h2></div>
+<div class='code-wrap'><pre class='code-sample'>eventstorm "Title" {
+  lane "Customer" {
+    actor "Hungry customer" @1
+    event "Menu opened" @1
+    event "Order placed" @3 +revenue
+  }
+  lane "Payments" {
+    command "Take the payment" @3
+    event "Payment requested" @4
+  }
+  }</pre><p class='mini'><strong>Notation protects syntax. Doctrine protects the practice.</strong><br>LLM instructions: <a href='https://doc-es.obya.ch/doctrine'>Doctrine</a> · <a href='https://doc-es.obya.ch/notation'>Notation</a> · <a href='https://doc-es.obya.ch/dsl'>DSL</a><br>Visual editor: <a href='https://doc-es.obya.ch'>doc-es.obya.ch</a></p></div>
+<aside class='speaker-notes'><div data-mode='full'><p>This fragment uses the supplied Event Storming notation. Lanes place participants or systems down the wall. The column marker places each card in time. The keyword determines the card type and its visual treatment.</p><p>The digital tool keeps this text and the visual wall synchronized. Notation keeps the source valid; doctrine prevents AI from resolving hotspots, erasing disagreement, or inventing domain facts.</p></div><div data-mode='condensed'><p>The board and source stay synchronized; notation protects syntax and doctrine protects the Event Storming practice.</p></div></aside>
+</section>
+<section class='slide ' data-index='06'>
 <div><p class='kicker'>Connected inputs</p><h2>Evidence enters the model</h2></div><div class='flow'><div class='node'>User journey<small>Intent and outcomes</small></div><div class='node'>Domain experts<small>Language and decisions</small></div><div class='node'>Operational evidence<small>Observed behavior and failures</small></div><div class='node'>Existing systems<small>Constraints and dependencies</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The model combines product intent with expert knowledge and operational evidence. AI may propose the first Big Picture, but people correct language, expose assumptions, and decide what the system should mean.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>AI can seed the board. Experts and evidence make it credible.</p></div></aside>
 </section>
-<section class='slide ' data-index='06'>
+<section class='slide ' data-index='07'>
 <div><p class='kicker'>Connected outputs</p><h2>Discovery supplies every downstream discipline</h2></div><div class='bands'><div class='band'><strong>Story Mapping</strong><span>Pivotal events and actors shape the journey backbone</span></div><div class='band'><strong>Example Mapping</strong><span>Policies, branches, and hotspots become rules and cases</span></div><div class='band'><strong>DDD</strong><span>Language and behavior inform contexts and models</span></div><div class='band'><strong>System Design</strong><span>Actors, systems, commands, and events shape architecture</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The outputs retain identifiers. Product can reference pivotal events, QA can reference policies, DDD can reference language, and architecture can reference actors and external systems. The model becomes connected rather than copied.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>Stable references carry discovery into product, quality, domain, and architecture work.</p></div></aside>
 </section>
-<section class='slide ' data-index='07'>
+<section class='slide ' data-index='08'>
 <div><p class='kicker'>Enforcement</p><h2>As-Code makes the domain contract checkable</h2></div><div class='checks'><div class='check'>Broken references fail validation</div><div class='check'>Unowned external dependencies remain visible</div><div class='check'>Committed flows expose unresolved blockers</div><div class='check'>Changed events trigger impact review</div><div class='check'>AI proposals retain provenance</div><div class='check'>CI publishes only valid models</div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Serialization is the foundation. Schemas, semantic checks, review, and CI provide enforcement. Discovery remains permissive, while Process Modelling and System Design adopt stronger checks as decisions mature.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>Schemas and CI enforce stronger rules as the model gains precision.</p></div></aside>
 </section>
-<section class='slide ' data-index='08'>
+<section class='slide ' data-index='09'>
 <div><p class='kicker'>Git and GitOps</p><h2>Git as source of truth and domain-model reconciliation</h2></div><div class='flow'><div class='node'>Git source<small>Accepted model and full history</small></div><div class='node'>Review and merge<small>Domain and delivery owners approve intent</small></div><div class='node'>Automation<small>Validate, generate, publish</small></div><div class='node'>Reconciliation<small>Detect drift and propose change</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The visual board remains the collaborative interface. Git holds the reviewed Event Storming model and identifies the accepted revision for downstream use. GitOps-style automation pulls that revision, regenerates permitted projections, and detects stale Story Map, ticket, example, or architecture references.</p><p>Discovery still needs human judgment. The loop may update a generated view automatically, but a change to domain meaning returns to the responsible people for review.</p><p class='mini'>Source: <a href='https://opengitops.dev/'>OpenGitOps principles</a>.</p></div><div data-mode='condensed'><p>Git records accepted domain intent. Automation publishes it and surfaces drift without rewriting domain meaning.</p></div></aside>
 </section>
-<section class='slide ' data-index='09'>
+<section class='slide ' data-index='10'>
 <div><p class='kicker'>Engineering material</p><h2>Developers and AI receive the domain behind the ticket</h2></div><div class='contract'><div class='statement'>Events, rules, examples, boundaries, and intent arrive together.</div><p class='mini'>Developer tools can navigate and validate the same model that AI uses for generation.</p></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The developer no longer receives a flat ticket detached from discovery. Their tooling can follow the event, examples, context, and architecture references. AI works from the same validated material.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>Developers, tools, and AI share the accepted domain context.</p></div></aside>
 </section>
-<section class='slide ' data-index='10'>
+<section class='slide ' data-index='11'>
 <div><p class='kicker'>Documentation model</p><h2>The wiki becomes a publication surface</h2></div><div class='two'><div class='col'><strong>Authoritative</strong><p>The as-code model owns elements, relationships, identities, and current behavior.</p></div><div class='col'><strong>Explanatory</strong><p>The wiki teaches, narrates, embeds generated views, and links to the source revision.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The wiki remains useful for learning and narrative. It stops carrying the only current definition of behavior. Generated projections can appear there, clearly linked to their model revision.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>The model governs behavior. The wiki explains and publishes it.</p></div></aside>
 </section>
-<section class='slide ' data-index='11'>
+<section class='slide ' data-index='12'>
 <div><p class='kicker'>Actor adaptation</p><h2>Every participant gains a new responsibility</h2></div><div class='roles'><div class='role'><strong>Domain expert</strong><span>Review living language and events</span></div><div class='role'><strong>Product</strong><span>Use pivotal events in the Story Map</span></div><div class='role'><strong>Developer</strong><span>Follow discovery references from tickets</span></div><div class='role'><strong>QA</strong><span>Extract risks and examples early</span></div><div class='role'><strong>Architect</strong><span>Connect systems and boundaries</span></div><div class='role'><strong>AI</strong><span>Propose changes with provenance</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Adoption works when each actor receives a benefit and a clear responsibility. The facilitator no longer owns all maintenance. Meaning stays with domain and product participants, while engineering teams maintain downstream connections.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>Ownership spreads across domain, product, delivery, quality, and architecture.</p></div></aside>
 </section>
-<section class='slide ' data-index='12'>
+<section class='slide ' data-index='13'>
 <div><p class='kicker'>Change management</p><h2>A four-step adoption path</h2></div><div class='timeline'><div class='phase'><b>01</b><strong>Pilot</strong><p>Choose one value stream where workshop output currently decays.</p></div><div class='phase'><b>02</b><strong>Connect</strong><p>Generate one needed downstream artifact.</p></div><div class='phase'><b>03</b><strong>Enforce</strong><p>Add a few high-value semantic checks.</p></div><div class='phase'><b>04</b><strong>Scale</strong><p>Expand only after teams trust the workflow.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Start where translation loss hurts. Deliver one immediate benefit, such as Story Map seeds or ticket context. Add enforcement after ownership and vocabulary become clear. Scale through reusable schemas and coaching.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>Prove value in one flow, then add connections and enforcement.</p></div></aside>
 </section>
-<section class='slide ' data-index='13'>
+<section class='slide ' data-index='14'>
 <div><p class='kicker'>Outcome</p><h2>From workshop memory to delivery contract</h2></div><div class='quote'>Event Storming becomes the living behavioral source for a connected SDLC.</div>
 <aside class='speaker-notes'><div data-mode='full'><p>The visual board continues to support exploration. The coded model preserves what the group learned and gives developers, tools, and AI the material required for sound delivery.</p><p class='mini'>Sources: <a href='https://www.eventstorming.com/patterns/'>EventStorming patterns</a> and <a href='https://doc-es.obya.ch'>Event Storming as Code</a>.</p></div><div data-mode='condensed'><p>The board enables discovery. The digital contract carries it into delivery.</p></div></aside>
 </section>

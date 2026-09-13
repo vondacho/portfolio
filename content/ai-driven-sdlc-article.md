@@ -32,6 +32,47 @@ The strategic message explains the role of Software Intent as Code. It provides 
 
 The technical message explains the mechanism. Normalised, versioned models give AI structured input at every transition. AI can generate and analyse changes against the same accepted intent that guides people, tools, validation, and production evidence.
 
+## AI needs doctrine as well as notation
+
+Machine-readable input is necessary, but it is not sufficient. A model can be syntactically valid and still violate the practice that gives it meaning.
+
+**Notation tells AI what model it may express. Doctrine tells AI what a useful model must mean. The DSL tells AI the exact file it may write.**
+
+The three documents form explicit, versionable instructions for the LLM:
+
+- **Doctrine** defines the intent of the practice, its quality signals, the uncertainty that must be preserved, and the decisions AI must not make.
+- **Notation** explains the available modelling elements, relationships, and how they represent the visual practice.
+- **DSL** defines the exact grammar and file format that generated output must satisfy.
+
+Together they let an LLM generate a practice-aware proposal, a parser reject malformed output, and a visual tool keep code and board synchronized.
+
+> **Notation protects syntax. Doctrine protects the practice.**
+
+The distinction is concrete across the lifecycle:
+
+| Practice | As-Code source | LLM instruction set |
+| --- | --- | --- |
+| Event Storming | `.eventstorm` | [Doctrine](https://doc-es.obya.ch/doctrine) · [Notation](https://doc-es.obya.ch/notation) · [DSL](https://doc-es.obya.ch/dsl) |
+| Story Mapping | `.storymap` | [Doctrine](https://doc-sm.obya.ch/doctrine) · [Notation](https://doc-sm.obya.ch/notation) · [DSL](https://doc-sm.obya.ch/dsl) |
+| Example Mapping | `.examplemap` | [Doctrine](https://doc-em.obya.ch/doctrine) · [Notation](https://doc-em.obya.ch/notation) · [DSL](https://doc-em.obya.ch/dsl) |
+| Context Mapping and Domain Modelling | `.ddd`, `.ddm` | [Doctrine](https://ba-cm.obya.ch/doctrine) · [Notation](https://ba-cm.obya.ch/notation) · [DSL](https://ba-cm.obya.ch/dsl) |
+
+The doctrine constrains Event Storming to preserve temporal and causal reasoning, Story Mapping to preserve the journey and coherent slices, Example Mapping to preserve concrete examples and open questions, and DDD to preserve honest boundaries, relationship power, language seams, and invariant-led aggregates.
+
+The generation path therefore needs more than a prompt:
+
+```text
+Current model + requested change + notation + doctrine
+                         ↓
+                    AI proposal
+                         ↓
+          Parser, schema, and semantic validation
+                         ↓
+                 Human review and merge
+```
+
+AI should normally produce a proposal or diff with provenance, not silently replace accepted truth. Parsers and schemas verify that the proposal is well formed. Semantic rules test enforceable constraints. Reviewers decide whether the model is true, useful, and ready to become the next accepted source revision.
+
 ## Code generation starts too late
 
 A coding agent usually receives a repository, a ticket, and perhaps a few documents. It can infer patterns from source code and produce a plausible change. The repository, however, mostly explains what the system has become. A flat ticket compresses product and domain knowledge into a small delivery unit. Wiki pages may describe an earlier understanding that no longer matches the implementation.

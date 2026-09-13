@@ -1,5 +1,13 @@
 <!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Example Mapping as Code</title><style>:root{--accent:#80c995}*{box-sizing:border-box}
+<title>Example Mapping as Code</title>
+  <meta name="description" content="From a short focused conversation to behavioural contracts that tests, developers and AI can rely on.">
+  <meta name="keywords" content="example-mapping, as-code, bdd, testing">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="Example Mapping as Code">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Example Mapping"><style>:root{--accent:#80c995}*{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;overflow:hidden}
 body{background:#09090b;color:#f5f0e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 a{color:inherit;text-underline-offset:4px}
@@ -18,6 +26,8 @@ h3{margin:0 0 14px;font-size:clamp(21px,2vw,33px);line-height:1.08}
 p{margin-top:0}
 .lead{max-width:860px;color:#d0c9c0;font-size:clamp(21px,2vw,33px);line-height:1.32}
 .light .lead{color:#514c48}
+.tool-link{margin:18px 0 0;color:#ffd34e;font-size:clamp(16px,1.2vw,20px);font-weight:720}
+.tool-link a{color:inherit}
 .accent{color:var(--accent)}
 .muted{color:#ada69d}
 .two,.three{align-self:center;display:grid;gap:5vw}
@@ -42,6 +52,11 @@ p{margin-top:0}
 .node small{display:block;margin-top:12px;color:#aaa39b;font-size:clamp(13px,1vw,17px);font-weight:540;line-height:1.35}
 .contract{align-self:center;padding:28px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25)}
 .contract .statement{max-width:1150px;font-size:clamp(29px,3vw,50px);font-weight:780;line-height:1.18}
+.code-wrap{align-self:center}
+.code-sample{width:min(940px,94%);margin:0;padding:22px 28px;border-left:6px solid var(--accent);color:#e8e1d8;background:#111115;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:clamp(13px,1.05vw,17px);line-height:1.32;white-space:pre;overflow:auto}
+.code-wrap .mini{margin:14px 0 0}
+.light .code-wrap .mini{color:#514c48}
+.light .code-wrap a{color:var(--accent);font-weight:720}
 .checks{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:18px 70px}
 .check{padding:16px 0 18px 30px;border-bottom:1px solid rgba(245,240,231,.2);font-size:clamp(17px,1.45vw,24px);font-weight:660;position:relative}
 .check:before{content:'✓';position:absolute;left:0;color:var(--accent)}
@@ -79,7 +94,7 @@ p{margin-top:0}
 @media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}</style></head><body>
 <main class='deck' aria-label='Example Mapping as Code presentation'>
 <section class='slide cover active' data-index='01'>
-<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Example Mapping<br><span class='accent'>as Code</span></h1><p class='lead'>Behavioral contracts from conversation to executable evidence</p><div class='orb' aria-hidden='true'></div></div>
+<div><p class='kicker'>Connected and Contract-Driven SDLC</p><h1>Example Mapping<br><span class='accent'>as Code</span></h1><p class='lead'>Behavioral contracts from conversation to executable evidence</p><p class='tool-link'>Digital tool: <a href='https://doc-em.obya.ch'>doc-em.obya.ch</a></p><div class='orb' aria-hidden='true'></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Example Mapping turns a story into rules, concrete examples, and visible questions. As-Code makes that result versioned, connected, and testable.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The map becomes a behavioral contract that connects product intent to tests.</p></div></aside>
 </section>
 <section class='slide ' data-index='02'>
@@ -94,43 +109,60 @@ p{margin-top:0}
 <div><p class='kicker'>Digital contract</p><h2>What Example Mapping governs</h2></div><div class='bands'><div class='band'><strong>Scope</strong><span>Story and rule identifiers</span></div><div class='band'><strong>Behavior</strong><span>Starting context, action, observable outcome</span></div><div class='band'><strong>Uncertainty</strong><span>Question status, owner, readiness effect</span></div><div class='band'><strong>Evidence</strong><span>Scenario, test, result, and source revision links</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The contract separates accepted behavior from generated automation. Stable identifiers keep examples connected even when teams improve their wording.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The model governs scope, behavior, uncertainty, and evidence.</p></div></aside>
 </section>
-<section class='slide ' data-index='05'>
+<section class='slide light' data-index='05'>
+<div><p class='kicker'>As-Code in practice</p><h2>The visual map has a declarative source</h2></div>
+<div class='code-wrap'><pre class='code-sample'>examplemap "Title" {
+  story "Redeem a voucher" {
+    as   "Returning customer"
+    want "to apply a voucher code at checkout"
+  }
+  rule "A voucher must not be expired" {
+    example "A voucher that expired yesterday is refused" {
+      given "a voucher SUMMER10 that expired on 2026-08-21"
+      when  "the voucher is applied"
+      then  "the voucher is refused"
+    }
+  }
+}</pre><p class='mini'><strong>Notation protects syntax. Doctrine protects the practice.</strong><br>LLM instructions: <a href='https://doc-em.obya.ch/doctrine'>Doctrine</a> · <a href='https://doc-em.obya.ch/notation'>Notation</a> · <a href='https://doc-em.obya.ch/dsl'>DSL</a><br>Visual editor: <a href='https://doc-em.obya.ch'>doc-em.obya.ch</a></p></div>
+<aside class='speaker-notes'><div data-mode='full'><p>This fragment uses the supplied Example Mapping notation. It records the story, a rule, and a concrete example. The given, when, and then lines make the example suitable as input to executable acceptance work.</p><p>The digital tool keeps the code and visual cards synchronized. Notation keeps the source valid; doctrine requires concrete cases, preserves red questions, and prevents AI from inventing accepted examples.</p></div><div data-mode='condensed'><p>The cards and source stay synchronized; notation protects syntax and doctrine protects the Example Mapping practice.</p></div></aside>
+</section>
+<section class='slide ' data-index='06'>
 <div><p class='kicker'>Connected inputs</p><h2>Stories and domain behavior seed the conversation</h2></div><div class='flow'><div class='node'>Story Map<small>Story and release outcome</small></div><div class='node'>Event Storming<small>Policies, branches, hotspots</small></div><div class='node'>DDD<small>Language and invariants</small></div><div class='node'>Team conversation<small>Shared understanding</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The Story Map supplies the story. Event Storming supplies policies and alternate paths. DDD supplies precise language. Product, QA, and development participants decide what behavior the examples express.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Connected inputs make the examples specific to the journey and domain.</p></div></aside>
 </section>
-<section class='slide ' data-index='06'>
+<section class='slide ' data-index='07'>
 <div><p class='kicker'>Connected outputs</p><h2>Examples become executable evidence</h2></div><div class='flow'><div class='node'>Accepted example<small>Human-reviewed behavior</small></div><div class='node'>Scenario<small>Gherkin or another format</small></div><div class='node'>Automation<small>Fixtures, mocks, assertions</small></div><div class='node'>Evidence<small>Result linked to revision</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Cucumber describes concrete examples as a strong basis for acceptance tests. The generated scenario should retain its source identifier so CI can detect drift.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Accepted examples generate scenarios and evidence with traceable identity.</p></div></aside>
 </section>
-<section class='slide ' data-index='07'>
+<section class='slide ' data-index='08'>
 <div><p class='kicker'>Technical contracts</p><h2>Business meaning complements API structure</h2></div><div class='two'><div class='col'><strong>OpenAPI and AsyncAPI</strong><p>Define operations, messages, payloads, and structural compatibility.</p></div><div class='col'><strong>Example Mapping</strong><p>Defines when behavior occurs and which outcome the business expects.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Technical schemas explain the shape of communication. Examples explain the business conditions and outcomes. Connected references allow contract tests and acceptance tests to reinforce each other.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Structural contracts and behavioral examples answer different questions.</p></div></aside>
 </section>
-<section class='slide ' data-index='08'>
+<section class='slide ' data-index='09'>
 <div><p class='kicker'>Enforcement</p><h2>The behavioral contract becomes checkable</h2></div><div class='checks'><div class='check'>Committed rules have accepted examples</div><div class='check'>Blocking questions have owners</div><div class='check'>Examples use context-valid language</div><div class='check'>Scenarios retain source identifiers</div><div class='check'>Results report the model revision</div><div class='check'>Changed examples trigger automation review</div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Validation focuses on coverage and traceability, not card quantity. A reviewed exception can be better than a forced low-value example.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>CI checks readiness, identity, language, and evidence freshness.</p></div></aside>
 </section>
-<section class='slide ' data-index='09'>
+<section class='slide ' data-index='10'>
 <div><p class='kicker'>Git and GitOps</p><h2>Git as source of truth and behavioral reconciliation</h2></div><div class='flow'><div class='node'>Git source<small>Accepted rules, examples, questions</small></div><div class='node'>Review and merge<small>Product, domain, QA, development</small></div><div class='node'>Automation<small>Generate scenarios, fixtures, mocks</small></div><div class='node'>Reconciliation<small>Compare tests and evidence with intent</small></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Git holds the reviewed Example Map revision that developers, QA tooling, and AI must use. GitOps-style automation pulls it, generates permitted test assets, runs relevant checks, and links the evidence back to its source.</p><p>Executable tests can reveal a difference, but they do not silently redefine intended behavior. Product and domain participants decide whether the contract changes.</p><p class='mini'>Source: <a href='https://opengitops.dev/'>OpenGitOps principles</a>.</p></div><div data-mode='condensed'><p>Git records accepted behavior. Automation regenerates evidence and surfaces differences for human review.</p></div></aside>
 </section>
-<section class='slide ' data-index='10'>
+<section class='slide ' data-index='11'>
 <div><p class='kicker'>AI contribution</p><h2>AI expands the example space under human authority</h2></div><div class='two'><div class='col'><strong>AI proposes</strong><p>Boundaries, combinations, contradictions, scenario skeletons.</p></div><div class='col'><strong>People decide</strong><p>Which examples express intended behavior and count as accepted evidence.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>AI can suggest difficult cases and translate accepted examples into automation. Product, domain, QA, and development participants retain authority over intended behavior.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>AI proposes and automates. People accept the behavioral contract.</p></div></aside>
 </section>
-<section class='slide ' data-index='11'>
+<section class='slide ' data-index='12'>
 <div><p class='kicker'>Documentation model</p><h2>The wiki teaches the practice</h2></div><div class='two'><div class='col'><strong>Example Map</strong><p>Authoritative rules, examples, questions, and evidence links.</p></div><div class='col'><strong>Wiki</strong><p>BDD guidance, test strategy, onboarding, generated example collections.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Avoid manually copying acceptance examples into several pages. Publish views from the source model and keep narrative around them.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>The map governs current behavior. The wiki explains how teams work with it.</p></div></aside>
 </section>
-<section class='slide ' data-index='12'>
+<section class='slide ' data-index='13'>
 <div><p class='kicker'>Actor adaptation</p><h2>QA becomes a specification partner</h2></div><div class='roles'><div class='role'><strong>Product</strong><span>Confirms scope and outcome</span></div><div class='role'><strong>Domain</strong><span>Validates language and rules</span></div><div class='role'><strong>QA</strong><span>Co-authors examples before coding</span></div><div class='role'><strong>Developer</strong><span>Challenges feasibility and observability</span></div><div class='role'><strong>Architect</strong><span>Links behavior to interfaces</span></div><div class='role'><strong>AI</strong><span>Generates against accepted examples</span></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>The practice shifts quality work earlier. QA does not merely translate finished requirements into tests. The whole group specifies observable behavior together.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Product, domain, QA, and development share behavioral ownership.</p></div></aside>
 </section>
-<section class='slide ' data-index='13'>
+<section class='slide ' data-index='14'>
 <div><p class='kicker'>Change management</p><h2>Adoption begins with misunderstood stories</h2></div><div class='timeline'><div class='phase'><b>01</b><strong>Select</strong><p>Choose stories with recurring defects or debate.</p></div><div class='phase'><b>02</b><strong>Map</strong><p>Run a short cross-functional conversation.</p></div><div class='phase'><b>03</b><strong>Generate</strong><p>Publish ticket acceptance and scenario skeletons.</p></div><div class='phase'><b>04</b><strong>Trace</strong><p>Link test results back to examples.</p></div></div>
 <aside class='speaker-notes'><div data-mode='full'><p>Do not add another ceremony to every story. Start where ambiguity is expensive, generate artifacts teams already need, and add traceability step by step.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Prove value on difficult stories, then connect examples to automation.</p></div></aside>
 </section>
-<section class='slide ' data-index='14'>
+<section class='slide ' data-index='15'>
 <div><p class='kicker'>Outcome</p><h2>Examples define what right means</h2></div><div class='quote'>Developers and AI can implement against behavior the team has already made concrete.</div>
 <aside class='speaker-notes'><div data-mode='full'><p>The behavioral contract gives engineering an objective frame for implementation and review. Accepted examples remain human-owned even when AI generates code and tests.</p><p class='mini'>Sources: <a href='https://cucumber.io/docs/bdd/example-mapping/'>Cucumber Example Mapping</a>, <a href='https://doc-em.obya.ch'>Example Mapping as Code</a>, <a href='https://learn.openapis.org/specification/structure.html'>OpenAPI</a>, and <a href='https://www.asyncapi.com/docs/concepts/asyncapi-document'>AsyncAPI</a>.</p></div><div data-mode='condensed'><p>Accepted examples give developers, tools, and AI a concrete target.</p></div></aside>
 </section>

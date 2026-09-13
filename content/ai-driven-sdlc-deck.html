@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>AI-Driven SDLC</title>
+  <meta name="description" content="Software Intent as Code as the integration layer that lets AI boost the entire lifecycle, from user journey to running system.">
+  <meta name="keywords" content="ai, sdlc, as-code, gitops, contract-driven">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="AI-Driven SDLC">
+  <meta name="catalogue:date" content="2026-09-12">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="AI-Driven SDLC">
   <style>
     :root { --accent:#ff7a33; --yellow:#ffd34e; --blue:#6cb6ff; --green:#80c995; --ink:#171619; --paper:#f5f0e7; --muted:#aaa39b; }
     * { box-sizing:border-box; }
@@ -109,48 +117,67 @@
   </section>
 
   <section class="slide" data-index="04">
+    <div><p class="eyebrow">The generation contract</p><h2>Three instructions make AI practice-aware</h2></div>
+    <div class="three"><div class="col"><strong>Doctrine</strong><p>Practice intent, quality signals, preserved uncertainty, and decisions AI must not make.</p></div><div class="col"><strong>Notation</strong><p>Modelling elements, relationships, annotations, and their visual meaning.</p></div><div class="col"><strong>DSL</strong><p>Exact grammar and file format that generated output must satisfy.</p></div></div>
+    <p class="contract">Notation protects syntax. Doctrine protects the practice.</p>
+    <aside class="speaker-notes"><div data-mode="full"><p>These documents are explicit, versionable instructions for the LLM. Doctrine constrains the meaning and protects the intent of the practice. Notation explains the model constructs and their visual semantics. The DSL defines the exact source format and enables parser validation.</p><p>Together they prevent a common failure: syntactically correct AI output that damages the practice by resolving uncertainty, inventing facts, or smoothing away meaningful disagreement.</p></div><div data-mode="condensed"><p>Doctrine governs meaning, notation explains the model, and the DSL constrains the exact generated file.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="05">
+    <div><p class="eyebrow">Versioned LLM instructions</p><h2>Every practice publishes its generation contract</h2></div>
+    <div class="bands"><div class="band"><strong>Event Storming</strong><span><a href="https://doc-es.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-es.obya.ch/notation">Notation</a> · <a href="https://doc-es.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>Story Mapping</strong><span><a href="https://doc-sm.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-sm.obya.ch/notation">Notation</a> · <a href="https://doc-sm.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>Example Mapping</strong><span><a href="https://doc-em.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-em.obya.ch/notation">Notation</a> · <a href="https://doc-em.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>DDD</strong><span><a href="https://ba-cm.obya.ch/doctrine">Doctrine</a> · <a href="https://ba-cm.obya.ch/notation">Notation</a> · <a href="https://ba-cm.obya.ch/dsl">DSL</a></span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>Each practice publishes a complete instruction set for AI. The links are deliberately visible in the deck so a team can inspect the exact rules that govern generated models.</p><p>Because these instructions are addressable and can be versioned with the models, every proposal can record which doctrine, notation, and DSL revision shaped it. That provenance makes AI behaviour reviewable and reproducible.</p></div><div data-mode="condensed"><p>Each practice exposes doctrine, notation, and DSL as inspectable, versionable instructions for the LLM.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="06">
+    <div><p class="eyebrow">The AI generation gate</p><h2>Generate a proposal, then prove and approve it</h2></div>
+    <div class="flow4"><div class="node">Context and request<small>Current model, source revision, desired change</small></div><div class="node">Instruction set<small>Doctrine, notation, and DSL</small></div><div class="node">Validation<small>Parser, schema, references, semantic rules</small></div><div class="node">Human decision<small>Review, correct, approve, and merge</small></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The prompt is only one input. AI also needs the current accepted model and the applicable doctrine, notation, and DSL instructions.</p><p>The result should normally be a reviewable proposal or diff with provenance. Automated checks establish that it is well formed and satisfies enforceable semantics. People decide whether it is true, useful, and ready to become the next accepted revision in Git.</p></div><div data-mode="condensed"><p>AI proposes against the instruction set; validation checks it; people decide whether it becomes accepted intent.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="07">
     <div><p class="eyebrow">Continuous specification</p><h2>One backbone connects intent to evidence</h2></div>
     <div class="bands"><div class="band"><strong>Discovery</strong><span>User journey and Event Storming reveal behaviour and uncertainty</span></div><div class="band"><strong>Product</strong><span>Story Mapping organises outcomes, slices, and ticketable work</span></div><div class="band"><strong>Behaviour</strong><span>Example Mapping makes rules and expected results concrete</span></div><div class="band"><strong>Design</strong><span>DDD and system models assign meaning, boundaries, and responsibility</span></div><div class="band"><strong>Delivery</strong><span>Contracts, code, tests, and operations produce evidence</span></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>The lifecycle becomes a sequence of connected specifications rather than repeated summaries. Each practice retains its own purpose and visual language. Stable identifiers and relationships carry the intent between them.</p><p>A user outcome can connect to a pivotal event, a Story Map slice, examples, a bounded context, a component, a technical contract, implementation, and evidence. AI can follow the same connections.</p></div><div data-mode="condensed"><p>Stable relationships carry intent through discovery, product work, behaviour, design, delivery, and evidence.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="05">
+  <section class="slide" data-index="08">
     <div><p class="eyebrow">AI-driven discovery</p><h2>A user journey becomes a structured hypothesis</h2></div>
     <div class="flow4"><div class="node">Journey prompt<small>User, need, desired outcome</small></div><div class="node">Big Picture<small>Events, actors, systems, hotspots</small></div><div class="node">Expert review<small>Language, assumptions, missing behaviour</small></div><div class="node">Focused models<small>Process Modelling and System Design</small></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>A prompt can seed an Event Storming Big Picture instead of producing another prose document. AI proposes a structured domain hypothesis containing events, actors, external systems, hotspots, and open questions.</p><p>Experts correct the model and select the areas that require deeper Process Modelling or System Design. The value comes from the combination of rapid generation and collaborative correction.</p><p class="source">Tool: <a href="https://doc-es.obya.ch">Event Storming as Code</a>.</p></div><div data-mode="condensed"><p>AI seeds the model. Experts turn the hypothesis into credible domain knowledge.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="06">
+  <section class="slide" data-index="09">
     <div><p class="eyebrow">Event Storming</p><h2>Progressive precision across three scopes</h2></div>
     <div class="three"><div class="col"><strong>Big Picture</strong><p>Domain landscape, language, hotspots, and pivotal events.</p></div><div class="col"><strong>Process Modelling</strong><p>Commands, events, policies, actors, exceptions, and dependencies.</p></div><div class="col"><strong>System Design</strong><p>Software behaviour, responsibility, rules, and integration points.</p></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>Event Storming provides continuity from broad discovery to software detail. The Big Picture creates shared situational awareness. Process Modelling develops one outcome. System Design adds the precision needed to shape software.</p><p>As-Code preserves the same events, language, decisions, and stable identities as the model matures. AI can propose omissions or connections without erasing the distinctions between the scopes.</p></div><div data-mode="condensed"><p>Event Storming moves from landscape to process to software responsibility without losing the earlier discoveries.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="07">
+  <section class="slide" data-index="10">
     <div><p class="eyebrow">Story Mapping</p><h2>The Story Map governs delivery context</h2></div>
     <div class="bands"><div class="band"><strong>Map owns</strong><span>User outcome, journey position, story scope, and release slice</span></div><div class="band"><strong>Ticket inherits</strong><span>Stable ID, pivotal events, rules, examples, contexts, and source revision</span></div><div class="band"><strong>Ticket owns</strong><span>Assignee, workflow state, sprint data, comments, and delivery timestamps</span></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>Pivotal events connect domain discovery to the Story Map backbone. The map preserves the user journey and defines coherent release slices. It becomes the source for product and release meaning.</p><p>Ticketing remains the operational workflow system. Generated tickets inherit context from the map while retaining local workflow data. AI can reason about a release as a journey rather than a bag of independent work items.</p><p class="source">Tool: <a href="https://doc-sm.obya.ch">Story Mapping as Code</a>.</p></div><div data-mode="condensed"><p>The Story Map supplies product meaning. Ticketing coordinates execution.</p></div></aside>
   </section>
 
-  <section class="slide light" data-index="08">
+  <section class="slide light" data-index="11">
     <div><p class="eyebrow">Example Mapping</p><h2>Examples define what correct behaviour means</h2></div>
     <div class="bands"><div class="band"><strong>Story</strong><span>The behaviour or outcome under discussion</span></div><div class="band"><strong>Rule</strong><span>A constraint or acceptance condition</span></div><div class="band"><strong>Example</strong><span>A concrete case that makes the rule testable</span></div><div class="band"><strong>Question</strong><span>Uncertainty that still needs a decision</span></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>Example Mapping turns a refinement conversation into a behavioural contract. AI can propose boundaries, difficult cases, contradictions, scenarios, fixtures, and mocks.</p><p>Product, domain, QA, and development participants decide which examples express intended behaviour. Executable tests provide evidence. They do not silently redefine the accepted specification.</p><p class="source">Tool: <a href="https://doc-em.obya.ch">Example Mapping as Code</a>.</p></div><div data-mode="condensed"><p>AI expands the example space. People accept the behaviour that implementation must satisfy.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="09">
+  <section class="slide" data-index="12">
     <div><p class="eyebrow">Domain-Driven Design</p><h2>Language and responsibility need explicit boundaries</h2></div>
     <div class="two"><div class="col"><strong>Strategic model</strong><p>Subdomains, bounded contexts, ownership, and context relationships.</p></div><div class="col"><strong>Tactical model</strong><p>Aggregates, entities, value objects, domain events, policies, and invariants.</p></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>DDD supplies the semantic contract. It determines where language applies, who owns the model, how contexts relate, and which invariants the software must protect.</p><p>AI can detect inconsistent terminology, suggest boundary candidates, and identify affected owners. Domain experts and engineers decide whether the model supports the business effectively.</p><p class="source">Tool: <a href="https://ba-cm.obya.ch">Context Mapping as Code</a>.</p></div><div data-mode="condensed"><p>DDD tells developers and AI which meaning applies and where responsibility belongs.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="10">
+  <section class="slide" data-index="13">
     <div><p class="eyebrow">System design</p><h2>Architecture connects responsibility to interfaces</h2></div>
     <div class="flow4"><div class="node">C4 and LikeC4<small>Systems, containers, components, relationships</small></div><div class="node">PlantUML<small>Sequence, state, class, deployment detail</small></div><div class="node">Technical contracts<small>OpenAPI, AsyncAPI, GraphQL, WSDL</small></div><div class="node">Delivery evidence<small>Repositories, tests, deployment, runtime</small></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>C4 and LikeC4 express architecture at useful levels of abstraction. PlantUML adds focused behavioural or structural views. Technical contracts define the integration surfaces.</p><p>AI can now see which component may change, which dependencies are allowed, which contract needs compatibility analysis, and which scenario or operational signal provides evidence. Architecture becomes active material in delivery.</p></div><div data-mode="condensed"><p>Architecture and technical contracts give AI explicit implementation limits and compatibility obligations.</p></div></aside>
   </section>
 
-  <section class="slide repo" data-index="11">
+  <section class="slide repo" data-index="14">
     <div><p class="eyebrow">Git source of truth</p><h2>One repository holds connected specifications</h2></div>
     <pre class="repo-tree" aria-label="Example Git repository layout">docs/
 ├── domain/
@@ -178,43 +205,43 @@
     <aside class="speaker-notes"><div data-mode="full"><p>Git provides the authoritative history for accepted software intent. Visual tools remain the interfaces for collaboration, while the normalised files behind those views enter pull requests and validation.</p><p>The directory structure keeps disciplines visible and makes file types routable to the right editor, validator, generator, or AI agent. Stable identifiers preserve relationships when the organisation later distributes the model across repositories.</p></div><div data-mode="condensed"><p>Git records accepted intent while visual tools continue to serve the people who create it.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="12">
+  <section class="slide" data-index="15">
     <div><p class="eyebrow">GitOps extension</p><h2>Accepted intent becomes an operating loop</h2></div>
     <div class="flow4"><div class="node">Declare<small>Machine-readable models and policies</small></div><div class="node">Review<small>Owners approve meaning and impact</small></div><div class="node">Automate<small>Pull, validate, generate, publish</small></div><div class="node">Reconcile<small>Detect drift and propose change</small></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>GitOps principles extend naturally to the specification lifecycle. The accepted models declare intent. Automation pulls the approved revision, validates digital contracts, and publishes the permitted projections.</p><p>Reconciliation compares tickets, tests, architecture, code, and runtime evidence with the declared state. Safe generated outputs can update automatically. Changes to meaning, product scope, domain boundaries, or architecture responsibility return to people for review.</p><p class="source">Source: <a href="https://opengitops.dev/">OpenGitOps principles</a>.</p></div><div data-mode="condensed"><p>GitOps keeps consumers aligned with accepted intent without transferring decision authority to automation.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="13">
+  <section class="slide" data-index="16">
     <div><p class="eyebrow">AI responsibilities</p><h2>Each lifecycle stage gives AI a different job</h2></div>
     <div class="matrix"><div class="head">Stage</div><div class="head">AI contribution</div><div class="head">Human authority</div><div class="stage">Discovery</div><div>Structure journeys, events, hotspots, and questions</div><div>Confirm domain meaning and real user need</div><div class="stage">Product</div><div>Suggest activities, slices, and ticket context</div><div>Set outcomes, priorities, and release intent</div><div class="stage">Behaviour</div><div>Generate examples, cases, and scenarios</div><div>Accept rules and expected results</div><div class="stage">Design</div><div>Analyse boundaries, dependencies, and impact</div><div>Approve responsibility and constraints</div><div class="stage">Delivery</div><div>Generate code, tests, and change proposals</div><div>Review engineering quality and trade-offs</div><div class="stage">Operations</div><div>Compare evidence with declared intent</div><div>Decide whether model or implementation changes</div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>AI does not perform one generic role across the lifecycle. In discovery it structures hypotheses. In product work it helps organise the journey. In specification it expands examples. In design it analyses boundaries and impact. In delivery it generates within constraints. In operations it compares evidence with expectation.</p><p>Each stage also has a clear human decision. This division of labour makes the operating model governable.</p></div><div data-mode="condensed"><p>AI assistance changes by stage, and every stage retains a named human decision.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="14">
+  <section class="slide" data-index="17">
     <div><p class="eyebrow">Digital contracts</p><h2>As-Code makes lifecycle checks explicit</h2></div>
     <div class="checks"><div class="check">Schemas protect artifact structure</div><div class="check">Semantic checks protect meaning and references</div><div class="check">Compatibility policies protect interfaces</div><div class="check">Ownership rules request the right reviewers</div><div class="check">CI blocks invalid committed models</div><div class="check">Evidence reports the exact source revision</div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>As-Code enables enforcement, but serialization alone does not enforce a contract. Schemas, semantic validators, compatibility policies, review rules, and CI perform the enforcement.</p><p>The strength of checks should match decision maturity. Discovery tolerates uncertainty. A committed release or public contract needs stronger guarantees. This protects exploration without weakening delivery.</p></div><div data-mode="condensed"><p>Validation becomes stronger as decisions move from discovery into committed delivery.</p></div></aside>
   </section>
 
-  <section class="slide light" data-index="15">
+  <section class="slide light" data-index="18">
     <div><p class="eyebrow">Engineering material</p><h2>The developer receives more than a ticket</h2></div>
     <div class="contract"><div class="statement">Journey, events, rules, examples, boundaries, architecture, and contracts arrive together.</div><p class="detail">IDEs, generators, validators, tests, and AI consume the same accepted specification.</p></div>
     <aside class="speaker-notes"><div data-mode="full"><p>This is the immediate developer value. The ticket remains the unit of delivery workflow, but it carries stable references to the material that explains why the change exists and what must remain true.</p><p>As-Code gives developers and their tooling the right material to do the right thing. AI then works from the specification the team already validated. Better inputs make generated changes easier to constrain, test, explain, and review.</p></div><div data-mode="condensed"><p>Developers, engineering tools, and AI work from the same validated intent.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="16">
+  <section class="slide" data-index="19">
     <div><p class="eyebrow">Human authority</p><h2>Every actor owns part of the specification</h2></div>
     <div class="roles"><div class="role"><strong>Domain</strong><span>Own language, rules, and model corrections</span></div><div class="role"><strong>Product</strong><span>Own outcomes, journey, and release intent</span></div><div class="role"><strong>Development</strong><span>Own implementation quality and model alignment</span></div><div class="role"><strong>Quality</strong><span>Co-author examples and evaluate evidence</span></div><div class="role"><strong>Architecture</strong><span>Own responsibility and dependency constraints</span></div><div class="role"><strong>Platform</strong><span>Provide validation, generation, and reconciliation</span></div><div class="role"><strong>AI</strong><span>Propose changes with visible provenance</span></div><div class="role"><strong>Wiki</strong><span>Publish narrative and generated views</span></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>Adoption requires a change in daily work. The facilitator or architect cannot maintain every artifact for everyone else. Meaning stays with domain and product participants. Development, quality, and architecture maintain the connected engineering contracts. Platform teams make the workflow easy.</p><p>The wiki remains useful for learning, rationale, and publication. It no longer acts as the first-class source for current behavioural or architectural truth.</p></div><div data-mode="condensed"><p>Shared ownership keeps As-Code inside normal work instead of creating another documentation role.</p></div></aside>
   </section>
 
-  <section class="slide" data-index="17">
+  <section class="slide" data-index="20">
     <div><p class="eyebrow">Change management</p><h2>Adoption begins with one connected thread</h2></div>
     <div class="timeline"><div class="phase"><b>01</b><strong>Select</strong><p>Choose one value stream where context repeatedly disappears.</p></div><div class="phase"><b>02</b><strong>Connect</strong><p>Link one pivotal event, slice, ticket, examples, and component.</p></div><div class="phase"><b>03</b><strong>Automate</strong><p>Remove one manual translation that the team already performs.</p></div><div class="phase"><b>04</b><strong>Enforce</strong><p>Add high-value checks after ownership and semantics are clear.</p></div></div>
     <aside class="speaker-notes"><div data-mode="full"><p>Start with one end-to-end thread and one immediate benefit. Generate ticket context, publish an architecture view, create scenario skeletons, or detect broken references.</p><p>Do not begin with an enterprise mandate to model everything. Expand after participants trust the workflow and the generated outputs save time. Measure translation time removed, broken handoffs detected, and changes understood earlier.</p></div><div data-mode="condensed"><p>Prove the connected flow on one value stream, then add automation and enforcement progressively.</p></div></aside>
   </section>
 
-  <section class="slide light" data-index="18">
+  <section class="slide light" data-index="21">
     <div><p class="eyebrow">Outcome</p><h2>Software Intent as Code</h2></div>
     <div class="contract"><div class="statement">Software Intent as Code provides the integration layer that lets AI boost the entire SDLC.</div><p class="detail">As-Code makes every stage of the lifecycle machine-readable, allowing AI to participate continuously from discovery through production evidence.</p></div>
     <aside class="speaker-notes"><div data-mode="full"><p>An AI-driven SDLC uses AI from discovery through production evidence. Software Intent as Code provides the integration layer. Machine-readable lifecycle stages provide the technical mechanism.</p><p>Visual tools support human thinking. Git provides the source of truth. GitOps keeps consumers aligned. Digital contracts give developers and AI the boundaries and evidence they need. People remain responsible for what the software should mean.</p></div><div data-mode="condensed"><p>Software Intent as Code provides the integration layer, and machine-readable lifecycle stages enable continuous AI participation.</p></div></aside>

@@ -43,6 +43,31 @@ The contract does not need to freeze the domain. It defines the current, reviewa
 
 The visual label remains important for people. The identifier protects machine relationships when the team improves the wording.
 
+## A small notation example
+
+The `.eventstorm` notation represents the workshop wall as a grid. Lanes run down the board, time runs across it, and `@3` places a card in the third column. The keywords determine the card types shown by the visual board.
+
+```eventstorm
+eventstorm "Title" {
+  product "client-onboarding"
+
+  lane "Customer" {
+    actor "Hungry customer" @1
+    event "Menu opened" @1
+    event "Order placed" @3 +revenue
+  }
+
+  lane "Payments" {
+    command "Take the payment" @3
+    event "Payment requested" @4
+  }
+}
+```
+
+This fragment comes from the supplied `.eventstorm` notation. Give the LLM the [Event Storming doctrine](https://doc-es.obya.ch/doctrine), [notation](https://doc-es.obya.ch/notation), and [DSL reference](https://doc-es.obya.ch/dsl) as explicit generation instructions. The [Event Storming as Code tool](https://doc-es.obya.ch) keeps the resulting source synchronized with the visual board.
+
+Notation makes lanes, cards, columns, and tags parseable. Doctrine keeps the model honest: AI may propose structure and questions, but it must not resolve hotspots, erase disagreement, or invent domain facts. **Notation protects syntax. Doctrine protects the practice.**
+
 ## Three levels of precision
 
 ### Big Picture

@@ -50,6 +50,33 @@ Story Mapping as Code keeps the map visual while representing its meaning as nor
 
 The contract should preserve narrative order and release intent. It should not reduce the map to a collection of ticket fields.
 
+## A small notation example
+
+The `.storymap` notation preserves the hierarchy from activity to step to story. Delivery, ticket, and status annotations connect a story to planning and workflow without turning the ticketing system into the source of product meaning.
+
+```storymap
+storymap "Title" {
+  product "client-onboarding"
+  space "CLONB"
+  delivery "Sprint 24" sprint #CLONB-S24
+
+  activity "Discover documentation" {
+    persona "Business analyst"
+    step "Search the catalog" {
+      story "Full-text search" @"Sprint 24" #CLONB-42 ~in-progress {
+        as   "Business analyst"
+        want "to search every product at once"
+        so   "I can answer a question without knowing which product owns it"
+      }
+    }
+  }
+}
+```
+
+This fragment comes from the supplied `.storymap` notation. Give the LLM the [Story Mapping doctrine](https://doc-sm.obya.ch/doctrine), [notation](https://doc-sm.obya.ch/notation), and [DSL reference](https://doc-sm.obya.ch/dsl) as explicit generation instructions. The [Story Mapping as Code tool](https://doc-sm.obya.ch) keeps the text synchronized with its visual map and gives ticketing a governed source for story and release context.
+
+Notation preserves activity, step, story, delivery, and ticket syntax. Doctrine prevents AI from replacing the journey with a system menu, treating a release as a prefix, deleting unscheduled work, or inventing ticket state. **Notation protects syntax. Doctrine protects the practice.**
+
 ## Story Mapping as the source for ticketing
 
 Ticketing should consume the Story Map.
