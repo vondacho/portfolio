@@ -1,6 +1,91 @@
 {
- "generated": "2026-09-13T09:39:14.709Z",
+ "generated": "2026-09-13T10:50:29.721Z",
  "items": [
+  {
+   "id": "significant-prompt-ai-driven-journey-deck",
+   "type": "deck",
+   "title": "The Significant Prompt",
+   "date": "2026-09-13",
+   "series": "Connected SDLC",
+   "topic": "Significant Prompt",
+   "tags": [
+    "ai",
+    "sdlc",
+    "as-code",
+    "gitops",
+    "prompting"
+   ],
+   "summary": "How a significant prompt and reusable AI instructions turn a problem narrative into a connected, reviewable delivery baseline.",
+   "cover": null,
+   "path": "content/significant-prompt-ai-driven-journey-deck.html",
+   "slides": 18
+  },
+  {
+   "id": "significant-prompt-ai-driven-journey-linkedin-post",
+   "type": "linkedin",
+   "title": "The Significant Prompt for an AI-Driven SDLC",
+   "date": "2026-09-13",
+   "series": "Connected SDLC",
+   "topic": "Significant Prompt",
+   "tags": [
+    "ai",
+    "sdlc",
+    "as-code",
+    "prompting"
+   ],
+   "summary": "Start AI from the problem, not the ticket: a focused prompt plus versioned instructions yields connected models, delivery packs and a reviewable Git change.",
+   "cover": null,
+   "path": "content/significant-prompt-ai-driven-journey-linkedin-post.md",
+   "words": 409,
+   "minutes": 2,
+   "headings": [],
+   "text": "The Significant Prompt for an AI-Driven SDLC AI-assisted development often starts with a ticket and a repository. That gives AI the implementation context, but very little of the reasoning that makes the implementation correct. A stronger journey begins with a significant prompt grounded in a problem narrative or a consistent specification. The prompt asks AI to study the problem before proposing a solution. It provides the actors, desired outcomes, constraints, evidence, existing systems, and unresolved questions. Stable instructions do not need to make every prompt enormous. Keep them as versioned Markdown files in the repository: SDLC orchestration instructions Artefact and traceability contract Review and delivery policy The problem-specific prompt can then stay focused: “Study the supplied narrative or specification. Follow the AI-driven SDLC instructions in docs/ai/ . Produce a connected solution proposal, delivery packs, validation report, and pull-request description. Preserve assumptions and open questions.” The reusable instructions define the artefacts AI should generate: Journey and Event Storming models A Story Map with coherent delivery slices Example Maps containing rules, cases, and open questions Context Maps and domain models C4, LikeC4, PlantUML, and interface contracts A walking-skeleton pack An MVP pack A traceability manifest and validation report AI receives a three-part instruction set for every modelling practice: Doctrine explains how to apply the practice and what AI must not invent or decide. Notation explains the model elements and their visual meaning. DSL defines the exact file format AI must generate. Notation protects syntax. Doctrine protects the practice. The generated artefacts keep stable identifiers and explicit relationships: Objective → journey → domain event → story → rule → example → bounded context → component → interface → test → production evidence. AI then proposes two different delivery slices. The walking skeleton proves the technical path through architecture, integration, deployment, testing, and observability. The MVP delivers the smallest coherent user outcome that can test an important business or product hypothesis. AI writes the result as a reviewable Git change. Automated checks validate syntax, references, semantics, and compatibility. People decide whether the models express the right meaning. Git records the accepted intent. GitOps publishes and reconciles the downstream tickets, tests, diagrams, contracts, and evidence. Software Intent as Code provides the integration layer that lets AI boost the entire SDLC. The significant prompt does not ask AI for more documents. It asks AI to build a connected delivery baseline from the problem we actually need to solve. AIDrivenSDLC #SoftwareIntentAsCode #DocumentationAsCode #GitOps #DomainDrivenDesign #SoftwareArchitecture #AIEngineering"
+  },
+  {
+   "id": "significant-prompt-ai-driven-journey-article",
+   "type": "article",
+   "title": "The Significant Prompt: An AI-Driven Journey from Problem to Delivery",
+   "date": "2026-09-13",
+   "series": "Connected SDLC",
+   "topic": "Significant Prompt",
+   "tags": [
+    "ai",
+    "sdlc",
+    "as-code",
+    "gitops",
+    "prompting"
+   ],
+   "summary": "A problem narrative, reusable instructions and doctrine, notation and DSL let AI turn a real problem into a connected, reviewable delivery baseline, from journey mapping to walking skeleton and MVP.",
+   "cover": null,
+   "path": "content/significant-prompt-ai-driven-journey-article.md",
+   "words": 2172,
+   "minutes": 9,
+   "headings": [
+    "Abstract",
+    "Start with a meaningful account of the problem",
+    "The significant prompt is a lifecycle contract",
+    "Relax the prompt with reusable instructions",
+    "Doctrine, notation, and DSL instruct the LLM",
+    "Doctrine",
+    "Notation",
+    "DSL",
+    "Stage 1: problem analysis and journey mapping",
+    "Stage 2: Event Storming reveals domain behaviour",
+    "Stage 3: Story Mapping shapes delivery",
+    "Stage 4: Example Mapping defines correct behaviour",
+    "Stage 5: Context Mapping establishes semantic ownership",
+    "Stage 6: architecture connects intent to implementation",
+    "Stage 7: delivery packs turn the models into increments",
+    "Walking skeleton",
+    "MVP",
+    "Traceability keeps the documentation consistent",
+    "Git and GitOps complete the operating loop",
+    "Human review remains part of the model",
+    "Conclusion",
+    "References"
+   ],
+   "text": "The Significant Prompt: An AI-Driven Journey from Problem to Delivery Abstract AI-driven software development often begins with a ticket and ends with generated code. That starting point gives AI too little of the reasoning that makes an implementation correct. The user outcome, domain behaviour, business rules, ownership boundaries, architecture constraints, and intended evidence may exist only in conversations or disconnected documents. A stronger journey begins with a significant prompt grounded in a narrative or a consistent problem specification. The prompt asks AI to study the problem before designing a solution. It also defines the artefacts to generate, the instructions that govern each modelling practice, the relationships that must connect the artefacts, and the human decisions required before the result becomes accepted intent. The output is a reviewable documentation baseline spanning journey discovery, Event Storming, Story Mapping, Example Mapping, Context Mapping, Domain Modelling, architecture, technical contracts, and proposed delivery packs. Git records the accepted baseline. GitOps automation then distributes and reconciles its projections across ticketing, testing, architecture, delivery, and production evidence. Software Intent as Code provides the integration layer that lets AI boost the entire SDLC. Start with a meaningful account of the problem The initial input determines how much useful work AI can perform. A one-line feature request encourages the model to fill gaps with plausible assumptions. A meaningful problem narrative gives it evidence to analyse. The narrative should explain: Who experiences the problem What those people are trying to achieve How the current journey works Where delay, risk, cost, or frustration occurs Which business outcomes matter Which systems, policies, and constraints already exist Which facts have evidence and which points remain uncertain A formal specification can serve the same purpose when one already exists. The important property is coherence. The source material should give AI enough context to distinguish observed facts, stakeholder claims, hypotheses, decisions, and open questions. UX research contributes essential evidence at this stage. Interviews, service blueprints, journey maps, usability findings, accessibility constraints, and observed workarounds describe the experience that the software must support. Domain experts explain why the organisation behaves as it does. Engineers contribute current-system constraints. Product leaders state the outcomes they want to improve. AI studies this material before generating models. Its first output should be an analysis containing the actors, goals, constraints, vocabulary, conflicts, assumptions, and questions that need human attention. The significant prompt is a lifecycle contract A significant prompt does more than request a solution design. It defines the work AI must perform across the lifecycle. It specifies: The source narrative or problem specification The artefacts expected from each discipline The doctrine, notation, and DSL that govern generation The identifiers and relationships required for traceability The validation and review gates The delivery packs to propose The Git structure and change description to produce This makes the prompt an orchestration contract. Each generated model becomes an input to the next activity while retaining its connection to the original problem. A useful core instruction is: From the supplied narrative or problem specification, study the problem and propose a solution design expressed as a coherent, connected, and reviewable set of as-code artefacts. Generate journey, Event Storming, Story Mapping, Example Mapping, Context Mapping, Domain Modelling, architecture, and delivery-pack artefacts. Follow the applicable doctrine, notation, and DSL. Preserve assumptions and open questions. Maintain stable identifiers and traceability. Submit the result as a validated proposal for human review. The prompt can then add organisation-specific constraints, existing architecture, policies, target outcomes, repositories, and required evidence. Relax the prompt with reusable instructions The complete orchestration policy does not need to appear in every prompt. Stable guidance belongs in versioned Markdown files that live beside the software-intent artefacts. The orchestration file explains how AI studies the source problem and sequences the modelling work. The artefact contract defines the expected models, repository locations, stable identifiers, and traceability. The review and delivery policy defines human authority, validation, walking-skeleton and MVP content, Git review, and GitOps projections. The problem-specific prompt can then remain short: Study the supplied problem narrative or specification. Follow the AI-driven SDLC instructions in docs/ai/ . Produce a connected solution-design proposal, including the appropriate as-code artefacts, a walking-skeleton pack, an MVP pack, a validation report, and a pull-request description. Preserve assumptions and open questions. This separation improves reuse and governance. Teams review changes to their AI instructions through Git. A generated proposal records the instruction revisions it used. The prompt focuses on the problem instead of repeating a large operating manual. Doctrine, notation, and DSL instruct the LLM Machine-readable input does not guarantee useful output. AI can create a syntactically valid model that weakens the practice behind it. Each modelling discipline therefore supplies a three-part instruction set. Doctrine Doctrine explains the purpose and quality criteria of the practice. It tells AI what to preserve, what to question, and what it must not decide without evidence. Event Storming doctrine protects chronology, causality, hotspots, and disagreement. Story Mapping doctrine protects the journey, release coherence, and unscheduled work. Example Mapping doctrine protects concrete examples and unanswered questions. DDD doctrine protects honest boundaries, relationship power, language seams, and invariants. Notation Notation explains the modelling vocabulary and the meaning of the visual elements. It teaches AI how cards, lanes, activities, stories, rules, examples, contexts, and aggregates represent the practice. DSL The DSL defines the exact grammar and file format. It allows a parser to reject malformed output and enables the visual tool to keep the source synchronized with the board. The instruction sets are available here: Practice Doctrine Notation DSL Event Storming Doctrine Notation DSL Story Mapping Doctrine Notation DSL Example Mapping Doctrine Notation DSL Context Mapping and Domain Modelling Doctrine Notation DSL Notation protects syntax. Doctrine protects the practice. The DSL makes the generated proposal testable by tooling. Stage 1: problem analysis and journey mapping AI first produces a structured reading of the problem. It identifies the primary actors, their goals, the current journey, important touchpoints, pain points, policies, and systems. It links every conclusion to the supplied source and marks inferences as hypotheses. Journey Mapping keeps the user experience visible. It describes what the person tries to accomplish, what happens at each stage, where evidence comes from, and which moments deserve further investigation. The journey must not become a decorative summary. It supplies the outside-in view that guides product and domain exploration. When no dedicated as-code notation governs the journey map, the source narrative, research evidence, and stable journey identifiers remain authoritative inputs. Those identifiers can still connect to the downstream models. Stage 2: Event Storming reveals domain behaviour AI uses the journey and problem analysis to propose an Event Storming model. The model begins as a hypothesis for experts to challenge. Big Picture Event Storming describes the wider domain landscape, temporal f"
+  },
   {
    "id": "ai-driven-sdlc-deck",
    "type": "deck",

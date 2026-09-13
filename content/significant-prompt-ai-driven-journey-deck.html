@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Significant Prompt</title>
+  <meta name="description" content="How a significant prompt and reusable AI instructions turn a problem narrative into a connected, reviewable delivery baseline.">
+  <meta name="keywords" content="ai, sdlc, as-code, gitops, prompting">
+  <meta name="author" content="Olivier von Dach">
+  <meta name="catalogue:title" content="The Significant Prompt">
+  <meta name="catalogue:date" content="2026-09-13">
+  <meta name="catalogue:type" content="deck">
+  <meta name="catalogue:series" content="Connected SDLC">
+  <meta name="catalogue:topic" content="Significant Prompt">
+  <style>
+    :root{--accent:#ff7a33;--yellow:#ffd34e;--blue:#6cb6ff;--green:#80c995;--ink:#171619;--paper:#f5f0e7;--muted:#aaa39b}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{background:#09090b;color:var(--paper);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-underline-offset:4px}.deck{position:relative;width:100%;height:100%}
+    .slide{position:absolute;inset:0;display:none;overflow:hidden;padding:clamp(38px,5vw,80px);background:radial-gradient(circle at 86% 13%,rgba(255,122,51,.13),transparent 28%),linear-gradient(135deg,#18171b,#0c0c0f 67%)}.slide.active{display:grid}.slide.light{color:var(--ink);background:radial-gradient(circle at 83% 13%,rgba(255,122,51,.14),transparent 29%),var(--paper)}.slide::after{content:attr(data-index);position:absolute;right:32px;bottom:22px;color:#9d9790;font-size:12px;letter-spacing:.15em}
+    .cover{grid-template-rows:1fr auto;align-items:center}.cover h1{max-width:1120px;margin:0 0 26px;font-size:clamp(52px,7.5vw,116px);font-weight:850;line-height:.91;letter-spacing:-.06em}.eyebrow{margin:0 0 18px;color:var(--accent);font-size:clamp(12px,1vw,16px);font-weight:800;letter-spacing:.17em;text-transform:uppercase}h2{max-width:1140px;margin:0 0 30px;font-size:clamp(36px,4.8vw,72px);font-weight:830;line-height:.99;letter-spacing:-.045em}.lead{max-width:980px;color:#d0c9c0;font-size:clamp(19px,1.9vw,31px);line-height:1.34}.soft{color:var(--muted);font-size:clamp(14px,1.15vw,19px)}.accent{color:var(--accent)}
+    .two,.three{align-self:center;display:grid;gap:5vw}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr);gap:32px}.col{padding-top:22px;border-top:5px solid var(--accent)}.col:nth-child(2){border-color:var(--yellow)}.col:nth-child(3){border-color:var(--blue)}.col strong{display:block;margin-bottom:14px;font-size:clamp(23px,2.2vw,38px);line-height:1.06}.col p{color:#cfc8bf;font-size:clamp(15px,1.18vw,20px);line-height:1.42}.light .col p{color:#514c48}
+    .bands{align-self:center;border-top:1px solid rgba(245,240,231,.23)}.light .bands{border-color:rgba(23,22,25,.2)}.band{display:grid;grid-template-columns:.74fr 1.55fr;gap:36px;align-items:center;min-height:72px;border-bottom:1px solid rgba(245,240,231,.23)}.light .band{border-color:rgba(23,22,25,.2)}.band strong{color:var(--accent);font-size:clamp(17px,1.55vw,26px)}.band span{font-size:clamp(14px,1.2vw,20px);line-height:1.34}
+    .flow{align-self:center;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative}.flow::before{content:"";position:absolute;left:5%;right:5%;top:29px;height:4px;background:linear-gradient(90deg,var(--accent),var(--yellow),var(--blue),var(--green))}.node{position:relative;padding-top:65px;font-size:clamp(18px,1.55vw,27px);font-weight:770;line-height:1.14}.node::before{content:"";position:absolute;top:15px;left:0;width:29px;height:29px;border:5px solid var(--paper);border-radius:50%;background:var(--ink)}.node small{display:block;margin-top:11px;color:var(--muted);font-size:clamp(13px,.98vw,17px);font-weight:540;line-height:1.35}
+    .statement{align-self:center;max-width:1160px;padding:30px 0;border-top:6px solid var(--accent);border-bottom:1px solid rgba(245,240,231,.25);font-size:clamp(28px,3vw,51px);font-weight:790;line-height:1.17}.statement small{display:block;margin-top:18px;color:#bbb4ab;font-size:clamp(15px,1.18vw,20px);font-weight:500;line-height:1.4}.light .statement{border-bottom-color:rgba(23,22,25,.25)}.light .statement small{color:#514c48}
+    .code-wrap{align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}.code-sample{margin:0;padding:24px;border-left:6px solid var(--accent);color:#f6efe6;background:#101013;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(13px,1.05vw,18px);line-height:1.42;white-space:pre-wrap}.code-note{font-size:clamp(17px,1.35vw,23px);line-height:1.45}.tree{align-self:center;margin:0;padding:24px 0 0;border-top:5px solid var(--accent);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(14px,1.15vw,19px);font-weight:620;line-height:1.35;white-space:pre}.quote{align-self:center;max-width:1180px;padding-left:30px;border-left:7px solid var(--accent);font-size:clamp(32px,3.8vw,62px);font-weight:800;line-height:1.12}
+    .speaker-notes{display:none}.progress-shell{position:fixed;z-index:20;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.08)}.progress{height:100%;width:0;background:var(--accent);transition:width .2s}.controls{position:fixed;z-index:25;right:20px;top:18px;display:flex;gap:8px;opacity:.35;transition:opacity .2s}.controls:hover{opacity:1}.controls button{width:36px;height:36px;border:1px solid rgba(255,255,255,.3);border-radius:50%;color:#fff;background:rgba(12,12,14,.6);cursor:pointer}.notes-panel{position:fixed;z-index:30;top:0;right:0;width:min(430px,92vw);height:100%;padding:28px;overflow:auto;color:#211f22;background:#fbf7ef;box-shadow:-18px 0 50px rgba(0,0,0,.35);transform:translateX(105%);transition:transform .25s}.notes-panel.open{transform:translateX(0)}.notes-panel h3{margin:0 0 18px;font-size:22px}.notes-panel p{font-size:16px;line-height:1.55}.notes-mode{display:flex;gap:8px;margin-bottom:20px}.notes-mode button{padding:8px 12px;border:1px solid #9f9890;border-radius:999px;color:#211f22;background:transparent;cursor:pointer}.notes-mode button.active{color:#fff;background:#211f22}.help{margin-top:24px;padding-top:18px;border-top:1px solid #d5cec4;color:#6d665f;font-size:13px}
+    @media(max-width:820px){.two,.three,.code-wrap{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.band{grid-template-columns:1fr;gap:4px;padding:9px 0}.slide{padding:34px 28px 48px}.notes-panel{top:auto;bottom:0;left:0;right:0;width:100%;height:min(42dvh,360px);padding:16px 18px max(16px,env(safe-area-inset-bottom));border-radius:18px 18px 0 0;box-shadow:0 -12px 36px rgba(0,0,0,.35);transform:translateY(105%)}.notes-panel.open{transform:translateY(0)}.notes-panel h3{margin-bottom:10px;font-size:18px}.notes-panel p{font-size:14px;line-height:1.42}.notes-mode{gap:6px;margin-bottom:12px}.notes-mode button{padding:6px 10px;font-size:13px}.help{display:none}}
+    @media print{html,body{overflow:visible;background:#fff}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;break-after:page}.controls,.progress-shell,.notes-panel{display:none!important}}
+  </style>
+</head>
+<body>
+<main class="deck" aria-label="The Significant Prompt presentation">
+  <section class="slide cover active" data-index="01">
+    <div><p class="eyebrow">AI-driven specification journey</p><h1>The Significant<br><span class="accent">Prompt</span></h1><p class="lead">A problem narrative becomes a connected, reviewable delivery baseline</p></div>
+    <p class="soft">Reusable AI instructions · As-Code artefacts · Human review · Git source of truth</p>
+    <aside class="speaker-notes"><div data-mode="full"><p>AI-assisted development often starts with a ticket and a repository. This journey starts with the reasoning that makes implementation correct.</p><p>A significant prompt asks AI to study a meaningful problem description and produce connected software-intent artefacts. Reusable instructions govern the generation. People review the meaning. Git records the accepted result.</p></div><div data-mode="condensed"><p>A significant prompt turns a meaningful problem description into a connected delivery baseline.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="02">
+    <div><p class="eyebrow">The usual AI starting point</p><h2>A ticket carries too little of the design reasoning</h2></div>
+    <div class="two"><div class="col"><strong>AI receives</strong><p>Source code, a small work item, scattered prose, and implementation patterns.</p></div><div class="col"><strong>AI must infer</strong><p>User outcomes, domain rules, ownership boundaries, architecture constraints, and proof of correctness.</p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>A coding agent can produce plausible code from a ticket and repository. Those inputs rarely explain why the change matters or which rules and constraints define correctness.</p><p>The missing reasoning increases the chance that AI implements the ticket literally while weakening the user journey, domain model, or architecture.</p></div><div data-mode="condensed"><p>A repository and ticket rarely provide enough intent for dependable AI-assisted delivery.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="03">
+    <div><p class="eyebrow">Starting material</p><h2>A meaningful account of the problem</h2></div>
+    <div class="bands"><div class="band"><strong>Narrative</strong><span>Actors, goals, current journey, pain points, desired outcomes</span></div><div class="band"><strong>Evidence</strong><span>UX research, observed behaviour, production signals, stakeholder knowledge</span></div><div class="band"><strong>Context</strong><span>Existing systems, policies, constraints, contracts, and architecture</span></div><div class="band"><strong>Uncertainty</strong><span>Conflicts, assumptions, hotspots, and questions requiring decisions</span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The initial input may be a narrative, a consistent specification, or several evidence sources. The important property is enough context to distinguish facts from assumptions.</p><p>UX research supplies the outside-in experience. Domain experts explain business behaviour. Engineers describe existing constraints. AI must preserve unresolved points instead of completing the story with plausible inventions.</p></div><div data-mode="condensed"><p>The source combines problem context and evidence while keeping uncertainty visible.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="04">
+    <div><p class="eyebrow">Orchestration contract</p><h2>The significant prompt defines the journey</h2></div>
+    <div class="statement">Study the problem, generate connected artefacts, propose delivery packs, validate the result, and submit it for review.<small>The prompt defines the problem-specific mission. Versioned instructions define the repeatable operating rules.</small></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The significant prompt defines much more than a writing task. It specifies the analysis, expected artefacts, traceability, validation, delivery packs, and review outcome.</p><p>Stable operating guidance does not need to appear in every prompt. We move that guidance into reusable Markdown instructions and keep the prompt focused on the current problem.</p></div><div data-mode="condensed"><p>The prompt defines the problem-specific mission while reusable files carry stable operating rules.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="05">
+    <div><p class="eyebrow">Relaxed prompt</p><h2>Stable instructions live in Markdown</h2></div>
+    <div class="code-wrap"><pre class="code-sample">docs/ai/
+├── 00-ai-driven-sdlc-orchestration.md
+├── 10-artifact-contract.md
+└── 20-review-and-delivery-policy.md</pre><div class="code-note"><strong>Problem-specific prompt</strong><p>Study the supplied narrative or specification. Follow the AI-driven SDLC instructions in <code>docs/ai/</code>. Produce a connected solution proposal and preserve assumptions and open questions.</p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The repository holds the stable instructions. The orchestration file defines the generation sequence. The artefact contract defines content and traceability. The review policy defines authority, validation, delivery packs, and Git integration.</p><p>The user prompt becomes shorter and easier to adapt. Teams can review the reusable instructions through the same Git workflow as other engineering policies.</p></div><div data-mode="condensed"><p>Versioned Markdown carries the stable policy, which keeps each problem prompt short.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="06">
+    <div><p class="eyebrow">LLM instruction envelope</p><h2>Doctrine, notation, and DSL govern generation</h2></div>
+    <div class="three"><div class="col"><strong>Doctrine</strong><p>Purpose, quality criteria, preserved uncertainty, and decisions AI must not make.</p></div><div class="col"><strong>Notation</strong><p>Modelling concepts, relationships, annotations, and visual semantics.</p></div><div class="col"><strong>DSL</strong><p>Exact grammar and file format that generated output must satisfy.</p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>These three sources form the practice-specific instruction envelope. Doctrine governs meaning. Notation teaches the model constructs. The DSL constrains the generated file and enables parser validation.</p><p>Notation protects syntax. Doctrine protects the practice. Together they reduce syntactically correct output that violates the intent of the workshop or model.</p></div><div data-mode="condensed"><p>Doctrine governs meaning, notation explains the model, and the DSL constrains the generated file.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="07">
+    <div><p class="eyebrow">Practice instructions</p><h2>Every as-code practice publishes its contract</h2></div>
+    <div class="bands"><div class="band"><strong>Event Storming</strong><span><a href="https://doc-es.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-es.obya.ch/notation">Notation</a> · <a href="https://doc-es.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>Story Mapping</strong><span><a href="https://doc-sm.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-sm.obya.ch/notation">Notation</a> · <a href="https://doc-sm.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>Example Mapping</strong><span><a href="https://doc-em.obya.ch/doctrine">Doctrine</a> · <a href="https://doc-em.obya.ch/notation">Notation</a> · <a href="https://doc-em.obya.ch/dsl">DSL</a></span></div><div class="band"><strong>DDD</strong><span><a href="https://ba-cm.obya.ch/doctrine">Doctrine</a> · <a href="https://ba-cm.obya.ch/notation">Notation</a> · <a href="https://ba-cm.obya.ch/dsl">DSL</a></span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The instruction sources are visible and inspectable. A generated proposal should record which versions or URLs shaped it.</p><p>This provenance helps reviewers understand AI behaviour and makes a later generation run reproducible when the instruction files evolve.</p></div><div data-mode="condensed"><p>Each practice exposes an inspectable and versionable instruction contract for AI.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="08">
+    <div><p class="eyebrow">Analysis before generation</p><h2>AI first produces a structured reading</h2></div>
+    <div class="flow"><div class="node">Source evidence<small>Narrative, research, constraints, current models</small></div><div class="node">Problem reading<small>Actors, outcomes, journey, vocabulary</small></div><div class="node">Uncertainty<small>Assumptions, conflicts, hotspots, questions</small></div><div class="node">Generation plan<small>Required artefacts, IDs, review roles</small></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>AI should not jump from the narrative to architecture. It first separates evidence from inference and identifies the gaps that need human decisions.</p><p>The analysis also proposes stable identifiers and explains which artefacts are justified. The goal is the smallest connected set that supports understanding and delivery.</p></div><div data-mode="condensed"><p>AI separates evidence from inference before it generates the model set.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="09">
+    <div><p class="eyebrow">Journey and Event Storming</p><h2>Experience and domain behaviour become explicit</h2></div>
+    <div class="two"><div class="col"><strong>Outside-in journey</strong><p>Goals, stages, touchpoints, pain points, research evidence, and accessibility needs.</p></div><div class="col"><strong>Domain flow</strong><p>Big Picture, focused processes, system responsibility, pivotal events, and hotspots.</p><p><a href="https://doc-es.obya.ch">Visual editor: doc-es.obya.ch</a></p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>Journey Mapping preserves what the person experiences. Event Storming reveals the domain behaviour that produces or supports that experience.</p><p>AI proposes an `.eventstorm` hypothesis. Participants correct it in the synchronized visual tool. Doctrine prevents AI from resolving hotspots or inventing domain facts.</p></div><div data-mode="condensed"><p>The journey captures experience while Event Storming reveals the behaviour behind it.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="10">
+    <div><p class="eyebrow">Story Mapping</p><h2>The journey becomes a delivery spine</h2></div>
+    <div class="bands"><div class="band"><strong>Backbone</strong><span>Pivotal events anchor activities and user steps</span></div><div class="band"><strong>Stories</strong><span>Alternatives and exceptions remain in journey context</span></div><div class="band"><strong>Slices</strong><span>Each proposed release supports a coherent outcome</span></div><div class="band"><strong>Ticketing</strong><span>Selected stories generate contextualised work items</span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The Story Map carries domain discovery into product planning. AI proposes activities, steps, stories, and slices while keeping unscheduled work visible.</p><p>The map owns product and release meaning. Ticketing owns workflow state and execution data. The synchronized tool is available at <a href="https://doc-sm.obya.ch">doc-sm.obya.ch</a>.</p></div><div data-mode="condensed"><p>The Story Map preserves the journey and governs the context sent to ticketing.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="11">
+    <div><p class="eyebrow">Example Mapping</p><h2>Selected stories gain behavioural precision</h2></div>
+    <div class="four bands"><div class="band"><strong>Story</strong><span>The outcome under discussion</span></div><div class="band"><strong>Rules</strong><span>Constraints that define acceptable behaviour</span></div><div class="band"><strong>Examples</strong><span>Concrete and boundary cases</span></div><div class="band"><strong>Questions</strong><span>Uncertainty that still needs a decision</span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>AI proposes rules, cases, and questions from the accepted source material. Product, UX, domain, QA, and development participants review the resulting map.</p><p>The `.examplemap` file remains the behavioural source. Tests become projections and evidence. Doctrine prevents AI from answering open questions or inventing accepted examples. The visual tool is available at <a href="https://doc-em.obya.ch">doc-em.obya.ch</a>.</p></div><div data-mode="condensed"><p>Example Mapping turns selected stories into concrete behaviour while preserving open questions.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="12">
+    <div><p class="eyebrow">Context and domain modelling</p><h2>Language and responsibility gain boundaries</h2></div>
+    <div class="two"><div class="col"><strong>Strategic model</strong><p>Subdomains, bounded contexts, ownership, relationship power, and language seams.</p></div><div class="col"><strong>Tactical model</strong><p>Aggregates, entities, value objects, events, policies, and meaningful invariants.</p><p><a href="https://ba-cm.obya.ch">Visual editor: ba-cm.obya.ch</a></p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>AI proposes boundaries from the language and responsibilities revealed earlier. It can expose inconsistencies and candidate seams.</p><p>Domain experts and engineers decide whether the model supports the business. Doctrine prevents AI from making relationships look tidier than they are or creating aggregates without meaningful invariants.</p></div><div data-mode="condensed"><p>DDD gives AI and developers the language, ownership, and invariants that implementation must respect.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="13">
+    <div><p class="eyebrow">Architecture mapping</p><h2>Domain intent connects to technical responsibility</h2></div>
+    <div class="bands"><div class="band"><strong>C4 and LikeC4</strong><span>Systems, containers, components, and their relationships</span></div><div class="band"><strong>PlantUML</strong><span>Sequences, states, classes, components, and deployment scenarios</span></div><div class="band"><strong>Interfaces</strong><span>OpenAPI, AsyncAPI, GraphQL, and WSDL contracts where justified</span></div><div class="band"><strong>Evidence</strong><span>Tests and operational signals linked to the design revision</span></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>Architecture Mapping turns product and domain intent into explicit system responsibility. Each element should reference the context it supports and the story, example, or event that justifies it.</p><p>AI proposes architecture and highlights trade-offs. Engineers review feasibility, coupling, security, operability, and compatibility.</p></div><div data-mode="condensed"><p>Architecture models connect accepted intent to components, interfaces, tests, and operations.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="14">
+    <div><p class="eyebrow">Traceability as code</p><h2>Stable identifiers connect the lifecycle</h2></div>
+    <div class="code-wrap"><pre class="code-sample">objective: OBJ-01
+journey: JRN-ONBOARDING
+pivotal_event: EVT-APPLICATION-SUBMITTED
+story: STORY-SUBMIT-APPLICATION
+example_map: EXMAP-SUBMISSION
+bounded_context: CTX-APPLICATION
+component: CMP-SUBMISSION-API
+delivery_pack: MVP-01
+evidence: EVIDENCE-SUBMISSION-SLO</pre><div class="code-note"><strong>Consistency becomes testable</strong><p>Validation can find missing references, conflicting vocabulary, unowned components, unjustified interfaces, and delivery items without expected evidence.</p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>Every practice answers a different question, so consistency does not mean identical models. It means explicit relationships and visible contradictions.</p><p>The manifest makes impact analysis and validation possible. A production signal can lead back through component, context, example, story, journey, and objective.</p></div><div data-mode="condensed"><p>A traceability manifest turns cross-lifecycle consistency into something tooling can verify.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="15">
+    <div><p class="eyebrow">Walking skeleton</p><h2>The first pack proves the technical delivery path</h2></div>
+    <div class="flow"><div class="node">One scenario<small>Minimal end-to-end behaviour</small></div><div class="node">Architecture<small>Critical components and interfaces</small></div><div class="node">Delivery<small>Deployment, contract checks, automated test</small></div><div class="node">Evidence<small>Observability and production feedback</small></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The walking skeleton targets technical learning. It exercises the smallest path that proves architecture, integration, deployment, testing, contract validation, and observability.</p><p>AI can derive the pack from connected models instead of inventing an isolated technical spike. The pack still records the source stories, examples, risks, and completion evidence.</p></div><div data-mode="condensed"><p>The walking skeleton proves that architecture and delivery work end to end.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="16">
+    <div><p class="eyebrow">Minimum viable product</p><h2>The second pack tests a meaningful outcome</h2></div>
+    <div class="two"><div class="col"><strong>Coherent slice</strong><p>A complete path across the Story Map that delivers a recognisable user outcome.</p></div><div class="col"><strong>Measurable learning</strong><p>An explicit business or product hypothesis, accepted examples, and evidence that can support a decision.</p></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The MVP differs from the walking skeleton. It focuses on a meaningful user outcome and an important learning hypothesis.</p><p>A set of high-priority tickets does not automatically form an MVP. The connected artefacts let AI propose a coherent journey slice with examples, context impact, architecture, tests, and operational measures.</p></div><div data-mode="condensed"><p>The MVP delivers a coherent user outcome and produces evidence for a product decision.</p></div></aside>
+  </section>
+
+  <section class="slide light" data-index="17">
+    <div><p class="eyebrow">Acceptance loop</p><h2>Git records intent after people approve meaning</h2></div>
+    <div class="flow"><div class="node">AI proposal<small>Artefacts, packs, questions, provenance</small></div><div class="node">Validation<small>DSL, references, semantics, compatibility</small></div><div class="node">Human review<small>Domain, product, UX, QA, architecture</small></div><div class="node">GitOps loop<small>Tickets, tests, views, delivery, evidence</small></div></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>AI writes a branch and a pull-request description. Automated checks verify form and enforceable constraints. People decide whether the proposed meaning is correct.</p><p>After merge, Git becomes the source of truth. GitOps automation generates and reconciles downstream projections. Production evidence can trigger a new change through the same review path.</p></div><div data-mode="condensed"><p>Validation checks the proposal, people approve the meaning, and GitOps keeps downstream consumers aligned.</p></div></aside>
+  </section>
+
+  <section class="slide" data-index="18">
+    <div><p class="eyebrow">AI-driven SDLC</p><h2>Problem understanding becomes delivery material</h2></div>
+    <div class="statement">Software Intent as Code provides the integration layer that lets AI boost the entire SDLC.<small>Reusable instructions let the prompt stay focused. Connected as-code artefacts let AI participate from discovery through production evidence.</small></div>
+    <aside class="speaker-notes"><div data-mode="full"><p>The significant prompt starts with a problem worth solving. Reusable Markdown files supply stable orchestration and review rules. Practice doctrine, notation, and DSL guide each generated model.</p><p>The result is a connected delivery baseline that people can inspect visually, tooling can validate, and AI can use continuously. Git records accepted intent and GitOps connects it to delivery and production evidence.</p></div><div data-mode="condensed"><p>A focused prompt plus reusable instructions turns problem understanding into connected, reviewable delivery material.</p></div></aside>
+  </section>
+</main>
+<div class="controls"><button id="prev" title="Previous">‹</button><button id="notes" title="Speaker notes">N</button><button id="next" title="Next">›</button></div>
+<div class="progress-shell"><div class="progress" id="progress"></div></div>
+<aside class="notes-panel" id="notesPanel"><h3 id="notesTitle">Speaker notes</h3><div class="notes-mode"><button class="active" data-notes-mode="full">Full script</button><button data-notes-mode="condensed">Condensed</button></div><div id="notesContent"></div><div class="help">Keys: ← → navigate · N notes · F fullscreen · Home/End jump</div></aside>
+<script>
+const slides=[...document.querySelectorAll('.slide')];const progress=document.getElementById('progress');const panel=document.getElementById('notesPanel');const notesContent=document.getElementById('notesContent');const notesTitle=document.getElementById('notesTitle');let index=Math.max(0,Math.min(slides.length-1,Number(location.hash.slice(1))-1||0));let mode='full';
+function updateNotes(){const source=slides[index].querySelector('[data-mode='+JSON.stringify(mode)+']');notesTitle.textContent='Slide '+(index+1)+' of '+slides.length;notesContent.innerHTML=source?source.innerHTML:'<p>No notes.</p>'}
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle('active',i===index));progress.style.width=((index+1)/slides.length*100)+'%';location.hash=String(index+1);updateNotes()}
+function toggleNotes(){panel.classList.toggle('open')}document.getElementById('prev').onclick=()=>show(index-1);document.getElementById('next').onclick=()=>show(index+1);document.getElementById('notes').onclick=toggleNotes;document.querySelectorAll('[data-notes-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.notesMode;document.querySelectorAll('[data-notes-mode]').forEach(x=>x.classList.toggle('active',x===b));updateNotes()});
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='n')toggleNotes();if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}if(e.key==='Escape')panel.classList.remove('open')});window.addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1))-1;if(Number.isFinite(n)&&n!==index&&n>=0&&n<slides.length)show(n)});show(index);
+</script>
+</body>
+</html>
