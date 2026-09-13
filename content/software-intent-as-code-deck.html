@@ -4,14 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Software Intent as Code</title>
-  <meta name="description" content="A specification backbone for the AI-assisted SDLC: visual boards as interfaces, Git as the source of truth, GitOps as the operating loop.">
-  <meta name="keywords" content="as-code, doc-as-code, ai, sdlc, gitops">
-  <meta name="author" content="Olivier von Dach">
-  <meta name="catalogue:title" content="Software Intent as Code">
-  <meta name="catalogue:date" content="2026-09-12">
-  <meta name="catalogue:type" content="deck">
-  <meta name="catalogue:series" content="Connected SDLC">
-  <meta name="catalogue:topic" content="Software Intent as Code">
   <style>
     :root {
       --ink: #161518;
@@ -762,6 +754,24 @@
       .spine-map::before { display: none; }
       .question-field { grid-template-columns: 1fr; }
       .question { font-size: 20px; }
+      .notes-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: min(42dvh, 360px);
+        padding: 16px 18px max(16px, env(safe-area-inset-bottom));
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -12px 36px rgba(0,0,0,.35);
+        transform: translateY(105%);
+      }
+      .notes-panel.open { transform: translateY(0); }
+      .notes-panel h3 { margin-bottom: 10px; font-size: 18px; }
+      .notes-panel p { font-size: 14px; line-height: 1.42; }
+      .notes-mode { gap: 6px; margin-bottom: 12px; }
+      .notes-mode button { padding: 6px 10px; font-size: 13px; }
+      .notes-help { display: none; }
     }
     @media print {
       html, body { overflow: visible; background: #fff; }
