@@ -5,28 +5,13 @@ type: script
 series: Contract-Driven Development
 topic: Microcks Integration — Part II
 tags: [contract-driven, microcks, api, mocking]
-summary: "Full speaker notes for Part II, with Q&A talking points and a closing statement."
+summary: "Full speaker notes for Part II, slide by slide, with the purpose and talking points of each slide."
 ---
+# Microcks Integration — Speaker Script
 
-# Contract-Driven Development --- Presentation Script
+Aligned exactly with the current 12-slide deck.
 
-## Speaker guide
-
-This script accompanies the two-part presentation series:
-
--   **Part I --- Contract-Driven Development: Migrating the Agreement**
--   **Part II --- From Contract to Capability: Integrating Microcks**
-
-The text is written as speaker notes rather than slide copy. Use it
-conversationally; the goal is not to read every sentence verbatim. A
-typical pace is **1.5--2.5 minutes per slide**, with extra time on the
-workflow and migration slides.
-
-------------------------------------------------------------------------
-
-# Part II --- From Contract to Capability: Integrating Microcks
-
-## Slide 1 --- From Contract to Capability
+## Slide 1 — From Contract to Capability
 
 **Purpose:** Reconnect to Part I and introduce the implementation focus.
 
@@ -52,7 +37,7 @@ architecture.
 
 ------------------------------------------------------------------------
 
-## Slide 2 --- Microcks Becomes the Shared Contract Runtime
+## Slide 2 — Microcks becomes the shared contract runtime
 
 **Purpose:** Establish the target architecture.
 
@@ -82,7 +67,7 @@ enough to make explicit.
 
 ------------------------------------------------------------------------
 
-## Slide 3 --- Git Remains the Source of Truth
+## Slide 3 — Git remains the source of truth
 
 **Purpose:** Define the contract publication flow.
 
@@ -113,37 +98,19 @@ automatically produce a useful simulation.
 
 ------------------------------------------------------------------------
 
-## Slide 4 --- Examples Turn a Schema Into a Useful Simulation
+## Slide 4 — Examples turn a schema into a useful simulation
 
-**Purpose:** Explain why examples are central to Microcks value.
+The schema tells us what is valid. Examples tell teams what behavior to expect. With Microcks, those examples become a working simulation that consumers can use immediately.
 
-**Speaker script**
+For a migration, examples should include uncomfortable cases as well as happy paths: missing fields, empty collections, unknown resources, date and time semantics, enum evolution and error responses.
 
-A schema tells us what is structurally valid.
+The simulation can then grow progressively. **Dispatch rules** select a response from request data. **Response templates** can shape returned content from request values or generated/context values. **Groovy or JavaScript** can handle richer routing or simulation logic when that is genuinely needed.
 
-Examples tell us what we expect an interaction to look like.
+The important architectural choice is progressive complexity: examples first, then dispatch, then templates, then script. Keep Spring Boot stubs for cases that genuinely require application-level simulation.
 
-That distinction is especially important during migration.
+**Transition:** Once the behavior is executable, frontend and mobile can start against a stable endpoint before the backend is ready.
 
-We should encode the cases that usually create friction: missing fields,
-empty collections versus `null`, 404 versus legacy 200 behavior, date
-and timezone semantics, enum evolution, and realistic error responses.
-
-Microcks can use the contract and examples to expose useful mocks.
-
-So examples should not be treated as decorative documentation. They are
-part of our executable specification.
-
-A mock with only a perfect happy path can actually hide migration risk.
-The valuable mock is the one that lets consumers exercise the behaviors
-we have explicitly agreed.
-
-**Transition:** With those examples in place, the consumer workflow
-changes significantly.
-
-------------------------------------------------------------------------
-
-## Slide 5 --- Nearshore Consumer Workflow
+## Slide 5 — Give frontend and mobile a stable endpoint before backend is ready
 
 **Purpose:** Show how frontend/mobile use Microcks day to day.
 
@@ -176,7 +143,7 @@ mock behavior.
 
 ------------------------------------------------------------------------
 
-## Slide 6 --- Backend Workflow: Prove Conformance
+## Slide 6 — Test the implementation against the contract—not against assumptions
 
 **Purpose:** Explain provider-side contract testing.
 
@@ -210,7 +177,7 @@ CI/CD.
 
 ------------------------------------------------------------------------
 
-## Slide 7 --- Put It in CI/CD
+## Slide 7 — A contract gate should be boring, repeatable and visible
 
 **Purpose:** Show the automation pattern.
 
@@ -241,7 +208,7 @@ are stable and which are ephemeral.
 
 ------------------------------------------------------------------------
 
-## Slide 8 --- Environment Model
+## Slide 8 — Separate the stable shared mock from ephemeral provider tests
 
 **Purpose:** Separate consumer mock stability from provider test
 dynamism.
@@ -270,7 +237,7 @@ it as platform infrastructure.
 
 ------------------------------------------------------------------------
 
-## Slide 9 --- Integrate Safely
+## Slide 9 — Treat Microcks as part of the delivery platform
 
 **Purpose:** Cover security and access without turning the deck into an
 infrastructure manual.
@@ -301,7 +268,7 @@ of the workflow.
 
 ------------------------------------------------------------------------
 
-## Slide 10 --- Operating Model and Ownership
+## Slide 10 — Make ownership explicit or the tool becomes shelfware
 
 **Purpose:** Prevent Microcks from becoming an unowned platform tool.
 
@@ -333,7 +300,7 @@ responsibility.
 
 ------------------------------------------------------------------------
 
-## Slide 11 --- Rollout in Three Layers
+## Slide 11 — Adopt capabilities in layers—not all at once
 
 **Purpose:** Recommend a pragmatic adoption sequence and metrics.
 
@@ -368,7 +335,7 @@ before release.
 
 ------------------------------------------------------------------------
 
-## Slide 12 --- Contract → Mock → Implement → Verify → Gate
+## Slide 12 — Contract → Mock → Implement → Verify → Gate
 
 **Purpose:** Close Part II with the operational model.
 
@@ -400,69 +367,3 @@ So the final message across both presentations is:
 **One contract. Executable expectations.**
 
 ------------------------------------------------------------------------
-
-# Optional Q&A Talking Points
-
-## "Does this mean the backend loses ownership of the API?"
-
-No. Backend can remain accountable for the public API and its
-implementation. Contract-driven development distinguishes
-**implementation ownership** from **agreement participation**. Consumers
-should participate early when a contract change affects them.
-
-## "Are we trying to preserve all legacy behavior?"
-
-No. The objective is not legacy compatibility at any cost. Contract
-archaeology makes differences explicit so we can deliberately
-**preserve, adapt, deprecate, or break** behavior.
-
-## "Why not just let frontend create its own mocks?"
-
-Consumer-owned mocks are useful for isolated tests, but they can encode
-the consumer's assumptions rather than the shared agreement. A Microcks
-mock generated from the reviewed contract gives teams a common
-behavioral target.
-
-## "Is OpenAPI enough?"
-
-OpenAPI is the foundation for the REST API contract, but useful
-contract-driven development also needs meaningful examples and explicit
-semantics around errors, nullability, status codes, enums, pagination,
-dates, and migration behavior.
-
-## "Does every pull request need frontend/mobile approval?"
-
-Not necessarily. Consumer review should be proportional to impact.
-Automated compatibility checks and clear ownership can keep
-non-impacting changes lightweight. The goal is earlier feedback, not a
-new approval bottleneck.
-
-## "What happens when the implementation reveals that the contract is wrong?"
-
-That is expected. Change the contract through the reviewed contract
-workflow, update examples and migration decisions, republish it, and
-then bring implementation and consumers back into conformance. The
-important thing is to avoid silent drift.
-
-## "Where should we pilot this?"
-
-Choose one migration API with recurring integration friction, an active
-frontend or mobile consumer, and enough upcoming change to demonstrate
-the benefit. Avoid starting with either the easiest API or the entire
-API estate.
-
-------------------------------------------------------------------------
-
-# Closing statement
-
-Contract-driven development is not primarily about OpenAPI, Microcks, or
-another layer of governance.
-
-It is about changing **when** we discover that two teams understood the
-same interface differently.
-
-During migration, those differences already exist. Our choice is whether
-we discover them deliberately while they are still cheap---or
-accidentally during integration when they are expensive.
-
-**Agree first. Build independently. Verify continuously.**

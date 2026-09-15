@@ -5,20 +5,13 @@ type: script
 series: Contract-Driven Development
 topic: Microcks Integration — Part II
 tags: [contract-driven, microcks, api, mocking]
-summary: One core message per slide for Part II and three messages to remember.
+summary: "One core message and key line per slide for Part II, closing on three steps: simulate, verify, govern."
 ---
+# Microcks Integration — Condensed Speaker Script
 
-# Contract-Driven Development --- Concise Speaker Script
+Aligned exactly with the current 12-slide deck.
 
-> **Format:** one core message + a few speaking cues per slide.\
-> **Target pace:** roughly 45--75 seconds per slide.\
-> **Rule:** explain the diagram; do not read the slide.
-
-------------------------------------------------------------------------
-
-# Part II --- Integrating Microcks
-
-## 1 --- From Contract to Capability
+## Slide 1 — From Contract to Capability
 
 **Core message:** Part I defined the operating model. Part II makes it
 executable.
@@ -27,7 +20,7 @@ executable.
 
 Microcks connects the contract to the development and delivery workflow.
 
-## 2 --- Shared Contract Runtime
+## Slide 2 — Microcks becomes the shared contract runtime
 
 **Core message:** Microcks operationalizes the contract across teams.
 
@@ -39,7 +32,7 @@ Microcks connects the contract to the development and delivery workflow.
 **Key line:** **Don't just install Microcks; connect it to decision
 points.**
 
-## 3 --- Git Remains the Source of Truth
+## Slide 3 — Git remains the source of truth
 
 **Core message:** Author and review contracts in Git; publish them to
 Microcks.
@@ -53,28 +46,19 @@ Microcks.
 **Key line:** **Microcks consumes the contract; it does not replace
 contract ownership.**
 
-## 4 --- Examples Are Executable Behavior
+## Slide 4 — Examples turn a schema into a useful simulation
 
-**Core message:** Schemas define validity; examples make useful behavior
-executable.
+**Core message:** Examples make the contract executable, and dynamic mocking adds behavior progressively.
 
-Focus examples on migration friction:
+- Examples: realistic fixed scenarios.
+- Dispatch: request selects the response.
+- Templates: request values shape the response.
+- Groovy / JavaScript: richer simulation logic.
+- Keep coded stubs for genuine application-level simulation.
 
--   missing/optional fields;
--   `null` vs empty;
--   errors and status codes;
--   dates;
--   enums;
--   realistic edge cases.
+**Key line:** **Use the lightest mechanism that fits.**
 
-**Key line:** **A mock is only as useful as the examples behind it.**
-
-**Developer note:** We already have Spring Boot stubs. Microcks gives us
-a lighter progression: examples → dispatch rules → response templates →
-Groovy/JavaScript. Keep coded stubs for cases that genuinely require
-application-level simulation.
-
-## 5 --- Nearshore Consumer Workflow
+## Slide 5 — Give frontend and mobile a stable endpoint before backend is ready
 
 **Core message:** Frontend/mobile should not wait for backend
 availability.
@@ -87,7 +71,7 @@ availability.
 
 **Key line:** **One client. Two endpoints. No rewrite.**
 
-## 6 --- Backend Workflow
+## Slide 6 — Test the implementation against the contract—not against assumptions
 
 **Core message:** The real implementation must prove it satisfies the
 agreement.
@@ -99,7 +83,7 @@ If it fails: - fix implementation; or - explicitly change the contract.
 **Key line:** **Never let implementation silently redefine the
 contract.**
 
-## 7 --- CI/CD
+## Slide 7 — A contract gate should be boring, repeatable and visible
 
 **Core message:** Make contract verification a normal pipeline gate.
 
@@ -111,7 +95,7 @@ contract.**
 
 **Key line:** **Contract conformance becomes as normal as unit tests.**
 
-## 8 --- Environment Model
+## Slide 8 — Separate the stable shared mock from ephemeral provider tests
 
 **Core message:** Consumers need stability; provider verification
 benefits from ephemerality.
@@ -122,7 +106,7 @@ benefits from ephemerality.
 
 **Key line:** **Stable mock, ephemeral provider.**
 
-## 9 --- Security and Access
+## Slide 9 — Treat Microcks as part of the delivery platform
 
 **Core message:** Treat Microcks as delivery-platform infrastructure.
 
@@ -133,7 +117,7 @@ benefits from ephemerality.
 
 Keep this boring and standardized.
 
-## 10 --- Ownership
+## Slide 10 — Make ownership explicit or the tool becomes shelfware
 
 **Core message:** Tool ownership and contract ownership are different.
 
@@ -144,7 +128,7 @@ Keep this boring and standardized.
 
 **Key line:** **Microcks exposes ownership; it doesn't replace it.**
 
-## 11 --- Rollout
+## Slide 11 — Adopt capabilities in layers—not all at once
 
 **Core message:** Start small and prove the workflow.
 
@@ -157,7 +141,7 @@ Measure: - late integration defects ↓ - rework ↓ - integration lead time
 
 **Key line:** **Start with one painful migration API.**
 
-## 12 --- Contract → Mock → Implement → Verify → Gate
+## Slide 12 — Contract → Mock → Implement → Verify → Gate
 
 **Core message:** This is the complete integration pattern.
 
@@ -173,16 +157,3 @@ Measure: - late integration defects ↓ - rework ↓ - integration lead time
 **One contract. Executable expectations.**
 
 ------------------------------------------------------------------------
-
-# Three Messages to Remember
-
-If time is short, reduce both presentations to these three statements:
-
-1.  **Migration is the migration of an agreement---not only an API.**
-2.  **Move disagreement left: make expectations executable before
-    integration.**
-3.  **Use Microcks to turn the contract into mocks, verification and
-    delivery gates.**
-
-**Final line:** **Agree first. Build independently. Verify
-continuously.**

@@ -5,186 +5,127 @@ type: script
 series: Contract-Driven Development
 topic: Contract-Driven Development — Part I
 tags: [contract-driven, api, openapi, migration]
-summary: "One core message and a few speaking cues per slide for Part I, paced at 45–75 seconds per slide."
+summary: "One core message and a few speaking cues per slide for Part I."
 ---
+# Contract-Driven Development — Condensed Speaker Script
 
-# Contract-Driven Development --- Concise Speaker Script
+Aligned exactly with the 15-slide **One Contract. Shared Expectations.** deck.
 
-> **Format:** one core message + a few speaking cues per slide.\
-> **Target pace:** roughly 45--75 seconds per slide.\
-> **Rule:** explain the diagram; do not read the slide.
+## Slide 1 — One Contract. Shared Expectations.
 
-------------------------------------------------------------------------
+**Core message:** Migration is the migration of an agreement, not only an API.
 
-# Part I --- Migrating the Agreement
+- One shared executable contract.
+- OpenAPI + examples + Microcks + CI/CD.
+- Goal: independent delivery without expectation drift.
 
-## 1 --- Contract-Driven Development
+**Key line:** **One contract. Shared expectations.**
 
-**Core message:** Migration is not only replacing an API. It is
-migrating an agreement.
+## Slide 2 — Our migration has three sources of truth
 
--   Backend, frontend and mobile must converge on the same observable
-    behavior.
--   Contract-first establishes that agreement early.
--   Contract-driven makes it executable.
+**Core message:** Legacy behavior, consumer assumptions and the new API can disagree.
 
-**Transition:** Where does the friction come from?
+- Legacy = actual behavior.
+- Apps = encoded expectations.
+- New REST API = intended agreement.
 
-## 2 --- Our Reality
+**Key line:** **Discover disagreement while it is still cheap.**
 
-**Core message:** Independent teams + an existing system + a new API
-create expectation gaps.
+## Slide 3 — “But the old API did…”
 
--   Backend builds the future API.
--   Frontend/mobile already embody legacy assumptions.
--   The problem is not who is right; it is what behavior we agree to
-    support.
+**Core message:** Most migration friction is contract ambiguity appearing late.
 
-**Transition:** We hear those gaps in a familiar sentence.
+- Optional vs always-present fields.
+- Status-code semantics.
+- Renames and date/time assumptions.
 
-## 3 --- "But the old API did..."
+**Key line:** **Nobody is necessarily wrong; they are working from different contracts.**
 
-**Core message:** Most migration friction is discovered too late.
+## Slide 4 — Your API contract is bigger than the OpenAPI file
 
--   Optional vs always present.
--   `404` vs legacy `200`.
--   `null` vs empty, renamed fields, timestamps, enums.
--   These are cheap decisions early and expensive fixes during
-    integration.
+**Core message:** OpenAPI is the anchor, not the whole agreement.
 
-**Key line:** **We don't need fewer disagreements. We need cheaper
-disagreements.**
+- Add examples and behavioral semantics.
+- Observe legacy behavior.
+- Surface consumer assumptions.
 
-## 4 --- Three Sources of Truth
+**Key line:** **Your API contract is bigger than the OpenAPI file.**
 
-**Core message:** During migration, three truths coexist.
+## Slide 5 — Migration = migrating an agreement
 
--   Legacy system: what it actually does.
--   Consumers: what they expect.
--   New specification: what we want.
--   The differences form the **migration gap**.
+**Core message:** Use contract archaeology: discover, compare, decide, encode, enforce.
 
-**Transition:** Which means the contract is bigger than the
-specification.
+**Key line:** **The new API is done when the new agreement is explicit, shared and verified.**
 
-## 5 --- The Hidden Contract
+## Slide 6 — Contract-first ≠ contract-driven
 
-**Core message:** Existing applications contain undocumented contracts.
+**Core message:** Contract-first defines order; contract-driven makes the agreement executable.
 
--   Nullability, defaults, ordering, errors, dates, pagination, enums.
--   OpenAPI captures the formal contract; consumer behavior exposes the
-    implicit one.
--   We need to decide which assumptions survive the migration.
+**Key line:** **The contract should drive delivery, not merely document it.**
 
-## 6 --- Migration = Migrating an Agreement
+## Slide 7 — One contract lets teams build independently
 
-**Core message:** Preserve or change behavior intentionally.
+**Core message:** Shared executable expectations enable parallel work.
 
--   Discover the existing agreement.
--   Decide what remains compatible and what changes.
--   Encode the future agreement explicitly.
+- Consumers develop against the mock.
+- Backend implements against the contract.
+- Both converge on the same agreement.
 
-**Key line:** **We don't have to preserve every legacy behavior. Every
-important difference should be intentional.**
+**Key line:** **Build independently from the same contract.**
 
-## 7 --- Contract-First
+## Slide 8 — Move disagreement left
 
-**Core message:** Agree on observable behavior before implementation
-makes it expensive to change.
+**Core message:** Shift contract disagreement before implementation and integration.
 
--   Backend brings provider/domain knowledge.
--   Frontend/mobile bring consumer expectations.
--   Review contract, examples, errors and edge cases together.
+**Key line:** **We don't need fewer disagreements. We need cheaper disagreements.**
 
-**Key line:** **Backend owns the implementation; the integration
-agreement is shared.**
+## Slide 9 — Use a Contract Migration Matrix
 
-## 8 --- Contract-Driven
+**Core message:** Make migration differences explicit and owned.
 
-**Core message:** Contract-first defines the order; contract-driven
-defines the system.
+**Key line:** **Turn “who is right?” into “what migration decision are we making?”**
 
--   Contract drives mocks, tests, documentation and validation.
--   It becomes an executable development artifact.
--   Automation detects drift earlier than humans do.
+## Slide 10 — Define “Contract Ready” before coding starts
 
-## 9 --- Contract → Mock → Parallel Development
+**Core message:** “YAML exists” is not Contract Ready.
 
-**Core message:** The agreed API can exist before the real API exists.
+- Semantics and examples are explicit.
+- Legacy differences are known.
+- Consumers have reviewed it.
+- A Microcks mock is available.
 
--   Microcks turns the contract and examples into a mock.
--   Frontend/mobile start immediately.
--   Backend implements independently.
--   Both sides work against the same target.
+**Key line:** **API Ready ≠ the YAML exists.**
 
-**Key line:** **The contract is the source of truth. Microcks makes it
-executable.**
+## Slide 11 — And define “Contract Done”
 
-## 10 --- Contract Archaeology
+**Core message:** Backend completion alone is not integration completion.
 
-**Core message:** Migration needs a deliberate discovery loop.
+**Key line:** **Backend done is not integration done.**
 
-**Discover → Compare → Decide → Encode → Enforce**
+## Slide 12 — Put the contract in the delivery path
 
--   Discover legacy behavior and consumer assumptions.
--   Compare with the new API.
--   Decide intentionally.
--   Encode in contract/examples.
--   Enforce through automation.
+**Core message:** Make contract checks part of the normal delivery path.
 
-## 11 --- Contract Migration Matrix
+**Key line:** **Review the contract change before reviewing its implementation.**
 
-**Core message:** Turn integration arguments into explicit migration
-decisions.
+## Slide 13 — When does contract-driven development pay off?
 
--   Legacy behavior.
--   Consumer expectation.
--   New contract.
--   Decision and owner.
+**Core message:** The approach pays off with team distance and integration risk.
 
-**Key line:** **A mismatch becomes a decision, not a surprise.**
+**Key line:** **Our migration sits in the strong-fit zone.**
 
-## 12 --- Move Disagreement Left
+## Slide 14 — A pragmatic rollout — start with one painful boundary
 
-**Core message:** Move feedback from integration time to contract-review
-time.
+**Core message:** Pilot the method on one painful migration boundary and measure the outcome.
 
--   Old: implement → deploy → integrate → discover mismatch → rework.
--   New: propose → review → mock → implement independently → verify.
+**Key line:** **Start small, make the agreement executable, measure the friction removed.**
 
-**Key line:** **A 15-minute disagreement today can prevent days of
-rework later.**
+## Slide 15 — Agree First. Build Independently. Verify Continuously.
 
-## 13 --- Contract Ready / Contract Done
+**Three messages:**
 
-**Core message:** An OpenAPI file existing does not mean the API is
-ready.
+1. Migration is migration of an agreement, not only an API.
+2. Shared executable expectations enable independent delivery.
+3. Contract checks keep the agreement alive through delivery.
 
-**Ready:** examples, errors, nullability, status codes, migration
-differences and consumer review are clear.
-
-**Done:** specification, implementation, tests and consumer expectations
-agree.
-
-## 14 --- Contract Change Protocol
-
-**Core message:** Contract evolution needs lightweight governance.
-
--   Contract change through Git.
--   Validate compatibility.
--   Update mock.
--   Review consumer impact where necessary.
--   Record migration decisions.
-
-**Key line:** **Review the contract change before the implementation
-makes it real.**
-
-## 15 --- Agree First. Build Independently. Verify Continuously.
-
-**Core message:** This is the operating model.
-
--   **Agree first.**
--   **Build independently.**
--   **Verify continuously.**
-
-**Close:** **One contract. Shared expectations. Independent delivery.**
+**Closing line:** **Agree first. Build independently. Verify continuously.**

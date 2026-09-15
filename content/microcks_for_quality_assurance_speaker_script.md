@@ -6,24 +6,11 @@ topic: Microcks for Quality Assurance
 tags: [microcks, qa, testing, mocking]
 summary: Full speaker notes reframing mocking as a QA capability rather than development plumbing.
 ---
+# Microcks for Quality Assurance — Speaker Script
 
-# Microcks for Quality Assurance --- Speaker Script
+Aligned exactly with the current 13-slide deck.
 
-## Speaker guide
-
-This script accompanies the **Microcks for Quality Assurance** deck.
-
-The message for QA is not "replace real systems with mocks." The
-opportunity is to add a **controlled simulation layer** to the existing
-testing portfolio so QA can deliberately create conditions that are
-difficult, slow, unsafe, or unreliable to reproduce with real
-dependencies.
-
-A typical pace is **1.5--2 minutes per slide**.
-
-------------------------------------------------------------------------
-
-## Slide 1 --- Test the System Before the System Exists
+## Slide 1 — Test the System Before the System Exists
 
 **Purpose:** Reframe mocking as a QA capability rather than development
 plumbing.
@@ -53,7 +40,7 @@ earlier feedback.
 
 ------------------------------------------------------------------------
 
-## Slide 2 --- QA Is Testing the Product---and the Availability of Its Dependencies
+## Slide 2 — QA is testing the product—and the availability of its dependencies
 
 **Purpose:** Make the current dependency problem explicit.
 
@@ -83,7 +70,7 @@ mocks and stubs.
 
 ------------------------------------------------------------------------
 
-## Slide 3 --- Ad-Hoc Mocks Create a Maintenance Problem
+## Slide 3 — Ad-hoc mocks solve a local problem—and create a maintenance problem
 
 **Purpose:** Acknowledge current mocking practices and explain why
 centralized contract-based mocks are different.
@@ -113,7 +100,7 @@ contract and its maintained examples.
 
 ------------------------------------------------------------------------
 
-## Slide 4 --- From Dependency-Driven to Scenario-Driven Testing
+## Slide 4 — From dependency-driven testing to scenario-driven testing
 
 **Purpose:** Introduce the core QA mindset change.
 
@@ -146,7 +133,7 @@ and maintainable.
 
 ------------------------------------------------------------------------
 
-## Slide 5 --- One Managed Simulation Source
+## Slide 5 — One managed simulation source, derived from the API agreement
 
 **Purpose:** Position Microcks within the existing contract-driven
 topology.
@@ -176,7 +163,7 @@ place to evolve with it.
 
 ------------------------------------------------------------------------
 
-## Slide 6 --- Campaign 1: Negative Paths on Demand
+## Slide 6 — Negative-path campaigns without begging dependencies to fail
 
 **Purpose:** Show immediate, concrete testing value.
 
@@ -207,7 +194,7 @@ executed again after every relevant change.
 
 ------------------------------------------------------------------------
 
-## Slide 7 --- Campaign 2: Resilience and Degraded Dependencies
+## Slide 7 — Resilience and degraded-dependency testing
 
 **Purpose:** Expand the QA conversation from functional mocking to
 resilience behavior.
@@ -240,7 +227,7 @@ campaign family.
 
 ------------------------------------------------------------------------
 
-## Slide 8 --- Campaign 3: Migration Compatibility
+## Slide 8 — Migration compatibility campaigns
 
 **Purpose:** Connect the QA deck to the migration/contract story from
 the earlier presentations.
@@ -273,7 +260,7 @@ become an input into QA campaign design.
 
 ------------------------------------------------------------------------
 
-## Slide 9 --- Test Earlier Than the Integrated Environment
+## Slide 9 — Test earlier than the integrated environment
 
 **Purpose:** Show the shift-left opportunity for QA.
 
@@ -308,7 +295,7 @@ infrastructure.
 
 ------------------------------------------------------------------------
 
-## Slide 10 --- Disposable Environments With Controlled Dependencies
+## Slide 10 — Disposable test environments with controlled dependencies
 
 **Purpose:** Introduce process-scoped Microcks as a testing
 infrastructure opportunity.
@@ -341,7 +328,7 @@ because campaigns are less dependent on shared external state.
 
 ------------------------------------------------------------------------
 
-## Slide 11 --- Expand the Portfolio; Don't Replace Reality
+## Slide 11 — Mocks expand the test portfolio; they do not replace reality
 
 **Purpose:** Prevent over-rotation toward mocking.
 
@@ -372,7 +359,7 @@ The two strategies strengthen each other.
 
 ------------------------------------------------------------------------
 
-## Slide 12 --- Turn Scenarios Into Maintained Assets
+## Slide 12 — Turn scenarios into maintained assets
 
 **Purpose:** Define QA's role and shared ownership.
 
@@ -407,7 +394,7 @@ campaign at once.
 
 ------------------------------------------------------------------------
 
-## Slide 13 --- Don't Wait for Reality. Design the Condition.
+## Slide 13 — Don't wait for reality. Design the condition.
 
 **Purpose:** Close with a concrete adoption proposition.
 

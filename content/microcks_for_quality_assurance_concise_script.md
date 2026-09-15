@@ -6,15 +6,11 @@ topic: Microcks for Quality Assurance
 tags: [microcks, qa, testing, mocking]
 summary: "Explain the visual, land the bold line: condensed cues per slide. Don't wait for reality — design the condition."
 ---
+# Microcks for Quality Assurance — Condensed Speaker Script
 
-# Microcks for Quality Assurance --- Condensed Speaker Script
+Aligned exactly with the current 13-slide deck.
 
-> **Target pace:** 45--75 seconds per slide.\
-> Explain the visual; land the bold line.
-
-------------------------------------------------------------------------
-
-## 1 --- Test the System Before the System Exists
+## Slide 1 — Test the System Before the System Exists
 
 **Core message:** Add controlled simulation to the QA portfolio.
 
@@ -25,7 +21,7 @@ summary: "Explain the visual, land the bold line: condensed cues per slide. Don'
 
 **Key line:** **Don't wait for reality. Design the condition.**
 
-## 2 --- QA Is Testing the Dependencies Too
+## Slide 2 — QA is testing the product—and the availability of its dependencies
 
 **Core message:** Real dependencies limit test control.
 
@@ -37,7 +33,7 @@ summary: "Explain the visual, land the bold line: condensed cues per slide. Don'
 **Key line:** **When a dependency controls the scenario, QA does not
 fully control the test.**
 
-## 3 --- Ad-Hoc Mocks
+## Slide 3 — Ad-hoc mocks solve a local problem—and create a maintenance problem
 
 **Core message:** We already mock---but the assets are fragmented.
 
@@ -48,7 +44,7 @@ fully control the test.**
 **Key line:** **Turn mocking from test plumbing into a maintained
 testing asset.**
 
-## 4 --- Scenario-Driven Testing
+## Slide 4 — From dependency-driven testing to scenario-driven testing
 
 **Core message:** Start with the condition we want to validate.
 
@@ -59,7 +55,7 @@ testing asset.**
 **Key line:** **Mocks complement end-to-end testing; they do not replace
 it.**
 
-## 5 --- Microcks for QA
+## Slide 5 — One managed simulation source, derived from the API agreement
 
 **Core message:** One shared simulation source derived from the API
 agreement.
@@ -71,7 +67,7 @@ agreement.
 
 **Key line:** **Shared, traceable, reusable simulation.**
 
-## 6 --- Negative-Path Campaigns
+## Slide 6 — Negative-path campaigns without begging dependencies to fail
 
 **Core message:** Make difficult failures selectable.
 
@@ -81,7 +77,7 @@ new enums.
 **Key line:** **Test the failures we design---not only the failures we
 can conveniently create.**
 
-## 7 --- Resilience Campaigns
+## Slide 7 — Resilience and degraded-dependency testing
 
 **Core message:** Control degraded dependency behavior.
 
@@ -91,7 +87,7 @@ fallbacks; - loading and recovery UX.
 **Key line:** **How does the product degrade when the dependency
 degrades?**
 
-## 8 --- Migration Compatibility
+## Slide 8 — Migration compatibility campaigns
 
 **Core message:** Turn migration differences into QA scenarios.
 
@@ -103,7 +99,7 @@ degrades?**
 **Key line:** **Every intentional contract change can become a test
 case.**
 
-## 9 --- Earlier QA
+## Slide 9 — Test earlier than the integrated environment
 
 **Core message:** QA can challenge behavior before the real backend is
 complete.
@@ -115,7 +111,7 @@ complete.
 **Key line:** **Move QA feedback from implementation time to design
 time.**
 
-## 10 --- Disposable Environments
+## Slide 10 — Disposable test environments with controlled dependencies
 
 **Core message:** Campaigns can own their dependency conditions.
 
@@ -127,7 +123,7 @@ time.**
 **Key line:** **The environment adapts to the campaign---not the
 campaign to the environment.**
 
-## 11 --- Testing Portfolio
+## Slide 11 — Mocks expand the test portfolio; they do not replace reality
 
 **Core message:** Choose realism according to the question.
 
@@ -138,7 +134,7 @@ campaign to the environment.**
 
 **Key line:** **Reality for realism. Simulation for control.**
 
-## 12 --- Maintained Testing Assets
+## Slide 12 — Turn scenarios into maintained assets
 
 **Core message:** Avoid rebuilding the ad-hoc mock problem.
 
@@ -149,7 +145,7 @@ campaign to the environment.**
 
 **Key line:** **A scenario should survive the person who created it.**
 
-## 13 --- Start With Three Campaigns
+## Slide 13 — Don't wait for reality. Design the condition.
 
 **Core message:** Prove the value on high-leverage cases.
 
@@ -162,14 +158,3 @@ Keep real-system testing and add controlled simulation around it.
 **Final line:** **More control. More coverage. Earlier feedback.**
 
 ------------------------------------------------------------------------
-
-# Three Messages to Remember
-
-1.  **Mocks are not a replacement for real-system testing; they add
-    controllability.**
-2.  **Microcks turns contract-based simulation into a shared QA
-    capability instead of ad-hoc plumbing.**
-3.  **QA can design conditions that are difficult to reproduce with real
-    dependencies---and test them earlier and repeatedly.**
-
-**Close:** **Don't wait for reality. Design the condition.**
