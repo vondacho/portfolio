@@ -1,0 +1,107 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>From Handoffs to Shared Intent</title><meta name="description" content="Contract-Driven Development is a change in collaboration before it is a change in tooling: how BA, QA and Development move from sequential interpretation to shared, executable understanding."><meta name="keywords" content="contract-driven, change-management, qa, agile, ai"><meta name="author" content="Olivier von Dach"><meta name="catalogue:title" content="From Handoffs to Shared Intent"><meta name="catalogue:date" content="2026-09-18"><meta name="catalogue:type" content="deck"><meta name="catalogue:series" content="Contract-Driven Development"><meta name="catalogue:topic" content="Change Management"><style>
+:root{--accent:#ff7a33;--yellow:#ffd34e;--blue:#6cb6ff;--green:#80c995;--ink:#171619;--paper:#f5f0e7;--muted:#aaa39b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111;font-family:Inter,Arial,sans-serif;color:#fff}
+.deck{width:100vw;height:100dvh;position:relative}.slide{position:absolute;inset:0;display:none;padding:clamp(34px,5vw,78px);overflow:auto}
+.slide.active{display:grid;grid-template-rows:auto auto 1fr;gap:clamp(16px,2.5vh,30px)}
+.slide.dark,.slide.cover{background:radial-gradient(circle at 82% 18%,rgba(255,122,51,.22),transparent 32%),linear-gradient(145deg,#171619,#09090a)}
+.slide.light{background:radial-gradient(circle at 80% 10%,rgba(255,122,51,.12),transparent 30%),var(--paper);color:var(--ink)}
+.eyebrow{font-size:clamp(11px,1.1vw,16px);font-weight:800;letter-spacing:.18em;color:var(--accent)}
+h1,h2{margin:0;line-height:.96;letter-spacing:-.04em}h1{font-size:clamp(42px,7.2vw,104px)}h2{font-size:clamp(34px,5.2vw,76px);max-width:1200px}
+.lead{font-size:clamp(17px,2vw,29px);line-height:1.3;max-width:1050px;color:var(--muted)}.light .lead{color:#6f6963}.accent{color:var(--accent)}
+.two,.three{display:grid;gap:18px;align-self:center}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}
+.card{border:1px solid rgba(128,128,128,.28);border-radius:18px;padding:clamp(18px,2vw,30px);background:rgba(255,255,255,.055);font-size:clamp(16px,1.55vw,23px);line-height:1.35}
+.light .card{background:rgba(255,255,255,.6)}.card h3{color:var(--accent);font-size:.72em;letter-spacing:.12em}.mutedcard{opacity:.68}
+.statement{align-self:end;border-left:5px solid var(--accent);padding:12px 18px;font-size:clamp(19px,2vw,30px);line-height:1.3}
+.flow{display:flex;align-items:center;justify-content:center;gap:14px;align-self:center}.node{min-width:160px;text-align:center;border:1px solid rgba(128,128,128,.35);border-radius:18px;padding:22px 16px;font-size:clamp(17px,1.7vw,25px);font-weight:750;background:rgba(255,255,255,.055)}.light .node{background:#fff}.node small{display:block;font-weight:400;margin-top:8px;color:var(--muted)}.arrow{font-size:32px;color:var(--accent)}
+.compact .node{min-width:125px;padding:18px 10px;font-size:clamp(14px,1.3vw,20px)}
+.stack{text-align:center;font-size:clamp(22px,2.3vw,34px);line-height:1.65}.chips{display:flex;flex-wrap:wrap;gap:14px;align-content:center}.chips span{padding:14px 20px;border-radius:999px;background:#fff;border:1px solid #ddd;font-size:clamp(16px,1.5vw,22px)}
+.callout{padding:18px 22px;border-radius:16px;background:rgba(255,122,51,.11);font-size:clamp(17px,1.7vw,24px);line-height:1.35}
+.hub{align-self:center}.hubtop,.hubbottom{text-align:center;font-weight:800;letter-spacing:.1em;padding:14px;color:var(--accent)}
+.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-self:center}.ladder div{padding:18px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05)}.ladder b{font-size:28px;color:var(--accent);display:block}.ladder span{font-weight:800;display:block;margin:8px 0}.ladder small{color:var(--muted);line-height:1.3}
+.bands{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-self:center}.bands div{padding:22px;border:1px solid rgba(255,255,255,.2);border-radius:18px}.bands b{display:block;color:var(--accent);font-size:28px}.bands span{font-size:20px}
+.controls{position:fixed;right:18px;top:18px;z-index:50;display:flex;gap:8px}.controls button{width:42px;height:42px;border-radius:50%;border:1px solid #777;background:#171619;color:#fff;cursor:pointer;font-size:18px}.progress{position:fixed;left:0;bottom:0;height:5px;background:var(--accent);z-index:60;transition:.2s}
+.notes{position:fixed;right:0;top:0;height:100dvh;width:min(430px,38vw);background:#111;color:#eee;z-index:45;padding:78px 24px 24px;transform:translateX(100%);transition:.25s;overflow:auto;border-left:1px solid #333}.notes.open{transform:translateX(0)}.notes .mode{display:flex;gap:8px;margin-bottom:18px}.notes button{padding:7px 10px}.notes-content{line-height:1.5}.speaker-notes{display:none}
+@media(max-width:820px){.slide{padding:72px 24px 42px}.slide.active{gap:16px}.two,.three,.ladder,.bands{grid-template-columns:1fr}.flow{display:grid;grid-template-columns:1fr auto 1fr}.flow .arrow:nth-of-type(even){transform:rotate(90deg)}.compact{grid-template-columns:1fr}.compact .arrow{transform:rotate(90deg)}.notes{top:auto;bottom:0;width:100vw;height:min(42dvh,360px);padding:20px;transform:translateY(100%)}.notes.open{transform:translateY(0)}.slide{overflow:auto}.ladder{gap:7px}.ladder div{padding:10px}.statement{align-self:auto}}
+@media print{body{overflow:visible}.deck{height:auto}.slide{position:relative;display:grid!important;width:13.333in;height:7.5in;page-break-after:always;overflow:hidden}.controls,.progress,.notes{display:none!important}}
+</style></head><body>
+<div class="deck"><section class="slide cover active" data-index="1">
+<div><div class="eyebrow">CHANGE MANAGEMENT</div><h2>FROM HANDOFFS<br>TO <span class='accent'>SHARED INTENT.</span></h2></div>
+<div class="lead">Accompanying traditional BA, QA and Development teams into Contract-Driven Development</div>
+<div><div class='statement'>The transformation is not from people to automation.<br><strong>It is from sequential interpretation to shared, executable understanding.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Frame this as a people-and-practices transformation. The technology is useful, but the real change is when BA, QA and Development meet around shared intent before ambiguity becomes expensive.</div><div data-mode="condensed">The change is collaboration, not automation.</div></aside>
+</section><section class="slide dark" data-index="2">
+<div><div class="eyebrow">THE CURRENT MODEL</div><h2>Knowledge moves through <span class='accent'>handoffs</span></h2></div>
+<div class="lead">The roles are valuable. The operating model allows ambiguity to accumulate between specialties.</div>
+<div><div class="flow"><div class="node"><b>BA</b><small>Requirements</small></div><div class="arrow">→</div><div class="node"><b>DEV</b><small>Interpretation + code</small></div><div class="arrow">→</div><div class="node"><b>QA</b><small>Test interpretation</small></div></div><div class="statement">Every handoff creates another opportunity for interpretation.</div></div>
+<aside class="speaker-notes"><div data-mode="full">Acknowledge that the traditional model has logic. The issue is not weak people or weak roles; it is accumulated interpretation across handoffs.</div><div data-mode="condensed">Handoffs accumulate interpretation.</div></aside>
+</section><section class="slide light" data-index="3">
+<div><div class="eyebrow">THE SHIFT</div><h2>Knowledge becomes a <span class='accent'>shared asset</span></h2></div>
+<div class="lead">Move disagreement closer to the moment where intent is formed.</div>
+<div><div class="hub"><div class="hubtop">SHARED INTENT</div><div class="three"><div class="card"><b>BA</b><p>Clarify outcomes<br>Rules & language</p></div><div class="card"><b>DEV</b><p>Design solution<br>Expose constraints</p></div><div class="card"><b>QA</b><p>Challenge examples<br>Design evidence</p></div></div><div class="hubbottom">EXECUTABLE AGREEMENT → IMPLEMENT + VERIFY</div></div><div class="statement">Less information passing. <strong>More understanding building.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Introduce the target operating model: expertise remains specialized, but intent and examples become shared assets.</div><div data-mode="condensed">Shared intent replaces sequential interpretation.</div></aside>
+</section><section class="slide dark" data-index="4">
+<div><div class="eyebrow">BUSINESS ANALYSIS</div><h2>From requirement author to <span class='accent'>curator of intent</span></h2></div>
+<div class="lead">The BA does not disappear. The emphasis moves from producing documents to making intent difficult to misunderstand.</div>
+<div><div class="two"><div class="card mutedcard"><h3>TRADITIONAL EMPHASIS</h3><div class="stack">Gather<br>↓<br>Document<br>↓<br>Hand over</div></div><div class="card"><h3>EMERGING EMPHASIS</h3><div class="stack">Discover → Model → Clarify<br>↓<br>Example → Maintain intent</div><p>Journeys · rules · examples · decisions · domain language</p></div></div><div class="statement"><strong>From writing requirements to making intent unambiguous.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Reassure BAs explicitly. Their value shifts toward discovery, modelling, examples, decisions and maintaining coherent intent.</div><div data-mode="condensed">BA becomes curator of intent.</div></aside>
+</section><section class="slide light" data-index="5">
+<div><div class="eyebrow">QUALITY ASSURANCE</div><h2>From validating output to <span class='accent'>challenging agreements</span></h2></div>
+<div class="lead">QA contributes before implementation by asking how the agreement can fail, drift, or be misunderstood.</div>
+<div><div class="chips"><span>Happy path</span><span>Boundaries</span><span>Negative paths</span><span>Failure modes</span><span>Migration</span><span>NFR conditions</span></div><div class="statement">“Before we build this, how could this agreement be misunderstood or fail?”</div><div class="callout"><strong>QA moves left without abandoning the right.</strong><br>Real systems still provide realism. Controlled simulation adds repeatability and control.</div></div>
+<aside class="speaker-notes"><div data-mode="full">QA moves into agreement formation. Emphasize that shift-left does not eliminate exploratory, integrated or production-oriented testing.</div><div data-mode="condensed">QA challenges the agreement early and still tests reality.</div></aside>
+</section><section class="slide dark" data-index="6">
+<div><div class="eyebrow">DEVELOPMENT</div><h2>From interpreting requirements to <span class='accent'>implementing agreements</span></h2></div>
+<div class="lead">CDD should reduce ambiguity—not become another approval layer before coding.</div>
+<div><div class="two"><div class="card mutedcard"><h3>BEFORE</h3><p>Read requirement → Interpret → Implement → Discover misunderstanding</p></div><div class="card"><h3>WITH SHARED AGREEMENTS</h3><p>Explore intent → Agree behavior → Make selected expectations executable → Implement independently → Verify continuously</p></div></div><div class="statement">The developer still designs the solution. <strong>The expected outcome becomes clearer.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Protect developer autonomy. Contracts clarify externally important outcomes; they should not prescribe internal implementation unnecessarily.</div><div data-mode="condensed">Clearer outcomes, preserved design autonomy.</div></aside>
+</section><section class="slide light" data-index="7">
+<div><div class="eyebrow">THE TEAM MODEL</div><h2>Roles remain distinct. Boundaries become <span class='accent'>more permeable.</span></h2></div>
+<div class="lead">Each discipline brings a different question into the shared space.</div>
+<div><div class="three"><div class="card"><h3>BA</h3><p>Are we solving the right problem?</p></div><div class="card"><h3>DEV</h3><p>Can we design and build this coherently?</p></div><div class="card"><h3>QA</h3><p>What evidence would convince us—including when things go wrong?</p></div></div><div class="statement"><strong>The shared space is where intent becomes agreement.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">This is the role model: different questions, shared space. Avoid implying everyone becomes a generic product engineer.</div><div data-mode="condensed">Distinct expertise, permeable boundaries.</div></aside>
+</section><section class="slide dark" data-index="8">
+<div><div class="eyebrow">ADOPTION PRINCIPLE</div><h2>Don't teach the <span class='accent'>tools</span> first</h2></div>
+<div class="lead">Start with a real painful boundary. Let the team experience why the practice helps before mastering its machinery.</div>
+<div><div class="flow compact"><div class="node">REAL<br>PROBLEM</div><div class="arrow">→</div><div class="node">DISCOVER<br>TOGETHER</div><div class="arrow">→</div><div class="node">EXAMPLES</div><div class="arrow">→</div><div class="node">AGREEMENT</div><div class="arrow">→</div><div class="node">TOOLING</div></div><div class="statement"><strong>Teach the problem-solving pattern before the toolchain.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Adoption fails when tools precede felt need. Start from a real integration or requirement pain and introduce tooling as the answer.</div><div data-mode="condensed">Problem first, tools second.</div></aside>
+</section><section class="slide light" data-index="9">
+<div><div class="eyebrow">GUIDED PRACTICE</div><h2>Learn through <span class='accent'>real delivery</span></h2></div>
+<div class="lead">Use pairing across disciplines instead of relying on classroom transformation.</div>
+<div><div class="two"><div class="card"><h3>BA + QA</h3><p>Clarify rules, examples and exceptions.</p><h3>BA + DEV</h3><p>Explore domain meaning and solution constraints.</p></div><div class="card"><h3>DEV + QA</h3><p>Turn scenarios into executable verification.</p><h3>BA + QA + DEV</h3><p>Agree what “done” means.</p></div></div><div class="statement">Build capability through <strong>guided practice</strong>, not methodology deployment.</div></div>
+<aside class="speaker-notes"><div data-mode="full">Pairing creates capability through work. Coaches or experienced practitioners should accompany early iterations, then step back.</div><div data-mode="condensed">Guided practice beats classroom rollout.</div></aside>
+</section><section class="slide dark" data-index="10">
+<div><div class="eyebrow">LEARNING LADDER</div><h2>Give people a <span class='accent'>safe progression</span></h2></div>
+<div class="lead">Do not jump from traditional requirements directly to a complete Intent-as-Code ecosystem.</div>
+<div><div class="ladder"><div><b>1</b><span>BETTER CONVERSATIONS</span><small>Three Amigos · examples</small></div><div><b>2</b><span>BETTER ARTIFACTS</span><small>OpenAPI · Example Maps · ADRs</small></div><div><b>3</b><span>EXECUTABLE AGREEMENTS</span><small>Mocks · BDD · contract verification</small></div><div><b>4</b><span>DELIVERY INTEGRATION</span><small>CI/CD · compatibility · NFR evidence</small></div><div><b>5</b><span>LIVING KNOWLEDGE</span><small>Traceability · observability · AI</small></div></div></div>
+<aside class="speaker-notes"><div data-mode="full">Make the transformation progressive. Each level should visibly solve a problem before adding the next layer.</div><div data-mode="condensed">Use a learning ladder.</div></aside>
+</section><section class="slide light" data-index="11">
+<div><div class="eyebrow">AI IN THE CHANGE</div><h2>AI should be an <span class='accent'>accelerator</span>, not an authority</h2></div>
+<div class="lead">AI can propose candidate artifacts quickly. Professional judgment establishes the agreement.</div>
+<div><div class="flow compact"><div class="node">NARRATIVE<br>+ PROBLEM</div><div class="arrow">→</div><div class="node">AI<br>PROPOSES</div><div class="arrow">→</div><div class="node">HUMANS<br>REVIEW</div><div class="arrow">→</div><div class="node">ACCEPTED<br>INTENT</div></div><div class="statement"><strong>AI may propose intent. Humans establish agreement. Automation verifies it.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">AI is useful for generating candidate journeys, examples, contracts and tests. Humans remain accountable for meaning and agreement.</div><div data-mode="condensed">AI proposes; humans agree; automation verifies.</div></aside>
+</section><section class="slide dark" data-index="12">
+<div><div class="eyebrow">MANAGEMENT SYSTEM</div><h2>Change what you <span class='accent'>reward</span></h2></div>
+<div class="lead">If management rewards local output, collaboration will revert to handoffs.</div>
+<div><div class="two"><div class="card mutedcard"><h3>LOCAL OUTPUT</h3><p>Requirements written<br>Stories closed<br>Code produced<br>Tests executed</p></div><div class="card"><h3>SHARED OUTCOMES</h3><p>Ambiguity found earlier<br>Integration defects moved left<br>Less clarification & rework<br>Intent → verified capability faster</p></div></div><div class="statement">Measure whether the operating model reduces <strong>expensive misunderstanding.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Local productivity metrics reinforce silos. Prefer team-level signals about ambiguity, rework, waiting and integration defects.</div><div data-mode="condensed">Reward shared outcomes.</div></aside>
+</section><section class="slide light" data-index="13">
+<div><div class="eyebrow">START SMALL</div><h2>Create a <span class='accent'>change lab</span>, not a transformation program</h2></div>
+<div class="lead">Pick one painful boundary, one BA + QA + Dev group, and a few weeks of real work.</div>
+<div><div class="flow compact"><div class="node">REAL<br>WORK</div><div class="arrow">→</div><div class="node">DISCOVER<br>TOGETHER</div><div class="arrow">→</div><div class="node">AGREE<br>EXAMPLES</div><div class="arrow">→</div><div class="node">EXECUTE<br>CONTRACTS</div><div class="arrow">→</div><div class="node">RETRO<br>+ LEARN</div></div><div class="callout">What became easier? What became harder? What was discovered earlier? What should become standard?</div></div>
+<aside class="speaker-notes"><div data-mode="full">A change lab generates evidence before standardization. Use one painful boundary and retrospect on what should become standard.</div><div data-mode="condensed">Pilot with real work and learn.</div></aside>
+</section><section class="slide cover" data-index="14">
+<div><div class="eyebrow">THE DESTINATION</div><h2>DON'T TRANSFORM THE ROLES.<br><span class='accent'>TRANSFORM THE COLLABORATION.</span></h2></div>
+<div class="lead">Specialized expertise meets earlier around shared intent.</div>
+<div><div class="bands"><div><b>BA</b><span>brings intent</span></div><div><b>QA</b><span>brings challenge</span></div><div><b>DEV</b><span>brings implementation</span></div></div><div class="statement"><strong>Together, they establish the agreement.</strong></div></div>
+<aside class="speaker-notes"><div data-mode="full">Close with continuity, not disruption: BA, QA and Dev remain essential. The collaboration model changes around executable intent.</div><div data-mode="condensed">Don&#x27;t transform roles; transform collaboration.</div></aside>
+</section></div>
+<div class="controls"><button id="prev">‹</button><button id="note">N</button><button id="next">›</button></div>
+<div class="notes"><div class="mode"><button id="full">Full</button><button id="cond">Condensed</button></div><div class="notes-content"></div></div><div class="progress"></div><script>
+const slides=[...document.querySelectorAll('.slide')], progress=document.querySelector('.progress'), panel=document.querySelector('.notes'), content=document.querySelector('.notes-content');let i=0,mode='full';
+function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===i));location.hash='slide-'+(i+1);progress.style.width=((i+1)/slides.length*100)+'%';renderNotes()}
+function renderNotes(){let n=slides[i].querySelector('.speaker-notes [data-mode="'+mode+'"]');content.textContent=n?n.textContent:''}
+document.querySelector('#prev').onclick=()=>show(i-1);document.querySelector('#next').onclick=()=>show(i+1);document.querySelector('#note').onclick=()=>panel.classList.toggle('open');
+document.querySelector('#full').onclick=()=>{mode='full';renderNotes()};document.querySelector('#cond').onclick=()=>{mode='condensed';renderNotes()};
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))show(i+1);if(['ArrowLeft','PageUp'].includes(e.key))show(i-1);if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='n')panel.classList.toggle('open');if(e.key==='Escape')panel.classList.remove('open');if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});
+let m=location.hash.match(/slide-(\d+)/);if(m) i=Math.max(0,Math.min(slides.length-1,+m[1]-1));show(i);
+</script></body></html>
